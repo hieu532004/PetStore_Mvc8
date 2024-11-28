@@ -1,0 +1,243 @@
+﻿@model List<WebThuCung.Models.Transaction>
+@{
+    ViewData["Title"] = "MyOrder";
+    Layout = "~/Views/Shared/_LayoutUsers.cshtml";
+}
+
+
+<section id="banner" class="py-3" style="background: #F9F3EC;">
+    <div class="container">
+        <div class="hero-content py-5 my-3">
+            <h2 class="display-1 mt-3 mb-0">Order</h2>
+            <nav class="breadcrumb">
+                <a class="breadcrumb-item nav-link" asp-controller="User" asp-action="Index">Home</a>
+                <span class="breadcrumb-item active" aria-current="page">MyOrder</span>
+            </nav>
+        </div>
+    </div>
+</section>
+<section id="navigation">
+    <div class="container">
+        <ul class="nav nav-pills mb-4">
+            <li class="nav-item">
+                <a class="nav-link " asp-action="ViewCart">View Cart</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " asp-action="MyOrderPending">Order Pending</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" asp-action="MyOrderAccept">Order Accepted</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " asp-action="MyOrderComplete">Order Completed</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " asp-action="MyOrderRefun">Order Refuned</a>
+            </li>
+           
+        </ul>
+    </div>
+</section>
+
+<section id="transactions" class="my-5 py-5">
+    <div class="container">
+        @if (Model == null || !Model.Any())
+        {
+            <p class="text-center">Bạn chưa có giao dịch nào.</p>
+        }
+        else
+        {
+            foreach (var transaction in Model)
+            {
+                <div class="transaction-container mb-4">
+                    <div class="info-item me-3">
+                        <h4>Giao dịch #: @transaction.idTransaction</h4> <!-- ID giao dịch -->
+                        <p>Tên khách hàng: <strong>@transaction.nameCustomer</strong></p>
+                    </div>
+                    <div class="info-item me-3">
+                        <p>Địa chỉ giao hàng: <strong>@transaction.shippingAddress</strong></p>
+                        <p>Email: <strong>@transaction.Email</strong></p>
+                    </div>
+                    <div class="info-item me-3">
+                        <p>Điện thoại: <strong>@transaction.phoneNumber</strong></p>
+                        <p>Tổng số tiền: <strong>$@transaction.TotalAmount?.ToString("F2")</strong></p>
+                    </div>
+                    <div class="info-item">
+                        <p>Ngày tạo: <strong>@transaction.createdDate.ToString("dd/MM/yyyy")</strong></p>
+                        <p>Trạng thái đơn hàng: <strong>@transaction.Order.statusOrder</strong></p>
+                    </div>
+                    <div class="info-item">
+                        <h4>Đơn hàng #: @transaction.Order.idOrder</h4> <!-- ID đơn hàng -->
+                    </div>
+
+                    @if (transaction.Order.statusPay == PaymentStatus.Paid) // Kiểm tra trạng thái thanh toán
+                    {
+                        <div class="info-item">
+                            <p>Trạng thái thanh toán: <strong>@transaction.Order.statusPay</strong></p> <!-- Hiển thị thông báo đã thanh toán -->
+                        </div>
+                        <div class="info-item">
+                            <button type="button" class="btn btn-danger btn-sm" onclick="refundOrder('@transaction.Order.idOrder')">Refund</button>
+                        </div>
+                    }
+                    else if (transaction.Order.statusPay != PaymentStatus.Refunded) // Kiểm tra trạng thái thanh toán
+                    {
+                        <div class="info-item">
+                            <p>Trạng thái thanh toán: <strong>@transaction.Order.statusPay</strong></p> <!-- Hiển thị thông báo đã thanh toán -->
+                        </div>
+                        <div class="info-item text-end">
+                            <button type="button" class="btn btn-primary" onclick="processOnlinePayment(@transaction.idTransaction)">
+                                Thanh toán online
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="info-item">
+                            <p>Trạng thái thanh toán: <strong>@transaction.Order.statusPay</strong></p> <!-- Hiển thị thông báo đã thanh toán -->
+                        </div>
+                    }
+
+                    @if (transaction.Order != null)
+                    {
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Sản phẩm</th>
+                                    <th scope="col">Số lượng</th>
+                                    <th scope="col">Thành tiền</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in transaction.Order.DetailOrders)
+                                {
+                                    <tr>
+                                        <td scope="row" class="py-4">
+                                            <div class="cart-info d-flex flex-wrap align-items-center">
+                                                <div class="col-lg-3">
+                                                    <div class="card-image">
+                                                        <a asp-controller="Product" asp-action="Detail" asp-route-id="@item.idProduct">
+                                                            <img src="~/images/@item.Product.Image" alt="@item.Product.nameProduct" class="img-fluid">
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-9">
+                                                    <div class="card-detail ps-3">
+                                                        <h5 class="card-title">
+                                                            <a asp-controller="Product" asp-action="Detail" asp-route-id="@item.idProduct" class="text-decoration-none">@item.Product.nameProduct</a>
+                                                        </h5>
+                                                        <p class="text-muted">Size: <span class="fw-bold">@item.nameSize</span></p>
+                                                        <p class="text-muted">Color: <span class="fw-bold">@item.nameColor</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 align-middle">
+                                            <div class="text-center">
+                                                <span class="fw-bold">@item.Quantity</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 align-middle">
+                                            <div class="total-price">
+                                                <span class="secondary-font fw-medium">
+                                                    $@item.totalPrice?.ToString("F2")
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 align-middle">
+                                            <div class="cart-remove">
+                                                <button type="button" class="btn btn-danger" onclick="deleteDetailOrder(@item.IdDetailOrder)">
+                                                    <svg width="24" height="24">
+                                                        <use xlink:href="#trash"></use>
+                                                    </svg>
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p>Không có đơn hàng nào liên kết với giao dịch này.</p>
+                    }
+                </div>
+            }
+        }
+    </div>
+</section>
+
+
+<style>
+    #navigation {
+        background-color: #f8f9fa; /* Màu nền */
+        padding: 10px 0; /* Padding */
+    }
+
+    .nav-pills .nav-link {
+        border-radius: 0; /* Góc cạnh */
+        margin-right: 10px; /* Khoảng cách giữa các liên kết */
+    }
+
+        .nav-pills .nav-link.active {
+            background-color: #ff8500b3; /* Màu nền cho liên kết đang hoạt động */
+            color: white; /* Màu chữ cho liên kết đang hoạt động */
+        }
+
+    .transaction-info {
+        border: 1px solid #ddd; /* Thêm viền nếu muốn */
+        border-radius: 5px; /* Góc bo tròn */
+        padding: 15px; /* Khoảng cách bên trong */
+        background-color: #fff; /* Màu nền trắng */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+    }
+
+    .info-item {
+        flex: 1; /* Đảm bảo các phần tử chiếm không gian đều nhau */
+        min-width: 200px; /* Đặt chiều rộng tối thiểu để tránh thu hẹp quá mức */
+    }
+
+</style>
+<script>
+    function deleteDetailOrder(id) {
+        if (confirm('Bạn có chắc chắn muốn xóa sản phẩm khỏi đơn hàng này không?')) {
+            console.log("Sending request to delete ID:", id); // Kiểm tra ID
+
+            $.ajax({
+                url: '@Url.Action("DeleteDetailOrder", "Product")',
+                type: 'POST',
+                data: { id: id }, // Đảm bảo id không null
+                success: function (result) {
+
+                    location.reload(); // Tải lại trang
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error:", error); // In ra lỗi
+                    alert('Đã xảy ra lỗi khi xóa sản phẩm.');
+                }
+            });
+        }
+    }
+
+    function processOnlinePayment(transactionId) {
+        $.ajax({
+            url: '@Url.Action("CheckOrCreatePayment", "Product")', // Gọi tới phương thức CheckOrCreatePayment
+            type: 'POST',
+            data: { idTransaction: transactionId },
+            success: function (response) {
+                if (response.success) {
+                    // Chuyển hướng đến trang ShowQRCode với id của payment vừa được tạo
+                    window.location.href = '@Url.Action("ShowQRCode", "Product")' + '?paymentId=' + response.paymentId;
+                } else {
+                    alert(response.message || "Lỗi xảy ra khi xử lý thanh toán.");
+                }
+            },
+            error: function () {
+                alert("Đã xảy ra lỗi khi xử lý thanh toán.");
+            }
+        });
+    }
+
+</script>

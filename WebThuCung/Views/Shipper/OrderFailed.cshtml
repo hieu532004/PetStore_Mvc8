@@ -1,0 +1,92 @@
+﻿@model IEnumerable<WebThuCung.Dto.ShipperOrderDto>
+
+@{
+    ViewData["Title"] = "Shipper Orders List";
+    Layout = "~/Views/Shared/_LayoutShipper.cshtml";
+}
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Shipper Orders List</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
+                <li class="breadcrumb-item">Shipper Orders</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Shipper Orders List</h5>
+
+                        <!-- Table with stripped rows -->
+                        <table class="table datatable">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer Name</th>
+                                    <th>Order Date</th>
+                                    <th>Assigned Date</th>
+                                    <th>Shipping Status</th>
+                                    <th>Shipper Name</th>
+                                    <th>Redelivery</th>
+                                    <th>Cancel</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    foreach (var order in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <a asp-action="Detail" asp-route-id="@order.idOrder">
+                                                    @order.idOrder
+                                                </a>
+                                            </td>
+                                            <td>@order.nameCustomer</td>
+                                            <td>@order.OrderDate.ToString("yyyy-MM-dd HH:mm")</td>
+                                            <td>@order.AssignedDate.ToString("yyyy-MM-dd HH:mm")</td>
+                                            <td>@order.ShippingStatus</td> <!-- Trạng thái vận chuyển -->
+                                           
+                                            <td>@order.ShipperName</td>
+                                            <td>
+                                                <form asp-action="AcceptOrderDelivery" asp-route-id="@order.idShipperOrder" method="post" style="display:inline;">
+                                                    <button type="submit" class="btn btn-success btn-sm">Redelivery</button>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <form asp-action="DeleteOrderDelivery" asp-route-id="@order.idShipperOrder" method="post" style="display:inline;">
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to cancel this Order?');">Cancel</button>
+                                                </form>
+                                            </td>
+
+                                        </tr>
+
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="6" class="text-center">No orders failed</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <!-- End Table with stripped rows -->
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->

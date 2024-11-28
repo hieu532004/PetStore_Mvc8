@@ -1,0 +1,19 @@
+﻿@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+
+    20%, 60% {
+        transform: translateX(-10px);
+    }
+
+    40%, 80% {
+        transform: translateX(10px);
+    }
+}
+
+.display-34 {
+    display: inline-block;
+    animation: shake 0.9s ease-in-out infinite; 
+}
+

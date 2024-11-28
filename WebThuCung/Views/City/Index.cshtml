@@ -1,0 +1,60 @@
+﻿@model IEnumerable<WebThuCung.Models.City>
+
+@{
+    ViewData["Title"] = "City List";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>City List</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
+                <li class="breadcrumb-item">Branch</li>
+
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">City List</h5>
+
+                        <div class="mb-3">
+                            <a asp-action="Create" class="btn btn-primary"><i class="bi bi-plus-circle"></i>Create New City</a>
+                        </div>
+                        <table class="table datatable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>City Name</th>
+                                    <th>Country</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var city in Model)
+                                {
+                                    <tr>
+                                        <td>@city.idCity</td>
+                                        <td>@city.nameCity</td>
+                                        <td>@city.Country?.nameCountry</td>
+                                        <td>
+                                            <a asp-action="Edit" asp-route-id="@city.idCity" class="btn btn-warning btn-sm">Edit</a>
+                                            <form asp-action="Delete" asp-route-id="@city.idCity" method="post" style="display:inline;">
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this city?');">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

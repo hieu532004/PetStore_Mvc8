@@ -1,0 +1,85 @@
+﻿@model WebThuCung.Dto.ImageProductCreateDto
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
+                <li class="breadcrumb-item"><a asp-controller="ImageProduct" asp-action="Index">ImageProduct</a></li>
+                <li class="breadcrumb-item active">Create</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Create New ImageProduct</h5>
+
+                        <!-- Display validation summary -->
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <!-- Edit ImageProduct Form -->
+                        <form asp-action="Create" method="post" enctype="multipart/form-data">
+                            <!-- ImageProduct ID (readonly) -->
+                            <div class="row mb-3">
+                                <label asp-for="idImageProduct" class="col-sm-2 col-form-label">ImageProduct ID</label>
+                                <div class="col-sm-10">
+                                    <!-- Trường hiển thị ID, chỉ đọc -->
+                                    <input asp-for="idImageProduct" class="form-control" />
+                                    <!-- Hiển thị lỗi nếu có -->
+                                    @* <span asp-validation-for="idImageProduct" class="text-danger"></span> *@
+                                </div>
+                            </div>
+
+                            <!-- Product Selection -->
+                            <!-- Product Selection -->
+                            <div style="margin-top:7px" class="form-group row">
+                                <label asp-for="idProduct" class="col-sm-2 col-form-label">Product</label>
+                                <div class="col-sm-10">
+                                    <select asp-for="idProduct" class="form-control" id="inputProduct" name="idProduct" required>
+                                        <option value="">-- Select a Product --</option>
+                                        @foreach (var product in ViewBag.Products as List<SelectListItem>)
+                                        {
+                                            <option value="@product.Value" >@product.Text</option>
+                                        }
+                                    </select>
+                                </div>
+                                <span asp-validation-for="idProduct" class="text-danger"></span>
+                            </div>
+
+
+
+
+                            <!-- ImageProduct Name -->
+                            <div class="row mb-3">
+                                <label asp-for="Image" class="col-sm-2 col-form-label">ImageProduct Name</label>
+                                <div class="col-sm-10">
+                                    <input type="file" class="form-control" id="Image" name="Image" accept="image/*" />
+                                    <!-- Hiển thị lỗi nếu có -->
+                                    <span asp-validation-for="Image" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="row mb-3">
+                                <div class="col-sm-10 offset-sm-2">
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    <a asp-action="Index" class="btn btn-secondary">Back</a>
+                                </div>
+                            </div>
+                         
+                        </form><!-- End Edit ImageProduct Form -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

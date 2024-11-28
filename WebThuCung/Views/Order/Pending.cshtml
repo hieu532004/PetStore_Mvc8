@@ -1,0 +1,249 @@
+﻿@model IEnumerable<WebThuCung.Dto.OrderViewDto>
+@{
+    ViewData["Title"] = "Order List";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Order List</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Order" asp-action="Index">Order</a></li>
+                <li class="breadcrumb-item active">Accept</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Order List</h5>
+                        <a asp-controller="Order" asp-action="Pending"
+                           class="btn btn-primary active">Order pending</a>
+                        <a asp-controller="Order" asp-action="Accepted"
+                           class="btn btn-primary">Order Accepted</a>
+                        <a asp-controller="Order" asp-action="Deliveried"
+                           class="btn btn-primary">Shipper Delivered</a>
+                        <a asp-controller="Order" asp-action="Completed"
+                           class="btn btn-primary">Order Completed</a>
+                        <a asp-controller="Order" asp-action="Refund"
+                           class="btn btn-primary">Order is returned</a>
+                        <a asp-controller="Order" asp-action="UpdateShippingStatus"
+                           class="btn btn-primary">UpdateShippingStatus</a>
+                       
+                        <!-- Table with stripped rows -->
+                        <table class="table datatable">
+                            <thead>
+                                <tr>
+                                    <th>ID Order</th>
+                                    <th>ID Customer</th>
+                                    <th>Date From</th>
+                                    <th>Date To</th>
+                                    <th>Status Order</th>
+                                    <th>Status Pay</th>
+                                    <th>Shipping Status</th>
+                                    <th>Total Order</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                    <th>Accept Order</th> 
+                                    <th>Confirm Payment</th> 
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    foreach (var orderView in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <a asp-action="Detail" asp-route-id="@orderView.Order.idOrder">
+                                                    @orderView.Order.idOrder
+                                                </a>
+                                            </td>
+                                            <td>@orderView.Order.idCustomer</td>
+                                            <td>@orderView.Order.dateFrom.ToString("yyyy-MM-dd HH:mm")</td>
+                                            <td>@(orderView.Order.dateTo.HasValue ? orderView.Order.dateTo.Value.ToString("yyyy-MM-dd HH:mm") : "N/A")</td>
+                                            <td>@orderView.Order.statusOrder</td> <!-- Hiển thị trực tiếp enum OrderStatus -->
+                                            <td>@orderView.Order.statusPay</td>
+                                            <td>
+                                                @if (orderView.ShipperOrder != null && orderView.ShipperOrder.ShippingStatus != null)
+                                                {
+                                                    @orderView.ShipperOrder.ShippingStatus
+                                                }
+                                                else
+                                                {
+                                                    @:N/A
+                                                }
+                                            </td>
+           
+
+                                            <td>@orderView.totalOrder?.ToString("C")</td>
+                                           
+                                            <td>
+                                                <a asp-action="Edit" asp-route-id="@orderView.Order.idOrder" class="btn btn-warning btn-sm">Edit</a>
+                                            </td>
+                                            <td>
+                                                <form asp-action="Delete" asp-route-id="@orderView.Order.idOrder" method="post" style="display:inline;">
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this Order?');">Delete</button>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-success btn-sm" onclick="openAssignModal('@orderView.Order.idOrder')">Accept</button>
+                                            </td>
+
+                                            <td>
+                                                @if (orderView.Transaction != null
+                                               && orderView.PaymentExists)
+ 
+                                                {
+                                                    <form asp-action="ConfirmPayment" method="post" style="display:inline;" onsubmit="return confirmPayment();">
+                                                        <input type="hidden" name="idOrder" value="@orderView.Order.idOrder" />
+                                                        <button type="submit" class="btn btn-success btn-sm">Confirm</button>
+                                                    </form>
+                                                }
+                                            </td>
+
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="10" class="text-center">No orders found.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <!-- End Table with stripped rows -->
+                        <a asp-action="Index" class="btn btn-secondary">Back</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->
+<!-- Accept Modal -->
+<div class="modal fade" id="assignShipperModal" tabindex="-1" aria-labelledby="assignShipperModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="assignShipperModalLabel">Assign Shipper</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="assignShipperForm">
+                    <input type="hidden" id="idOrderInput" name="idOrder" />
+                    <label for="shipperSelect" class="form-label">Select Shipper</label>
+                    <select id="shipperSelect" name="idShipper" class="form-select" required>
+                        <option value="">-- Select a Shipper --</option>
+                        @foreach (var shipper in ViewBag.Shippers)
+                        {
+                            <option value="@shipper.idShipper">@shipper.Name</option>
+                        }
+                    </select>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="confirmAssignShipper">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    /* Thêm hiệu ứng đặc biệt cho nút active */
+    .btn.active {
+        border: 2px solid #ffc107; /* Viền màu vàng nhạt */
+        box-shadow: 0 0 10px rgba(255, 193, 7, 0.5); /* Hiệu ứng đổ bóng */
+        color: #fff !important; /* Đổi màu chữ thành trắng */
+        background-color: #ffc107 !important; /* Màu nền vàng */
+    }
+
+</style>
+<script>
+    function confirmOrder() {
+        return confirm("Are you sure you want to accept this order?");
+    }
+
+    function confirmPayment() {
+        return confirm("Are you sure you want to confirm payment for this order?");
+    }
+
+    function openAssignModal(idOrder) {
+        $('#idOrderInput').val(idOrder); // Gán idOrder vào input ẩn
+        $('#assignShipperModal').modal('show'); // Hiển thị modal
+    }
+
+    $('#confirmAssignShipper').click(function () {
+        const idOrder = $('#idOrderInput').val();
+        const idShipper = $('#shipperSelect').val();
+
+        // Nếu không có shipper được chọn, chỉ thực hiện accept order
+        if (!idShipper) {
+            alert('No shipper selected. Accepting the order only.');
+            // Gửi yêu cầu POST để accept order mà không gán shipper
+            $.ajax({
+                url: '/Order/AcceptOrder',
+                type: 'POST',
+                data: { idOrder: idOrder },
+                success: function (acceptResponse) {
+                    if (acceptResponse.success) {
+                        alert('Order accepted successfully!');
+                        // Chuyển hướng hoặc reload trang sau khi accept thành công
+                        window.location.href = '/Order/Accepted'; // Chuyển hướng tới trang đã chấp nhận
+                    } else {
+                        alert('Error in accepting order: ' + acceptResponse.message);
+                    }
+                },
+                error: function () {
+                    alert('An error occurred while accepting the order.');
+                }
+            });
+        } else {
+            // Nếu có shipper được chọn, thực hiện Accept Order trước
+            $.ajax({
+                url: '/Order/AcceptOrder',
+                type: 'POST',
+                data: { idOrder: idOrder },
+                success: function (acceptResponse) {
+                    if (acceptResponse.success) {
+                        // Accept thành công, tiếp tục gán Shipper
+                        $.ajax({
+                            url: '/Order/AssignShipper',
+                            type: 'POST',
+                            data: { idOrder: idOrder, idShipper: idShipper },
+                            success: function (assignResponse) {
+                                if (assignResponse.success) {
+                                    alert('Order accepted and shipper assigned successfully!');
+                                    // Chuyển hướng hoặc reload trang
+                                    window.location.href = '/Order/Accepted'; // Chuyển hướng tới trang đã chấp nhận
+                                } else {
+                                    alert('Error in assigning shipper: ' + assignResponse.message);
+                                    window.location.href = '/Order/Accepted';
+                                }
+                            },
+                            error: function () {
+                                alert('An error occurred while assigning the shipper.');
+                            }
+                        });
+                    } else {
+                        // Nếu AcceptOrder thất bại
+                        alert('Error in accepting order: ' + acceptResponse.message);
+                    }
+                },
+                error: function () {
+                    alert('An error occurred while accepting the order.');
+                }
+            });
+
+        }
+    });
+
+
+</script>

@@ -1,0 +1,147 @@
+﻿@model WebThuCung.Dto.ProductDto
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Edit Product</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Product" asp-action="Index">Product</a></li>
+                <li class="breadcrumb-item active">Edit</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Edit Product</h5>
+
+                        <!-- Validation Summary -->
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <!-- Edit Product Form -->
+                        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                            <!-- Product ID (readonly) -->
+                            <div class="row mb-3">
+                                <label asp-for="idProduct" class="col-sm-2 col-form-label">Product ID</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="idProduct" class="form-control" readonly />
+                                    <span asp-validation-for="idProduct" class="text-danger"></span>
+                                    <!-- Hidden field for ID -->
+                                    <input type="hidden" asp-for="idProduct" />
+                                </div>
+                            </div>
+
+                            <!-- Product Name -->
+                            <div class="row mb-3">
+                                <label asp-for="nameProduct" class="col-sm-2 col-form-label">Product Name</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="nameProduct" class="form-control" required />
+                                    <span asp-validation-for="nameProduct" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <!-- Sell Price -->
+                            <div class="row mb-3">
+                                <label asp-for="sellPrice" class="col-sm-2 col-form-label">Sell Price</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="sellPrice" class="form-control" type="number" step="0.01" required />
+                                    <span asp-validation-for="sellPrice" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <!-- Quantity -->
+                            <div class="row mb-3">
+                                <label asp-for="Quantity" class="col-sm-2 col-form-label">Quantity</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="Quantity" class="form-control" type="number" min="0" required />
+                                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <!-- Description -->
+                            <div class="row mb-3">
+                                <label asp-for="Description" class="col-sm-2 col-form-label">Description</label>
+                                <div class="col-sm-10">
+                                    <textarea asp-for="Description" class="form-control" rows="3" required></textarea>
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <!-- Image -->
+                            <div class="row mb-3">
+                                <label asp-for="Image" class="col-sm-2 col-form-label">Image</label>
+                                <div class="col-sm-10">
+                                    <input type="file" class="form-control" id="Image" name="Image" accept="image/*" />
+                                    <!-- Hiển thị lỗi nếu có -->
+                                    <span asp-validation-for="Image" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <!-- Branch Selection -->
+                            <div class="row mb-3">
+                                <label asp-for="idBranch" class="col-sm-2 col-form-label">Branch</label>
+                                <div class="col-sm-10">
+                                    <select asp-for="idBranch" class="form-control">
+                                        <option value="">-- Select a Branch --</option>
+                                        @foreach (var branch in ViewBag.Branchs as List<SelectListItem>)
+                                        {
+                                            <option value="@branch.Value">@branch.Text</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="idBranch" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <!-- Category Selection -->
+                            <div class="row mb-3">
+                                <label asp-for="idCategory" class="col-sm-2 col-form-label">Category</label>
+                                <div class="col-sm-10">
+                                    <select asp-for="idCategory" class="form-control">
+                                        <option value="">-- Select a Category --</option>
+                                        @foreach (var category in ViewBag.Categories as List<SelectListItem>)
+                                        {
+                                            <option value="@category.Value">@category.Text</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="idCategory" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <!-- Pet Selection -->
+                            <div class="row mb-3">
+                                <label asp-for="idPet" class="col-sm-2 col-form-label">Pet</label>
+                                <div class="col-sm-10">
+                                    <select asp-for="idPet" class="form-control">
+                                        <option value="">-- Select a Pet --</option>
+                                        @foreach (var pet in ViewBag.Pets as List<SelectListItem>)
+                                        {
+                                            <option value="@pet.Value">@pet.Text</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="idPet" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="row mb-3">
+                                <div class="col-sm-10 offset-sm-2">
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    <a asp-action="Index" class="btn btn-secondary">Back</a>
+                                </div>
+                            </div>
+                           
+                        </form><!-- End Edit Product Form -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

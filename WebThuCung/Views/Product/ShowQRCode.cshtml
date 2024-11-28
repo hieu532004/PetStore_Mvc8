@@ -1,0 +1,123 @@
+﻿@model WebThuCung.Models.Payment
+@{
+    ViewData["Title"] = "Qr";
+    Layout = "~/Views/Shared/_LayoutUsers.cshtml";
+}
+
+<section id="banner" class="py-3" style="background: #F9F3EC;">
+    <div class="container">
+        <div class="hero-content py-5 my-3">
+            <h2 class="display-1 mt-3 mb-0">Check out</h2>
+            <nav class="breadcrumb">
+                <a class="breadcrumb-item nav-link" asp-controller="User" asp-action="Index">Home</a>
+                <span class="breadcrumb-item active" aria-current="page">Check out</span>
+            </nav>
+        </div>
+    </div>
+</section>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 transaction-container mb-4">
+            <h2 class="h21">Thông tin đơn hàng</h2>
+            @if (ViewBag.Transaction != null)
+            {
+                var transaction = ViewBag.Transaction;
+
+                <div class="info-item">
+                    <h4>Đơn hàng #: @transaction.Order?.idOrder</h4>
+                </div>
+                <div class="info-item me-3">                    
+                    <p>Tên khách hàng: <strong>@transaction.nameCustomer</strong></p>
+                </div>
+              
+                <div class="info-item">
+                    <p>Ngày tạo: <strong>@transaction.createdDate.ToString("dd/MM/yyyy")</strong></p>
+                    <p>Trạng thái: <strong>@transaction.Order?.statusOrder</strong></p>
+                    <p>Tổng tiền: <strong>@transaction.TotalAmount?.ToString("F2")</strong></p>
+                </div>
+                <div class="info-item">
+                    <h4>Chi tiết Đơn hàng #</h4>
+                </div>
+                @if (transaction.Order != null)
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Sản phẩm</th>
+                                <th scope="col">Số lượng</th>
+                                <th scope="col">Thành tiền</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in transaction.Order.DetailOrders)
+                            {
+                                <tr>
+                                    <td scope="row" class="py-4">
+                                        <div class="cart-info d-flex flex-wrap align-items-center">
+                                            <div class="col-lg-3">
+                                                <div class="card-image">
+                                                    <a asp-controller="Product" asp-action="Detail" asp-route-id="@item.idProduct">
+                                                        <img src="~/images/@item.Product.Image" alt="@item.Product.nameProduct" class="img-fluid">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-9">
+                                                <div class="card-detail ps-3">
+                                                    <h5 class="card-title">
+                                                        <a asp-controller="Product" asp-action="Detail" asp-route-id="@item.idProduct" class="text-decoration-none">@item.Product.nameProduct</a>
+                                                    </h5>
+                                                    <p class="text-muted">Size: <span class="fw-bold">@item.nameSize</span></p>
+                                                    <p class="text-muted">Color: <span class="fw-bold">@item.nameColor</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 align-middle">
+                                        <div class="text-center">
+                                            <span class="fw-bold">@item.Quantity</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 align-middle">
+                                        <div class="total-price">
+                                            <span class="secondary-font fw-medium">
+                                                $@item.totalPrice?.ToString("F2")
+                                            </span>
+                                        </div>
+                                    </td>
+                                
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            }
+            else
+            {
+                <p>Không có thông tin giao dịch.</p>
+            }
+        </div>
+
+        <div class="col-md-6 text-center">
+            <h2 class="h21">Mã QR thanh toán</h2>
+            <img style=" width: 200px; height: 200px" src="@Model.QRCodeUrl" alt="QR Code thanh toán" class="img-fluid" />
+            <p class="mt-3">Quét mã QR để thanh toán.</p>
+            <div class="transfer-info mt-4 text-start">
+                <h3>Thông tin chuyển khoản</h3>
+                <p><strong>Chủ tài khoản:</strong> DUONG TRUNG HIEU</p>
+                <p><strong>Tài khoản ngân hàng:</strong> MB Bank</p>
+                <p><strong>Số tài khoản:</strong>0347854097</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="@Url.Action("MyOrderPending", "Product")" class="btn btn-primary">Thanh toán khi nhận hàng</a>
+    </div>
+</div>
+
+<style>
+    .h21{
+        margin-top: 20px;
+    }
+</style>

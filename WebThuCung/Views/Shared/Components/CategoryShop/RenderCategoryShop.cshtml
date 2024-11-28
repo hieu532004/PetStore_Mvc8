@@ -1,0 +1,5 @@
+﻿@model IEnumerable<Category>
+@foreach (var category in Model)
+{
+    <li class="tags-item"><a data-id="@category.idCategory" class="filter-category">@category.nameCategory</a></li>
+}

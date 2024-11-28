@@ -1,0 +1,137 @@
+﻿@model WebThuCung.Dto.ProductCreateDto
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<main id="main" class="main">
+    <div class="pagetitle">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Product" asp-action="Index">Product</a></li>
+                <li class="breadcrumb-item active">Create</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Create Product</h5>
+
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <!-- Create Product Form -->
+                        <form asp-action="Create" method="post" enctype="multipart/form-data">
+                            <!-- Product ID -->
+                            <div class="row mb-3">
+                                <label asp-for="idProduct" class="col-sm-2 col-form-label">Product ID</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="idProduct" class="form-control" placeholder="Enter Product ID" required />
+                                    <span asp-validation-for="idProduct" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <!-- Product Name -->
+                            <div class="row mb-3">
+                                <label asp-for="nameProduct" class="col-sm-2 col-form-label">Product Name</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="nameProduct" class="form-control" placeholder="Enter Product Name" required />
+                                    <span asp-validation-for="nameProduct" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <!-- Sell Price -->
+                            <div class="row mb-3">
+                                <label asp-for="sellPrice" class="col-sm-2 col-form-label">Sell Price</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="sellPrice" class="form-control" placeholder="Enter Sell Price" required />
+                                    <span asp-validation-for="sellPrice" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label asp-for="Description" class="col-sm-2 col-form-label">Description</label>
+                                <div class="col-sm-10">
+                                    <textarea asp-for="Description" class="form-control" rows="3" required></textarea>
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <!-- Image -->
+                            <div class="row mb-3">
+                                <label asp-for="Image" class="col-sm-2 col-form-label">Image</label>
+                                <div class="col-sm-10">
+                                    <input type="file" class="form-control" id="Image" name="Image" accept="image/*" />
+                                    <!-- Hiển thị lỗi nếu có -->
+                                    <span asp-validation-for="Image" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <!-- Product Selection (Branch, Category, Color, Pet) -->
+                            @* Similar dropdowns for Branch, Category, Color, and Pet *@
+                            <div class="row mb-3">
+                                <label asp-for="idBranch" class="col-sm-2 col-form-label">Branch</label>
+                                <div class="col-sm-10">
+                                    <select asp-for="idBranch" class="form-control" required>
+                                        <option value="">-- Select a Branch --</option>
+                                        @foreach (var branch in ViewBag.Branchs as List<SelectListItem>)
+                                        {
+                                            <option value="@branch.Value">@branch.Text</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label asp-for="idCategory" class="col-sm-2 col-form-label">Category</label>
+                                <div class="col-sm-10">
+                                    <select asp-for="idCategory" class="form-control" required>
+                                        <option value="">-- Select a Category --</option>
+                                        @foreach (var category in ViewBag.Categories as List<SelectListItem>)
+                                        {
+                                            <option value="@category.Value">@category.Text</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="row mb-3">
+                                <label asp-for="idPet" class="col-sm-2 col-form-label">Pet</label>
+                                <div class="col-sm-10">
+                                    <select asp-for="idPet" class="form-control" required>
+                                        <option value="">-- Select a Pet --</option>
+                                        @foreach (var pet in ViewBag.Pets as List<SelectListItem>)
+                                        {
+                                            <option value="@pet.Value">@pet.Text</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Quantity -->
+                            <div class="row mb-3">
+                                <label asp-for="Quantity" class="col-sm-2 col-form-label">Quantity</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="Quantity" class="form-control" placeholder="Enter Quantity" required />
+                                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="row mb-3">
+                                <div class="col-sm-10 offset-sm-2">
+                                    <button type="submit" class="btn btn-primary">Create Product</button>
+                                    <a asp-action="Index" class="btn btn-secondary">Back</a>
+                                </div>
+                            </div>
+                        
+                        </form><!-- End Create Product Form -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

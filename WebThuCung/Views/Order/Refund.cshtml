@@ -1,0 +1,297 @@
+﻿@model IEnumerable<WebThuCung.Dto.OrderViewDto>
+@{
+    ViewData["Title"] = "Order List";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Order List</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Order" asp-action="Index">Order</a></li>
+                <li class="breadcrumb-item active">Accept</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Order List</h5>
+                        <a asp-controller="Order" asp-action="Pending"
+                           class="btn btn-primary">Order pending</a>
+                        <a asp-controller="Order" asp-action="Accepted"
+                           class="btn btn-primary">Order Accepted</a>
+                        <a asp-controller="Order" asp-action="Deliveried"
+                           class="btn btn-primary">Shipper Delivered</a>
+                        <a asp-controller="Order" asp-action="Completed"
+                           class="btn btn-primary">Order Completed</a>
+                        <a asp-controller="Order" asp-action="Refund"
+                           class="btn btn-primary  active">Order is returned</a>
+                        <a asp-controller="Order" asp-action="UpdateShippingStatus"
+                           class="btn btn-primary">UpdateShippingStatus</a>
+                        
+                        <!-- Table with stripped rows -->
+                        <table class="table datatable">
+                            <thead>
+                                <tr>
+                                    <th>ID Order</th>
+                                    <th>ID Customer</th>
+                                    <th>Date From</th>
+                                    <th>Date To</th>
+                                    <th>Status Order</th>
+                                    <th>Status Pay</th>
+                                    <th>Shipping Status</th>
+                                    <th>Total Order</th>
+                                    <th>Shipper</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                    <th>Confirm Payment</th> <!-- Thêm cột Accept -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    foreach (var orderView in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <a asp-action="Detail" asp-route-id="@orderView.Order.idOrder">
+                                                    @orderView.Order.idOrder
+                                                </a>
+                                            </td>
+                                            <td>@orderView.Order.idCustomer</td>
+                                            <td>@orderView.Order.dateFrom.ToString("yyyy-MM-dd HH:mm")</td>
+                                            <td>@(orderView.Order.dateTo.HasValue ? orderView.Order.dateTo.Value.ToString("yyyy-MM-dd HH:mm") : "N/A")</td>
+                                            <td>@orderView.Order.statusOrder</td> <!-- Hiển thị trực tiếp enum OrderStatus -->
+                                            <td>@orderView.Order.statusPay</td>
+                                            <td>
+                                                @if (orderView.ShipperOrder != null && orderView.ShipperOrder.ShippingStatus != null)
+                                                {
+                                                    @orderView.ShipperOrder.ShippingStatus
+                                                }
+                                                else
+                                                {
+                                                    @:N/A
+                                                }
+                                            </td>
+                                            <td>@orderView.totalOrder?.ToString("C")</td>
+                                            <td>
+                                                @if (orderView.Shipper != null)
+                                                {
+                                                    @orderView.Shipper.Name <!-- Tên của shipper -->
+                                                    <!-- Nút để thay đổi shipper -->
+                                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editShipperModal"
+                                                            data-shipper-order-id="@orderView.ShipperOrder.idShipperOrder"
+                                                            data-shipper-id="@orderView.Shipper.idShipper">
+                                                        Edit Shipper
+                                                    </button>
+
+                                                }
+                                                else
+                                                {
+                                                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#assignShipperModal"
+                                                            data-order-id="@orderView.Order.idOrder">
+                                                        Assign Shipper
+                                                    </button>
+                                                }
+                                            </td>
+                                            <td>
+                                                <a asp-action="Edit" asp-route-id="@orderView.Order.idOrder" class="btn btn-warning btn-sm">Edit</a>
+                                            </td>
+                                            <td>
+                                                <form asp-action="Delete" asp-route-id="@orderView.Order.idOrder" method="post" style="display:inline;">
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this Order?');">Delete</button>
+                                                </form>
+                                            </td>
+
+                                            <td>
+                                                @if (orderView.Transaction != null
+                                               && orderView.PaymentExists)
+
+                                                {
+                                                    <form asp-action="ConfirmPayment" method="post" style="display:inline;" onsubmit="return confirmPayment();">
+                                                        <input type="hidden" name="idOrder" value="@orderView.Order.idOrder" />
+                                                        <button type="submit" class="btn btn-success btn-sm">Confirm</button>
+                                                    </form>
+                                                }
+                                            </td>
+
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="10" class="text-center">No orders found.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <!-- End Table with stripped rows -->
+                        <a asp-action="Index" class="btn btn-secondary">Back</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->
+<div class="modal fade" id="assignShipperModal" tabindex="-1" aria-labelledby="assignShipperModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="assignShipperModalLabel">Assign Shipper</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="assignShipperForm" method="post" asp-action="AssignShipper">
+                    <input type="hidden" id="modalOrderId" name="idOrder" />
+                    <div class="mb-3">
+                        <label for="shipperSelect" class="form-label">Select Shipper:</label>
+                        <select id="shipperSelect" name="idShipper" class="form-select" required>
+                            <option value="">-- Select Shipper --</option>
+                            @foreach (var shipper in ViewBag.Shippers)
+                            {
+                                <option value="@shipper.idShipper">@shipper.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success" id="confirmAssignShipper">Assign</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="editShipperModal" tabindex="-1" aria-labelledby="editShipperModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editShipperModalLabel">Edit Shipper</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editShipperForm">
+                    <input type="hidden" id="editShipperOrderId" name="idShipperOrder" />
+                    <div class="mb-3">
+                        <label for="editShipperSelect" class="form-label">Select Shipper:</label>
+                        <select id="editShipperSelect" name="idShipper" class="form-select" required>
+                            <option value="">-- Select Shipper --</option>
+                            @foreach (var shipper in ViewBag.Shippers)
+                            {
+                                <option value="@shipper.idShipper">@shipper.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <button type="button" id="confirmEditShipper" class="btn btn-warning">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    /* Thêm hiệu ứng đặc biệt cho nút active */
+    .btn.active {
+        border: 2px solid #ffc107; /* Viền màu vàng nhạt */
+        box-shadow: 0 0 10px rgba(255, 193, 7, 0.5); /* Hiệu ứng đổ bóng */
+        color: #fff !important; /* Đổi màu chữ thành trắng */
+        background-color: #ffc107 !important; /* Màu nền vàng */
+    }
+
+</style>
+<script>
+    function confirmOrder() {
+        return confirm("Are you sure you want to accept this order?");
+    }
+    function confirmPayment() {
+        return confirm("Are you sure you want to confirm payment this order?");
+    }
+</script>
+<script>
+    const assignShipperModal = document.getElementById('assignShipperModal');
+    assignShipperModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget; // Nút đã kích hoạt modal
+        const orderId = button.getAttribute('data-order-id'); // Lấy idOrder từ thuộc tính data
+
+        // Gán giá trị idOrder vào input hidden trong form của modal
+        const modalOrderIdInput = document.getElementById('modalOrderId');
+        modalOrderIdInput.value = orderId;
+    });
+
+    // Xử lý khi bấm nút xác nhận trong modal
+    document.getElementById('confirmAssignShipper').addEventListener('click', function () {
+        const orderId = document.getElementById('modalOrderId').value; // Lấy idOrder từ input hidden
+        const shipperId = document.getElementById('shipperSelect').value; // Lấy idShipper từ dropdown
+
+        if (!shipperId) {
+            alert('Please select a shipper before proceeding.');
+            return;
+        }
+
+        // Gửi yêu cầu Ajax để assign shipper
+        $.ajax({
+            url: '/Order/AssignShipper', // URL của Controller để xử lý assign
+            type: 'POST',
+            data: { idOrder: orderId, idShipper: shipperId }, // Truyền dữ liệu idOrder và idShipper
+            success: function (response) {
+                console.log('Assign Shipper Response:', response); // Thêm log để kiểm tra response
+                if (response.success) {
+                    // Chuyển hướng sau khi gán shipper thành công
+                    window.location.href = '/Order/Accepted'; // Chuyển hướng đến trang Accepted
+                } else {
+                    alert('Error: ' + response.message); // Hiển thị thông báo nếu có lỗi
+                }
+            },
+            error: function (xhr, status, error) {
+                // Thêm chi tiết lỗi khi có vấn đề với Ajax
+                console.error('Error occurred:', error); // Log lỗi
+                alert('An error occurred while assigning the shipper: ' + error);
+            }
+        });
+    });
+
+
+</script>
+<script>
+    // Khi mở modal chỉnh sửa, điền thông tin
+    $('#editShipperModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Nút kích hoạt modal
+        var idShipperOrder = button.data('shipper-order-id'); // Lấy idShipperOrder từ thuộc tính data
+        var idShipper = button.data('shipper-id'); // Lấy idShipper hiện tại
+
+        // Điền giá trị vào form
+        $('#editShipperOrderId').val(idShipperOrder); // Gán giá trị idShipperOrder vào input ẩn
+        $('#editShipperSelect').val(idShipper); // Gán giá trị idShipper hiện tại vào select box
+    });
+
+    // Xử lý gửi form
+    $('#confirmEditShipper').click(function () {
+        var formData = $('#editShipperForm').serialize(); // Lấy toàn bộ dữ liệu từ form
+
+        // Gửi yêu cầu cập nhật
+        $.ajax({
+            url: '/Order/EditShipper',
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                if (response.success) {
+                    window.location.href = '/Order/Accepted'; // Chuyển hướng sau khi cập nhật thành công
+                } else {
+                    alert('Error: ' + response.message);
+                }
+            },
+            error: function () {
+                alert('An error occurred while updating the shipper.');
+            }
+        });
+    });
+
+
+</script>

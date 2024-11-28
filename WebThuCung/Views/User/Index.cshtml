@@ -1,0 +1,501 @@
+﻿@model IEnumerable<WebThuCung.Dto.ProductViewDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutUsers.cshtml";
+    var topSellingProducts = (List<WebThuCung.Dto.TopSellingProductDto>)ViewBag.TopSellingProducts;
+}
+<link rel="stylesheet" href="~/css/Search.css />
+<section id="categories">
+    <div class="container my-3 py-5">
+        <div class="row my-5">
+            <div class="col text-center">
+                <a asp-controller="Product" asp-action="SearchByPet" asp-route-petname="Bird" class="categories-item">
+                    <iconify-icon class="category-icon" icon="ph:bird"></iconify-icon>
+                    <h5>Bird Shop</h5>
+                </a>
+            </div>
+            <div class="col text-center">
+                <a asp-controller="Product" asp-action="SearchByPet" asp-route-petname="Dog" class="categories-item">
+                    <iconify-icon class="category-icon" icon="ph:dog"></iconify-icon>
+                    <h5>Dog Shop</h5>
+                </a>
+            </div>
+            <div class="col text-center">
+                <a asp-controller="Product" asp-action="SearchByPet" asp-route-petname="Fish" class="categories-item">
+                    <iconify-icon class="category-icon" icon="ph:fish"></iconify-icon>
+                    <h5>Fish Shop</h5>
+                </a>
+            </div>
+            <div class="col text-center">
+                <a asp-controller="Product" asp-action="SearchByPet" asp-route-petname="Cat" class="categories-item">
+                    <iconify-icon class="category-icon" icon="ph:cat"></iconify-icon>
+                    <h5>Cat Shop</h5>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<div id="productResults">
+    <section id="clothing" class="my-5 overflow-hidden">
+        <div class="container pb-5">
+
+            <div class="section-header d-md-flex justify-content-between align-items-center mb-3">
+                <h2 class="display-34 fw-normal" style="font-size:50px ; color: #f2de08">Bán chạy</h2>
+
+                <div>
+                    <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                        Mua ngay
+                        <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
+                            <use xlink:href="#arrow-right"></use>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="products-carousel swiper">
+                <div class="swiper-wrapper">
+                    @foreach (var product in topSellingProducts.Take(6))
+                    {
+
+                        bool isSaved = ViewBag.SavedProductIds != null &&
+                        ViewBag.SavedProductIds.Contains(product.ProductId);
+
+                        <div class="swiper-slide" data-productid="@product.ProductId">
+                            <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
+                                @if (product.DiscountPercent > 0)
+                                {
+                                    <div style="color: red;">
+                                        @product.DiscountPercent% OFF
+                                    </div>
+                                }
+
+                            </div>
+                            <div class="card position-relative">
+                                <a asp-controller="Product" asp-action="Detail" asp-route-id="@product.ProductId">
+                                    <img src="@Url.Content("~/images/" + product.ImageUrl)" class="img-fluid rounded-4" alt="@product.ProductName">
+                                </a>
+                                <div class="card-body p-0">
+                                    <a href="@Url.Action("Details", "Product", new { id = product.ProductId })">
+                                        <h3 class="card-title pt-4 m-0">@product.ProductName</h3>
+                                    </a>
+
+                                    <div class="card-text">
+                                        <div class="price-container">
+                                            @if (product.Price == product.DiscountedPrice)
+                                            {
+                                                <div class="price-container d-flex align-items-center">
+                                                    <h3 class="secondary-font text-primary me-3">
+                                                        <span>
+                                                            @(product.Price % 1 == 0
+                                                                ? string.Format("{0:N0}", product.Price)
+                                                                : string.Format("{0:N2}", product.Price))<small>$</small>
+                                                        </span>
+                                                    </h3>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="price-container d-flex align-items-center">
+                                                    <!-- Giá giảm -->
+                                                    <h3 class="secondary-font text-primary me-3">
+                                                        <span>
+                                                            @(product.DiscountedPrice % 1 == 0
+                                                                ? string.Format("{0:N0}", product.DiscountedPrice)
+                                                                : string.Format("{0:N2}", product.DiscountedPrice))<small>$</small>
+                                                        </span>
+                                                    </h3>
+
+                                                    <!-- Giá cũ (gạch chéo) -->
+                                                    <h3 class="secondary-font text-muted text-decoration-line-through text-danger">
+                                                        <span>
+                                                            @(product.Price % 1 == 0
+                                                                ? string.Format("{0:N0}", product.Price)
+                                                                : string.Format("{0:N2}", product.Price))<small>$</small>
+                                                        </span>
+                                                    </h3>
+                                                </div>
+
+
+                                                
+                                            }
+
+                                        </div>
+
+
+                                        <div class="d-flex flex-wrap mt-3">
+                                            <a class="btn-wishlist px-4 pt-3 toggle-clothing">
+                                                <iconify-icon icon="fluent:heart-28-filled" class="fs-5" style="color: @(isSaved ? "red" : "rgb(162, 162, 162)")"></iconify-icon>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+            <!-- / products-carousel -->
+
+
+        </div>
+    </section>
+    <section id="foodies" class="my-5">
+        <div class="container my-5 py-5">
+
+            <div class="section-header d-md-flex justify-content-between align-items-center">
+                <h5 class="display-3 fw-normal">Phụ kiện và thức ăn</h5>
+
+                <div>
+                    <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                        Mua ngay
+                        <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
+                            <use xlink:href="#arrow-right"></use>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="isotope-container row" style="text-align:center;">
+
+                @foreach (var product in Model.Take(8))
+                {
+
+                    bool isSaved = ViewBag.SavedProductIds != null &&
+                    ViewBag.SavedProductIds.Contains(product.idProduct);
+
+                    <div class="item col-md-4 col-lg-3 my-4" data-productid="@product.idProduct">
+                        <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
+                            @if (product.DiscountPercent > 0)
+                            {
+                                <div style="color: red;">
+                                    @product.DiscountPercent% OFF
+                                </div>
+                            }
+
+                        </div>
+                        <div class="card position-relative">
+                            <a href="@Url.Action("Detail", "Product", new { id = product.idProduct })">
+                                <img src="@Url.Content("~/images/" + product.Image)" class="img-fluid rounded-4" alt="@product.nameProduct">
+                            </a>
+                            <div class="card-body p-0">
+                                <a href="@Url.Action("Detail", "Product", new { id = product.idProduct })">
+                                    <h3 class="card-title pt-4 m-0">@product.nameProduct</h3>
+                                </a>
+
+                                <div class="card-text">
+
+
+                                    @if (product.sellPrice == product.DiscountedPrice)
+                                    {
+                                        <div class="price-container d-flex align-items-center">
+                                            <h3 class="secondary-font text-primary me-3">
+                                                <span>
+                                                    @(product.sellPrice % 1 == 0
+                                                        ? string.Format("{0:N0}", product.sellPrice)
+                                                        : string.Format("{0:N2}", product.sellPrice))<small>$</small>
+                                                </span>
+                                            </h3>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="price-container d-flex align-items-center">
+                                            <!-- Giá giảm -->
+                                            <h3 class="secondary-font text-primary me-3">
+                                                <span>
+                                                    @(product.DiscountedPrice % 1 == 0
+                                                        ? string.Format("{0:N0}", product.DiscountedPrice)
+                                                        : string.Format("{0:N2}", product.DiscountedPrice))<small>$</small>
+                                                </span>
+                                            </h3>
+
+                                            <!-- Giá cũ (gạch chéo) -->
+                                            <h3 class="secondary-font text-muted text-decoration-line-through text-danger">
+                                                <span>
+                                                    @(product.sellPrice % 1 == 0
+                                                        ? string.Format("{0:N0}", product.sellPrice)
+                                                        : string.Format("{0:N2}", product.sellPrice))<small>$</small>
+                                                </span>
+                                            </h3>
+                                        </div>
+                                    }
+
+
+                                    <div class="d-flex flex-wrap mt-3">
+
+                                        <a class="btn-wishlist px-4 pt-3 toggle-foodies">
+                                            <iconify-icon icon="fluent:heart-28-filled" class="fs-5" style="color: @(isSaved ? "red" : "rgb(162, 162, 162)")"></iconify-icon>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+    </section>
+
+</div>
+<style>
+
+
+    .categories-item {
+        display: inline-block; /* Đảm bảo item có kích thước phù hợp */
+        transition: transform 0.3s ease; /* Hiệu ứng chuyển đổi mượt mà */
+    }
+
+        .categories-item:hover {
+            transform: scale(1.6);
+            z-index: 10;
+        }
+
+    .price-container h3 {
+        display: inline; /* Đảm bảo h3 và nội dung bên trong hiển thị liền mạch */
+        margin: 0; /* Loại bỏ khoảng cách mặc định */
+        white-space: nowrap; /* Ngăn nội dung xuống dòng */
+        
+    }
+
+    .price-container span {
+        margin-left: 5px; /* Khoảng cách nhỏ giữa text và số tiền */
+    }
+
+    .swiper-slide {
+        transition: transform 0.6s ease; /* Smooth transition for scaling */
+        margin: 0 10px; /* Khoảng cách ngang giữa các slide */
+    }
+
+        .swiper-slide:hover {
+            transform: scale(1.11);
+            z-index: 10;
+        }
+
+    /* Nếu sử dụng flexbox hoặc grid cho container */
+    .swiper-wrapper {
+        text-align:center;
+        display: flex; /* Hoặc grid nếu cần */
+        gap: 10px; /* Tạo khoảng cách giữa các slide */
+    }
+
+
+    .item .card {
+        overflow: hidden;
+        border-radius: 8px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng nổi và bóng */
+    }
+
+        .item .card img {
+            transition: transform 0.3s ease; /* Hiệu ứng phóng to ảnh */
+        }
+
+    /* Hiệu ứng hover */
+    .item:hover .card {
+        transform: translateY(-10px); /* Nổi lên */
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+    }
+
+        .item:hover .card img {
+            transform: scale(1.1); /* Phóng to ảnh */
+        }
+
+    .isotope-container{
+        text-align:center;
+    }
+    .isotope-container .image-container {
+        text-align: center;
+        position: relative;
+        overflow: hidden; /* Đảm bảo ảnh không vượt ra ngoài */
+        border-radius: 8px; /* Bo tròn các góc nếu muốn */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .isotope-container .image-container img {
+            display: block;
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease; /* Hiệu ứng khi hover */
+        }
+
+        /* Hiệu ứng hover */
+        .isotope-container .image-container:hover {
+            transform: translateY(-10px); /* Nổi lên */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+        }
+
+            .isotope-container .image-container:hover img {
+                transform: scale(1.1); /* Phóng to ảnh một chút */
+            }
+
+    #clothing {
+        position: relative;
+        background-image: url('https://img.tripi.vn/cdn-cgi/image/width=700,height=700/https://gcs.tripi.vn/public-tripi/tripi-feed/img/474091BnW/hinh-nen-thu-cung-cute_014119974.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        
+    }
+
+        #clothing::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: inherit; /* Dùng lại ảnh nền */
+            background-size: inherit;
+            background-position: inherit;
+            background-repeat: inherit;
+            filter: blur(8px); /* Hiệu ứng làm mờ */
+            z-index: -1; /* Đưa lớp mờ xuống dưới nội dung */
+        }
+
+       
+
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.filter-categories').change(function () {
+            var idCategory = $(this).val();
+
+            $.ajax({
+                url: '/Product/ProductByCategory',
+                type: 'GET',
+                data: { idCategory: idCategory },
+                success: function (result) {
+                    // Đổ dữ liệu PartialView vào phần tử kết quả
+                    $('#productResults').html(result);
+
+                    // Đếm số sản phẩm vừa được load lên và hiển thị trên console
+                    var productCount = $('#productResults .swiper-slide').length;
+                    console.log("Number of products loaded: " + productCount);
+                    new Swiper('.products-carousel', {
+                        loop: true,
+                        slidesPerView: 4,
+                        spaceBetween: 30,
+                        autoplay: {
+                            delay: 2500,
+                            disableOnInteraction: false,
+                        },
+                        navigation: {
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev',
+                        },
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true,
+                        }
+                    });
+                },
+                error: function () {
+                    alert("Failed to load products. Please try again.");
+                }
+            });
+        });
+    });
+
+
+    function filterByCategory() {
+        const selectedCategory = document.getElementById("categoryDropdown").value;
+        // Điều hướng đến hành động Index của Controller với idCategory = "" nếu chọn "Shop by Category"
+        window.location.href = `/ControllerName/Index?idCategory=${selectedCategory}`;
+    }
+
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        // Sự kiện cho Top Selling
+        $('.toggle-clothing').on('click', function (e) {
+            e.preventDefault();
+
+            var $this = $(this);
+            var icon = $this.find('iconify-icon');
+            var idproduct = $this.closest('.swiper-slide').data('productid'); // Lấy ID sản phẩm trong Top Selling
+
+            // Kiểm tra và gọi ajax cho Top Selling
+            if (idproduct) {
+                $.ajax({
+                    url: '/Product/SaveProduct',
+                    type: 'POST',
+                    data: { idproduct: idproduct },
+                    success: function (response) {
+                        if (response.success) {
+                            alert(response.message);
+                            toggleIconColor(icon, idproduct);
+                        } else if (response.redirectToLogin) {
+                            // Nếu yêu cầu đăng nhập, chuyển hướng tới trang đăng nhập
+                            window.location.href = '/User/Login'; // Đổi đường dẫn theo đường dẫn của trang đăng nhập
+                        }
+                    },
+                    error: function () {
+                        alert('An error occurred while saving the product.');
+                    }
+                });
+            }
+        });
+
+        // Sự kiện cho Pet Foodies
+        $('.toggle-foodies').on('click', function (e) {
+            e.preventDefault();
+
+            var $this = $(this);
+            var icon = $this.find('iconify-icon');
+            var idproduct = $this.closest('.item').data('productid'); // Lấy ID sản phẩm trong Pet Foodies
+
+            // Kiểm tra và gọi ajax cho Pet Foodies
+            if (idproduct) {
+                $.ajax({
+                    url: '/Product/SaveProduct',
+                    type: 'POST',
+                    data: { idproduct: idproduct },
+                    success: function (response) {
+                        if (response.success) {
+                            alert(response.message);
+                            toggleIconColor(icon, idproduct);
+                        } else if (response.redirectToLogin) {
+                            // Nếu yêu cầu đăng nhập, chuyển hướng tới trang đăng nhập
+                            window.location.href = '/User/Login'; // Đổi đường dẫn theo đường dẫn của trang đăng nhập
+                        }
+                    },
+                    error: function () {
+                        alert('An error occurred while saving the product.');
+                    }
+                });
+            }
+        });
+
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const categoriesItems = document.querySelectorAll('.categories-item');
+
+        categoriesItems.forEach(item => {
+            item.addEventListener('click', function () {
+                const petName = item.getAttribute('data-pet-name');
+                window.location.href = `/Product/SearchByPet?petId=${petName}`;
+            });
+        });
+    });
+    function toggleIconColor(icon, idproduct) {
+        // Kiểm tra trạng thái của icon, nếu là màu xám thì đổi thành đen, ngược lại thì đổi thành xám
+        var currentColor = icon.css('color');
+        if (currentColor === 'rgb(162, 162, 162)') {
+            icon.css('color', 'red'); // Đã lưu
+        } else {
+            icon.css('color', 'rgb(162, 162, 162)'); // Chưa lưu
+        }
+
+        // Đồng bộ hóa trạng thái cho cả 2 phần "foreach"
+        $('.item[data-productid="' + idproduct + '"] .toggle-foodies iconify-icon').css('color', icon.css('color'));
+        $('.swiper-slide[data-productid="' + idproduct + '"] .toggle-clothing iconify-icon').css('color', icon.css('color'));
+    }
+
+</script>

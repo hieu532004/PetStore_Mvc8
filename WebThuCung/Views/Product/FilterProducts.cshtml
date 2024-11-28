@@ -1,0 +1,99 @@
+﻿@model IEnumerable<WebThuCung.Dto.ProductViewDto>
+
+@foreach (var product in Model)
+{
+    bool isSaved = ViewBag.SavedProductIds != null &&
+    ViewBag.SavedProductIds.Contains(product.idProduct);
+
+    <div class="col-md-4 my-4" data-productid="@product.idProduct">
+        <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
+            @if (product.DiscountPercent > 0)
+            {
+                <div style="color: red;">
+                    @product.DiscountPercent% OFF
+                </div>
+            }
+        </div>
+        <div class="card position-relative">
+            <a asp-controller="Product" asp-action="Detail" asp-route-id="@product.idProduct">
+                <img src="~/images/@product.Image" class="img-fluid rounded-4" alt="image">
+            </a>
+            <div class="card-body p-0">
+                <a href="single-product.html">
+                    <h3 class="card-title pt-4 m-0">@product.nameProduct</h3>
+                </a>
+                <div class="card-text">
+
+                    @if (product.sellPrice == product.DiscountedPrice)
+                    {
+                        <div class="price-container d-flex align-items-center">
+                            <h3 class="secondary-font text-primary me-3">
+                                <span>
+                                    @(product.sellPrice % 1 == 0
+                                        ? string.Format("{0:N0}", product.sellPrice)
+                                        : string.Format("{0:N2}", product.sellPrice))<small>$</small>
+                                </span>
+                            </h3>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="price-container d-flex align-items-center">
+                            <!-- Giá giảm -->
+                            <h3 class="secondary-font text-primary me-3">
+                                <span>
+                                    @(product.DiscountedPrice % 1 == 0
+                                        ? string.Format("{0:N0}", product.DiscountedPrice)
+                                        : string.Format("{0:N2}", product.DiscountedPrice))<small>$</small>
+                                </span>
+                            </h3>
+
+                            <!-- Giá cũ (gạch chéo) -->
+                            <h3 class="secondary-font text-muted text-decoration-line-through text-danger">
+                                <span>
+                                    @(product.sellPrice % 1 == 0
+                                        ? string.Format("{0:N0}", product.sellPrice)
+                                        : string.Format("{0:N2}", product.sellPrice))<small>$</small>
+                                </span>
+                            </h3>
+                        </div>
+                    }
+
+                    <div class="d-flex flex-wrap mt-3">
+                        <a href="#" class="btn-cart me-3 px-4 pt-3 pb-3">
+                            <h5 class="text-uppercase m-0">Add to Cart</h5>
+                        </a>
+                        <a class="btn-wishlist px-4 pt-3 toggle">
+                            <iconify-icon icon="fluent:heart-28-filled" class="fs-5" style="color: @(isSaved ? "red" : "rgb(162, 162, 162)")"></iconify-icon>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<!-- Phân trang -->
+<nav class="navigation paging-navigation text-center mt-5" role="navigation">
+    <div class="pagination loop-pagination d-flex justify-content-center align-items-center">
+        @if (ViewBag.CurrentPage > 1)
+        {
+            <a href="#" class="pagination-arrow d-flex align-items-center mx-3" data-page="@ViewBag.CurrentPage - 1">
+                <iconify-icon icon="ic:baseline-keyboard-arrow-left" class="pagination-arrow fs-1"></iconify-icon>
+            </a>
+        }
+
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            <a class="page-numbers mt-2 fs-3 mx-3 @(i == ViewBag.CurrentPage ? "current" : "")" data-page="@i" href="#">@i</a>
+        }
+
+        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+        {
+            <a href="#" class="pagination-arrow d-flex align-items-center mx-3" data-page="@ViewBag.CurrentPage + 1">
+                <iconify-icon icon="ic:baseline-keyboard-arrow-right" class="pagination-arrow fs-1"></iconify-icon>
+            </a>
+        }
+    </div>
+</nav>
+
+

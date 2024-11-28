@@ -1,0 +1,323 @@
+﻿@model IEnumerable<WebThuCung.Dto.ProductViewDto>
+@{
+    ViewData["Title"] = "SearchByPet";
+    Layout = "~/Views/Shared/_LayoutUsers.cshtml";
+    var topSellingProducts = (List<WebThuCung.Dto.TopSellingProductDto>)ViewBag.TopSellingProducts;
+}
+
+<section id="categories">
+    <div class="container my-3 py-5">
+        <div class="row my-5">
+            <div class="col text-center">
+                <a asp-controller ="Product" asp-action="SearchByPet" asp-route-petname="Bird" class="categories-item">
+                    <iconify-icon class="category-icon" icon="ph:bird"></iconify-icon>
+                    <h5>Bird Shop</h5>
+                </a>
+            </div>
+            <div class="col text-center">
+                <a asp-controller="Product" asp-action="SearchByPet" asp-route-petname="Dog" class="categories-item">
+                    <iconify-icon class="category-icon" icon="ph:dog"></iconify-icon>
+                    <h5>Dog Shop</h5>
+                </a>
+            </div>
+            <div class="col text-center">
+                <a asp-controller="Product" asp-action="SearchByPet" asp-route-petname="Fish" class="categories-item">
+                    <iconify-icon class="category-icon" icon="ph:fish"></iconify-icon>
+                    <h5>Fish Shop</h5>
+                </a>
+            </div>
+            <div class="col text-center">
+                <a asp-controller="Product" asp-action="SearchByPet" asp-route-petname="Cat" class="categories-item">
+                    <iconify-icon class="category-icon" icon="ph:cat"></iconify-icon>
+                    <h5>Cat Shop</h5>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="productResults">
+    <!-- Kết quả tìm kiếm sản phẩm cho loại thú cưng đã chọn -->
+    <section id="clothing" class="my-5 overflow-hidden">
+        <div class="container pb-5">
+            <div class="section-header d-md-flex justify-content-between align-items-center mb-3">
+                <h2 class="display-3 fw-normal">Sản phẩm bán chạy</h2>
+                <div>
+                    <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                        Mua ngay
+                        <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
+                            <use xlink:href="#arrow-right"></use>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="products-carousel swiper">
+                <div class="swiper-wrapper">
+                    @foreach (var product in topSellingProducts.Take(6))
+                    {
+
+                        bool isSaved = ViewBag.SavedProductIds != null &&
+                        ViewBag.SavedProductIds.Contains(product.ProductId);
+
+                        <div class="swiper-slide" data-productid="@product.ProductId">
+                            <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
+                                @if (product.DiscountPercent > 0)
+                                {
+                                    <div style="color: red;">
+                                        @product.DiscountPercent% OFF
+                                    </div>
+                                }
+                            </div>
+                            <div class="card position-relative">
+                                <a asp-controller="Product" asp-action="Detail" asp-route-id="@product.ProductId">
+                                    <img src="@Url.Content("~/images/" + product.ImageUrl)" class="img-fluid rounded-4" alt="@product.ProductName">
+                                </a>
+                                <div class="card-body p-0">
+                                    <a href="@Url.Action("Details", "Product", new { id = product.ProductId })">
+                                        <h3 class="card-title pt-4 m-0">@product.ProductName</h3>
+                                    </a>
+
+                                    <div class="card-text">
+                                        <div class="price-container">
+                                            @if (product.Price == product.DiscountedPrice)
+                                            {
+                                                <div class="price-container d-flex align-items-center">
+                                                    <h3 class="secondary-font text-primary me-3">
+                                                        <span>
+                                                            @(product.Price % 1 == 0
+                                                                ? string.Format("{0:N0}", product.Price)
+                                                                : string.Format("{0:N2}", product.Price))<small>$</small>
+                                                        </span>
+                                                    </h3>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="price-container d-flex align-items-center">
+                                                    <!-- Giá giảm -->
+                                                    <h3 class="secondary-font text-primary me-3">
+                                                        <span>
+                                                            @(product.DiscountedPrice % 1 == 0
+                                                                ? string.Format("{0:N0}", product.DiscountedPrice)
+                                                                : string.Format("{0:N2}", product.DiscountedPrice))<small>$</small>
+                                                        </span>
+                                                    </h3>
+
+                                                    <!-- Giá cũ (gạch chéo) -->
+                                                    <h3 class="secondary-font text-muted text-decoration-line-through text-danger">
+                                                        <span>
+                                                            @(product.Price % 1 == 0
+                                                                ? string.Format("{0:N0}", product.Price)
+                                                                : string.Format("{0:N2}", product.Price))<small>$</small>
+                                                        </span>
+                                                    </h3>
+                                                </div>
+                                            }
+
+                                        </div>
+
+
+                                        <div class="d-flex flex-wrap mt-3">
+                                            <a class="btn-wishlist px-4 pt-3 toggle-clothing">
+                                                <iconify-icon icon="fluent:heart-28-filled" class="fs-5" style="color: @(isSaved ? "red" : "rgb(162, 162, 162)")"></iconify-icon>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <!-- / products-carousel -->
+        </div>
+    </section>
+</div>
+</section>
+<section id="foodies" class="my-5">
+    <div class="container my-5 py-5">
+
+        <div class="section-header d-md-flex justify-content-between align-items-center">
+            <h2 class="display-3 fw-normal">Pet Foodies</h2>
+            
+            <div>
+                <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                    shop now
+                    <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
+                        <use xlink:href="#arrow-right"></use>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="isotope-container row" style="text-align:center;">
+
+            @foreach (var product in Model.Take(8))
+            {
+                bool isSaved = ViewBag.SavedProductIds != null &&
+                ViewBag.SavedProductIds.Contains(product.idProduct);
+
+                <div class="item col-md-4 col-lg-3 my-4" data-productid="@product.idProduct">
+                    <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
+                        @if (product.DiscountPercent > 0)
+                        {
+                            <div style="color: red;">
+                                @product.DiscountPercent% OFF
+                            </div>
+                        }
+                    </div>
+                    <div class="card position-relative">
+                        <a href="@Url.Action("Detail", "Product", new { id = product.idProduct })">
+                            <img src="@Url.Content("~/images/" + product.Image)" class="img-fluid rounded-4" alt="@product.nameProduct">
+                        </a>
+                        <div class="card-body p-0">
+                            <a href="@Url.Action("Detail", "Product", new { id = product.idProduct })">
+                                <h3 class="card-title pt-4 m-0">@product.nameProduct</h3>
+                            </a>
+
+                            <div class="card-text">
+
+
+                                @if (product.sellPrice == product.DiscountedPrice)
+                                {
+                                    <div class="price-container d-flex align-items-center">
+                                        <h3 class="secondary-font text-primary me-3">
+                                            <span>
+                                                @(product.sellPrice % 1 == 0
+                                                    ? string.Format("{0:N0}", product.sellPrice)
+                                                    : string.Format("{0:N2}", product.sellPrice))<small>$</small>
+                                            </span>
+                                        </h3>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="price-container d-flex align-items-center">
+                                        <!-- Giá giảm -->
+                                        <h3 class="secondary-font text-primary me-3">
+                                            <span>
+                                                @(product.DiscountedPrice % 1 == 0
+                                                    ? string.Format("{0:N0}", product.DiscountedPrice)
+                                                    : string.Format("{0:N2}", product.DiscountedPrice))<small>$</small>
+                                            </span>
+                                        </h3>
+
+                                        <!-- Giá cũ (gạch chéo) -->
+                                        <h3 class="secondary-font text-muted text-decoration-line-through text-danger">
+                                            <span>
+                                                @(product.sellPrice % 1 == 0
+                                                    ? string.Format("{0:N0}", product.sellPrice)
+                                                    : string.Format("{0:N2}", product.sellPrice))<small>$</small>
+                                            </span>
+                                        </h3>
+                                    </div>
+                                }
+
+
+                                <div class="d-flex flex-wrap mt-3">
+
+                                    <a class="btn-wishlist px-4 pt-3 toggle-foodies">
+                                        <iconify-icon icon="fluent:heart-28-filled" class="fs-5" style="color: @(isSaved ? "red" : "rgb(162, 162, 162)")"></iconify-icon>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+</section>
+
+</div>
+<script>
+    $(document).ready(function () {
+        // Sự kiện cho Top Selling
+        $('.toggle-clothing').on('click', function (e) {
+            e.preventDefault();
+
+            var $this = $(this);
+            var icon = $this.find('iconify-icon');
+            var idproduct = $this.closest('.swiper-slide').data('productid'); // Lấy ID sản phẩm trong Top Selling
+
+            // Kiểm tra và gọi ajax cho Top Selling
+            if (idproduct) {
+                $.ajax({
+                    url: '/Product/SaveProduct',
+                    type: 'POST',
+                    data: { idproduct: idproduct },
+                    success: function (response) {
+                        if (response.success) {
+                            alert(response.message);
+                            toggleIconColor(icon, idproduct);
+                        } else if (response.redirectToLogin) {
+                            // Nếu yêu cầu đăng nhập, chuyển hướng tới trang đăng nhập
+                            window.location.href = '/User/Login'; // Đổi đường dẫn theo đường dẫn của trang đăng nhập
+                        }
+                    },
+                    error: function () {
+                        alert('An error occurred while saving the product.');
+                    }
+                });
+            }
+        });
+
+        // Sự kiện cho Pet Foodies
+        $('.toggle-foodies').on('click', function (e) {
+            e.preventDefault();
+
+            var $this = $(this);
+            var icon = $this.find('iconify-icon');
+            var idproduct = $this.closest('.item').data('productid'); // Lấy ID sản phẩm trong Pet Foodies
+
+            // Kiểm tra và gọi ajax cho Pet Foodies
+            if (idproduct) {
+                $.ajax({
+                    url: '/Product/SaveProduct',
+                    type: 'POST',
+                    data: { idproduct: idproduct },
+                    success: function (response) {
+                        if (response.success) {
+                            alert(response.message);
+                            toggleIconColor(icon, idproduct);
+                        } else if (response.redirectToLogin) {
+                            // Nếu yêu cầu đăng nhập, chuyển hướng tới trang đăng nhập
+                            window.location.href = '/User/Login'; // Đổi đường dẫn theo đường dẫn của trang đăng nhập
+                        }
+                    },
+                    error: function () {
+                        alert('An error occurred while saving the product.');
+                    }
+                });
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const categoriesItems = document.querySelectorAll('.categories-item');
+
+        categoriesItems.forEach(item => {
+            item.addEventListener('click', function () {
+                const petName = item.getAttribute('data-pet-name');
+                window.location.href = `/Product/SearchByPet?petId=${petName}`;
+            });
+        });
+    });
+    function toggleIconColor(icon, idproduct) {
+        // Kiểm tra trạng thái của icon, nếu là màu xám thì đổi thành đen, ngược lại thì đổi thành xám
+        var currentColor = icon.css('color');
+        if (currentColor === 'rgb(162, 162, 162)') {
+            icon.css('color', 'red'); // Đã lưu
+        } else {
+            icon.css('color', 'rgb(162, 162, 162)'); // Chưa lưu
+        }
+
+        // Đồng bộ hóa trạng thái cho cả 2 phần "foreach"
+        $('.item[data-productid="' + idproduct + '"] .toggle-foodies iconify-icon').css('color', icon.css('color'));
+        $('.swiper-slide[data-productid="' + idproduct + '"] .toggle-clothing iconify-icon').css('color', icon.css('color'));
+    }
+ 
+</script>
+

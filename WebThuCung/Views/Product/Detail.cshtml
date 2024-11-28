@@ -1,0 +1,311 @@
+﻿
+@model WebThuCung.Dto.ProductViewDto
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_LayoutUsers.cshtml";
+}
+
+<section id="banner" class="py-3" style="background: #F9F3EC;">
+    <div class="container">
+        <div class="hero-content py-5 my-3">
+            <h2 class="display-1 mt-3 mb-0">Single <span class="text-primary">Product</span></h2>
+            <nav class="breadcrumb">
+                <a class="breadcrumb-item nav-link" asp-controller="User" asp-action="Index">Home</a>
+                <span class="breadcrumb-item active" aria-current="page">Detail</span>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section id="selling-product">
+    <div class="container my-md-5 py-5">
+        <div class="row g-md-5">
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- product-large-slider -->
+                        <div class="swiper product-large-slider">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <img src="~/images/@Model.Image" class="img-fluid main-image" alt="@Model.nameProduct" />
+                                    @* <img src="~/images/@Model.Image" data-src="~/images/@Model.Image" class="img-fluid main-image lazyload" alt="@Model.nameProduct" loading="lazy"> *@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-2">
+                        <!-- product-thumbnail-slider -->
+                        <div thumbsSlider="" class="swiper product-thumbnail-slider">
+                            <div class="swiper-wrapper">
+                                @if (Model.ImageProducts.Any())
+                                {
+                                    <!-- Hiển thị hình ảnh từ database -->
+                                    @foreach (var image in Model.ImageProducts.Take(3))
+                                    {
+                                        <div class="swiper-slide">
+                                            <img src="~/images/@image" class="img-fluid thumbnail-image" />
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <!-- Nếu không có hình ảnh, hiển thị hình ảnh mặc định -->
+                                    <div class="swiper-slide">
+                                        <img src="~/images/item1.jpg" class="img-fluid thumbnail-image" />
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-5">
+                <div class="product-info">
+                    <div class="element-header">
+                        <h2 itemprop="name" class="display-6">@Model.nameProduct</h2>
+                        <div class="rating-container d-flex gap-0 align-items-center">
+                           
+                        </div>
+                    </div>
+                    <div class="product-price pt-3 pb-3">
+                     
+                        <!-- Giá đã giảm, nếu có -->
+                        @if (ViewData["DiscountedPrice"] is decimal discountedPrice && discountedPrice < Model.sellPrice)
+                        {
+                            <h3 class="text-muted text-decoration-line-through">
+                                @Model.sellPrice.ToString("C")
+                            </h3>
+
+                            <strong class="text-primary display-6 fw-bold">
+                                @discountedPrice.ToString("C")
+                            </strong>
+                        }
+                        else
+                        {
+                            <!-- Hiển thị giá gốc nếu không có giảm giá -->
+                            <strong class="text-primary display-6 fw-bold">
+                                @Model.sellPrice.ToString("C")
+                            </strong>
+                        }
+                        @if (Model.Discounts.Any())
+                        {
+                            <!-- Hiển thị tối đa 3 khuyến mãi từ danh sách -->
+                            @foreach (var discount in Model.Discounts.Take(1))
+                            {
+                                <span class="product-discount">Giảm @discount%</span> <!-- Tùy chỉnh theo CSS nếu cần -->
+                            }
+                        }
+                        else
+                        {
+                            <!-- Nếu không có khuyến mãi, hiển thị thông báo -->
+                            <span class="product-discount">Không có khuyến mãi</span>
+                        }
+                    </div>
+                    <p>
+                        @Model.Description
+                    </p>
+                    <div class="cart-wrap">
+                        <div class="color-options product-select">
+                            <div class="color-toggle pt-2" data-option-index="0">
+                                <h6 class="item-title fw-bold">Color:</h6>
+                                <ul id="colorList" class="select-list list-unstyled d-flex">
+                                    @if (Model.Sizes.Any())
+                                    {
+                                        @foreach (var color in Model.Colors)
+                                        {
+                                            <li class="select-item pe-3" title="@color">
+                                                <a class="btn btn-light color-item" data-color="@color">@color</a>
+                                            </li>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <!-- Nếu không có kích thước, hiển thị thông báo -->
+                                        <span class="btn btn-light">Màu sắc không có sẵn</span>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="swatch product-select pt-3" data-option-index="1">
+                            <h6 class="item-title fw-bold">Size:</h6>
+                            <ul id="sizeList" class="select-list list-unstyled d-flex">
+                                @if (Model.Sizes.Any())
+                                {
+                                    <!-- Hiển thị tối đa 3 kích thước từ danh sách -->
+                                    @foreach (var size in Model.Sizes.Take(3))
+                                    {
+                                        <li class="select-item pe-3" title="@size">
+                                            <a class="btn btn-light size-item" data-size="@size">@size</a>
+                                        </li>
+                                    }
+                                }
+                                else
+                                {
+                                    <!-- Nếu không có kích thước, hiển thị thông báo -->
+                                    <span class="btn btn-light">Kích thước không có sẵn</span>
+                                }
+                            </ul>
+                        </div>
+                        <div class="product-quantity pt-2">
+                            <div class="stock-number text-dark">
+                                <em>@Model.Quantity in stock</em>
+                            </div>
+                            <div class="stock-button-wrap">
+                                <div class="input-group product-qty align-items-center w-25">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="quantity-left-minus btn btn-light btn-number" data-type="minus">
+                                            <svg width="16" height="16">
+                                                <use xlink:href="#minus"></use>
+                                            </svg>
+                                        </button>
+                                    </span>
+                                    <input type="text" id="quantity" name="quantity" class="form-control input-number text-center p-2 mx-1" value="1">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="quantity-right-plus btn btn-light btn-number" data-type="plus" data-field="">
+                                            <svg width="16" height="16">
+                                                <use xlink:href="#plus"></use>
+                                            </svg>
+                                        </button>
+                                    </span>
+                                </div>
+                                @Html.AntiForgeryToken()
+
+                                <div class="d-flex flex-wrap pt-4">
+                                    <a id="btnAddToCart" class="btn-cart me-3 px-4 pt-3 pb-3"
+                                       data-product-id="@Model.idProduct"
+                                       data-color=""
+                                       data-size="">
+                                        <h5 class="text-uppercase m-0">Add to Cart</h5>
+                                    </a>
+                                    <a class="btn-wishlist px-4 pt-3 ">
+                                        <iconify-icon icon="fluent:heart-28-filled" class="fs-5"></iconify-icon>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="meta-product pt-4">
+                        <div class="meta-item d-flex align-items-baseline">
+                            <h6 class="item-title fw-bold no-margin pe-2">Pet:</h6>
+                            <ul class="select-list list-unstyled d-flex">
+                                <li class="select-item">@Model.namePet</li>
+                            </ul>
+                        </div>
+                        <div class="meta-item d-flex align-items-baseline">
+                            <h6 class="item-title fw-bold no-margin pe-2">Category:</h6>
+                            <ul class="select-list list-unstyled d-flex">
+                                <li class="select-item">
+                                    <a href="#">@Model.nameCategory</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .color-selected {
+        border: 2px solid grey; /* ???ng vi?n màu xanh lam ??m */
+        font-weight: bold; /* T?ng ?? ??m c?a ch? */
+        background-color: #e9ecef; /* Màu n?n nh?t h?n */
+    }
+
+    .size-selected {
+        border: 2px solid grey; /* ???ng vi?n màu xanh lam ??m */
+        font-weight: bold; /* T?ng ?? ??m c?a ch? */
+        background-color: #e9ecef; /* Màu n?n nh?t h?n */
+    }
+</style>
+
+<script>
+        $(document).ready(function () {
+            $('#colorList').on('click', '.color-item', function (e) {
+                e.preventDefault();
+                $('.color-item').removeClass('color-selected');
+                $(this).addClass('color-selected');
+
+                $('#btnAddToCart').data('color', $(this).data('color'));
+            });
+
+        $('#sizeList').on('click', '.size-item', function (e) {
+            e.preventDefault();
+        $('.size-item').removeClass('size-selected');
+        $(this).addClass('size-selected');
+
+        $('#btnAddToCart').data('size', $(this).data('size'));
+            });
+
+        // Add event listener for thumbnail clicks
+        $('.product-thumbnail-slider .thumbnail-image').on('click', function () {
+                var newSrc = $(this).attr('src');
+        $('.product-large-slider .main-image').attr('src', newSrc).css({
+            'width': '80%',
+        'height': 'auto'
+                });
+            });
+
+        $('#btnAddToCart').on('click', function (e) {
+            e.preventDefault();
+        let productId = $(this).data('product-id');
+        let color = $(this).data('color'); // Không gán giá trị mặc định để kiểm tra chính xác
+        let size = $(this).data('size');  // Không gán giá trị mặc định để kiểm tra chính xác
+        let quantity = $('#quantity').val();
+
+        // Kiểm tra nếu chưa chọn color
+        if (!color) {
+            alert("Please select a color before adding the product to the cart.");
+        return; // Dừng lại nếu chưa chọn color
+                }
+
+        // Kiểm tra nếu chưa chọn size
+        if (!size) {
+            alert("Please select a size before adding the product to the cart.");
+        return; // Dừng lại nếu chưa chọn size
+                }
+
+        console.log("ProductId:", productId);
+        console.log("Color:", color);
+        console.log("Size:", size);
+        console.log("Quantity:", quantity);
+
+        $.ajax({
+            url: '/Product/AddToCart',
+        type: 'POST',
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        headers: {
+            'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                    },
+        data: JSON.stringify({
+            ProductId: productId,
+        Color: color,
+        Size: size,
+        Quantity: quantity
+                    }),
+        success: function (response) {
+                        if (response.success) {
+            window.location.href = '/Product/ViewCart';
+                        } else {
+                            if (response.redirectUrl) {
+            window.location.href = response.redirectUrl;
+                            } else {
+            alert("Error adding product to cart: " + response.message);
+                            }
+                        }
+                    },
+        error: function (xhr, status, error) {
+            console.error("Status: ", status);
+        console.error("Error: ", error);
+        console.error("Response Text: ", xhr.responseText);
+        alert("Error adding product to cart.");
+                    }
+                });
+            });
+        });
+</script>
+
+
+

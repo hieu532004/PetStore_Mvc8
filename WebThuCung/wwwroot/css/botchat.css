@@ -1,0 +1,208 @@
+﻿/* Shake animation */
+@keyframes shake {
+    0% {
+        transform: translate(0);
+    }
+
+    25% {
+        transform: translate(-1px, 0);
+    }
+
+    50% {
+        transform: translate(1px, 0);
+    }
+
+    75% {
+        transform: translate(-1px, 0);
+    }
+
+    100% {
+        transform: translate(0);
+    }
+}
+
+.chat-icon.shake {
+    animation: shake 1s infinite;
+ 
+}
+.shake {
+    animation: shake 0s infinite;
+}
+
+/* Chat container and button styling */
+.chat-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Khoảng cách giữa các nút */
+    z-index: 1000;
+}
+
+.chat-button, .social-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.chat-icon, .facebook-icon, zalo-icon {
+    width: 60px;
+    height: 60px;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    left: 15px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+/* Chat window styling */
+.chat-window {
+    display: none;
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    width: 320px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border-radius: 15px; /* Rounded corners */
+    flex-direction: column;
+    overflow: hidden;
+}
+
+    .chat-window.show {
+        display: flex;
+    }
+
+/* Chat header styling */
+.chat-header {
+    background-color: #007bff;
+    color: white;
+    padding: 15px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+    .chat-header h5 {
+        margin: 0;
+        font-size: 16px;
+    }
+
+.close-button {
+    background: none;
+    color: white;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* Chat body styling */
+.chat-body {
+    padding: 10px;
+    flex-grow: 1;
+    max-height: 300px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Bot and user message styling */
+.bot-message, .user-message {
+    padding: 10px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    max-width: 80%;
+    word-wrap: break-word;
+    font-size: 14px;
+}
+
+/* Bot message styles */
+.bot-message {
+    background-color: #f1f1f1;
+    align-self: flex-start;
+    text-align: left;
+    margin-left: 10px;
+}
+
+/* User message styles */
+.user-message {
+    background-color: #dcf8c6;
+    align-self: flex-end;
+    text-align: right;
+    margin-right: 10px;
+}
+
+/* Chat input styling */
+.chat-input {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+    .chat-input input {
+        flex-grow: 1;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        padding: 8px 12px;
+        font-size: 14px;
+        outline: none;
+    }
+
+.send-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 15px;
+    margin-left: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+    .send-button:hover {
+        background-color: #0056b3;
+    }
+/* General styles for the buttons */
+.social-button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+}
+
+/* Default size for icons */
+.facebook-icon, .zalo-icon {
+    width: 60px;
+    height: 60px;
+}
+
+/* Hover effect: "lift" the button and add shadow */
+.social-button:hover {
+    transform: translateY(-10px); /* Move the button upward by 10px */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+}
+
+/* Active effect: Slight downward press */
+.social-button:active {
+    transform: translateY(-5px); /* Move slightly less upward on click */
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15); /* Reduce shadow intensity */
+}

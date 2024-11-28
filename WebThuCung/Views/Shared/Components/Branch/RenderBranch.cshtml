@@ -1,0 +1,5 @@
+﻿@model IEnumerable<Branch>
+@foreach (var Branch in Model)
+{
+    <li class="tags-item"><a data-id="@Branch.idBranch" class="filter-branch">@Branch.nameBranch</a></li>
+}

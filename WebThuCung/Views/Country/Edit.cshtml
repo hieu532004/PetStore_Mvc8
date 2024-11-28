@@ -1,0 +1,66 @@
+﻿@model WebThuCung.Dto.CountryDto
+@{
+    ViewData["Title"] = "Edit Country";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Country" asp-action="Index">Country</a></li>
+                <li class="breadcrumb-item active">Edit</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Edit Country</h5>
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <!-- Edit Country Form -->
+                        <form asp-action="Edit" method="post">
+                            <!-- Country ID (readonly) -->
+                            <div class="row mb-3">
+                                <label for="inputIdCountry" class="col-sm-2 col-form-label">Country ID</label>
+                                <div class="col-sm-10">
+                                    <!-- Display Country ID as read-only -->
+                                    <input type="text" class="form-control" id="inputIdCountry" name="idCountryReadonly" value="@Model.idCountry" readonly />
+
+                                    <!-- Hidden field to pass Country ID -->
+                                    <input type="hidden" name="idCountry" value="@Model.idCountry" />
+
+                                    <span asp-validation-for="idCountry" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <!-- Country Name -->
+                            <div class="row mb-3">
+                                <label for="inputNameCountry" class="col-sm-2 col-form-label">Country Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputNameCountry" name="nameCountry" value="@Model.nameCountry" required />
+                                    <span asp-validation-for="nameCountry" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="row mb-3">
+                                <div class="col-sm-10 offset-sm-2">
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    <a asp-action="Index" class="btn btn-secondary">Back</a>
+                                </div>
+                            </div>
+                         
+                        </form><!-- End Edit Country Form -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

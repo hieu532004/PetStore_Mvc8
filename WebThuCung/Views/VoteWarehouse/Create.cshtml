@@ -1,0 +1,76 @@
+﻿@model WebThuCung.Dto.VoteWarehouseDto
+
+@{
+    ViewData["Title"] = "Create Vote Warehouse";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Create Vote Warehouse</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
+                <li class="breadcrumb-item active"><a asp-controller="VoteWarehouse" asp-action="Index">VoteWareHouse</a></li>
+                <li class="breadcrumb-item active">Create</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Create Vote Warehouse</h5>
+
+                        <!-- Validation Summary -->
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <!-- Create Vote Warehouse Form -->
+                        <form asp-action="Create" method="post">
+                            <!-- Date Entry -->
+                            <div class="row mb-3">
+                                <label asp-for="idVoteWarehouse" class="col-sm-2 col-form-label">VoteWarehouse ID</label>
+                                <div class="col-sm-10">
+                                    <!-- Trường hiển thị ID, chỉ đọc -->
+                                    <input asp-for="idVoteWarehouse" class="form-control" />
+                                    <!-- Hiển thị lỗi nếu có -->
+                                    @* <span asp-validation-for="idSize" class="text-danger"></span> *@
+                                </div>
+                            </div>
+                           
+
+                            <!-- Supplier ID -->
+                            <div class="row mb-3">
+                                <label asp-for="idSupplier" class="col-sm-2 col-form-label">Supplier</label>
+                                <div class="col-sm-10">
+                                    <select asp-for="idSupplier" class="form-control" required>
+                                        <option value="">-- Select Supplier --</option>
+                                        @foreach (var supplier in ViewBag.Suppliers as List<SelectListItem>)
+                                        {
+                                            <option value="@supplier.Value">@supplier.Text</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="idSupplier" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <!-- Quantity -->
+                   
+
+   
+                            <!-- Submit Button -->
+                            <div class="row mb-3">
+                                <div class="col-sm-10 offset-sm-2">
+                                    <button type="submit" class="btn btn-primary">Create Vote Warehouse</button>
+                                    <a asp-action="Index" class="btn btn-secondary">Back</a>
+                                </div>
+                            </div>
+                        </form><!-- End Create Vote Warehouse Form -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main><!-- End #main -->

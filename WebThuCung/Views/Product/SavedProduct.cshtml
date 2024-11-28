@@ -1,0 +1,118 @@
+﻿@model List<WebThuCung.Dto.SaveProductDto>
+@{
+    ViewData["Title"] = "Saved Product";
+    Layout = "~/Views/Shared/_LayoutUsers.cshtml";
+}
+
+<section id="banner" class="py-3" style="background: #F9F3EC;">
+    <div class="container">
+        <div class="hero-content py-5 my-3">
+            <h2 class="display-1 mt-3 mb-0">Wishlist</h2>
+            <nav class="breadcrumb">
+                <a class="breadcrumb-item nav-link" href="#">Home</a>
+                <a class="breadcrumb-item nav-link" href="#">Pages</a>
+                <span class="breadcrumb-item active" aria-current="page">Wishlist</span>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section id="Wishlist" class="py-5 my-5">
+    <div class="container">
+        @if (Model == null || !Model.Any())
+        {
+            <p>@ViewBag.Message</p>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" class="card-title text-uppercase">Product</th>
+                        <th scope="col" class="card-title text-uppercase">Unit Price</th>
+                        <th scope="col" class="card-title text-uppercase">Stock Status</th>
+                        <th scope="col" class="card-title text-uppercase"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="py-4">
+                                <div class="cart-info d-flex flex-wrap align-items-center">
+                                    <div class="col-lg-3">
+                                        <div class="card-image">
+                                            <a asp-controller ="Product" asp-action="Detail" asp-route-id="@item.idProduct">
+                                            <img  src="~/images/@item.Image" alt="@item.nameProduct" class="img-fluid">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <div class="card-detail ps-3">
+                                            <h5 class="card-title">
+                                                <a href="@Url.Action("Detail", "Product", new { id = item.idProduct })" class="text-decoration-none">@item.nameProduct</a>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-4 align-middle">
+                                <div class="total-price">
+                                    <span class="secondary-font fw-medium">
+                                        @item.DiscountedPrice.ToString("C") <!-- Hiển thị giá đã chiết khấu -->
+                                    </span>
+                                </div>
+                            </td>
+                            <td class="py-4 align-middle">
+                                <div class="total-price">
+                                    <span class="secondary-font fw-medium">@((item.Quantity > 0) ? "In Stock" : "Out of Stock")</span>
+                                </div>
+                            </td>
+                            <td class="py-4 align-middle">
+                                <div class="d-flex align-items-center">
+                                    <div class="cart-remove">
+                                        <a class="delete-saved-product" data-productid="@item.idProduct">
+                                            <svg width="24" height="24">
+                                                <use xlink:href="#trash"></use>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        // Khi người dùng nhấn vào nút "Delete"
+        $('.delete-saved-product').on('click', function (e) {
+            e.preventDefault(); // Ngăn trang load lại
+
+            var productId = $(this).data('productid'); // Lấy jobId từ thuộc tính data-jobid
+
+            if (confirm('Are you sure you want to delete this saved product?')) {
+                $.ajax({
+                    url: '/Product/DeleteSaveProduct', // Gửi yêu cầu đến action controller
+                    type: 'POST',
+                    data: { productId: productId }, // Truyền jobId đến controller
+                    success: function (response) {
+                        if (response.success) {
+                           
+                            location.reload(); // Tải lại trang để cập nhật danh sách
+                        } else {
+                            alert(response.message); // Hiển thị thông báo lỗi
+                        }
+                    },
+                    error: function () {
+                        alert('An error occurred while deleting the job.'); // Thông báo khi gặp lỗi
+                    }
+                });
+            }
+        });
+    });
+</script>

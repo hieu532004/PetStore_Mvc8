@@ -1,0 +1,70 @@
+﻿@model WebThuCung.Dto.WardDto 
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Ward" asp-action="Index">Ward</a></li>
+                <li class="breadcrumb-item active">Create</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Create New Ward</h5>
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <form asp-action="Create" method="post">
+                            <div class="row mb-3">
+                                <label for="inputIdWard" class="col-sm-2 col-form-label">Ward ID</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputIdWard" name="idWard" required />
+                                    <span asp-validation-for="idWard" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="inputNameWard" class="col-sm-2 col-form-label">Ward Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputNameWard" name="nameWard" required />
+                                    <span asp-validation-for="nameWard" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="inputDistrict" class="col-sm-2 col-form-label">District</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" id="inputDistrict" name="idDistrict" required>
+                                        <option value="">-- Select District --</option>
+                                        @foreach (var district in ViewBag.Districts)
+                                        {
+                                            <option value="@district.Value">@district.Text</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="idDistrict" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-sm-10 offset-sm-2">
+                                    <button type="submit" class="btn btn-primary">Create</button>
+                                    <a asp-action="Index" class="btn btn-secondary">Back</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

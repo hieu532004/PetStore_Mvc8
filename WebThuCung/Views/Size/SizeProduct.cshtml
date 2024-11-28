@@ -1,0 +1,83 @@
+﻿@model IEnumerable<WebThuCung.Models.ProductSize> 
+
+@{
+    ViewData["Title"] = "Size List";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Size List for Product</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Product" asp-action="Index">Product</a></li>
+                <li class="breadcrumb-item active">Sizes</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Size List</h5>
+
+                        <div class="mb-3">
+                            <a asp-action="CreateSizeProduct" asp-route-id="@ViewBag.ProductId" class="btn btn-primary">
+                                <i class="bi bi-plus-circle"></i> Add New Size
+                            </a>
+
+                        </div>
+                        
+                        <!-- Table with stripped rows -->
+                        <table class="table datatable">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Size</th>
+                                
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    foreach (var size in Model)
+                                    {
+                                        <tr>
+                                            <td>@size.Product.nameProduct</td> <!-- Display the product name -->
+                                            <td>@size.Size.nameSize</td> <!-- Display the size name -->
+
+                                            <!-- Edit Button -->
+                                         
+                                            <!-- Delete Button -->
+                                            <td>
+                                                <form asp-action="DeleteProductSize" method="post" style="display:inline;">
+                                                    <input type="hidden" name="idProduct" value="@size.idProduct" />
+                                                    <input type="hidden" name="idSize" value="@size.idSize" />
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this size?');">Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="4" class="text-center">No sizes found.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                 
+                              
+                         <a  asp-controller="Product" asp-action="Index" class="btn btn-secondary">Back</a>
+                   
+                        <!-- End Table with stripped rows -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main><!-- End #main -->

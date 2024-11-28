@@ -1,0 +1,288 @@
+﻿@model IEnumerable<WebThuCung.Dto.ProductViewDto>
+
+@{
+    ViewData["Title"] = "Shop";
+    Layout = "~/Views/Shared/_LayoutUsers.cshtml";
+}
+
+<section id="banner" class="py-3" style="background: #F9F3EC;">
+    <div class="container">
+        <div class="hero-content py-5 my-3">
+            <h2 class="display-1 mt-3 mb-0">Cửa hàng</h2>
+            <nav class="breadcrumb">
+                <a class="breadcrumb-item nav-link" asp-controller="User" asp-action="Index">Trang chủ</a>
+                <span class="breadcrumb-item active" aria-current="page">Cửa hàng</span>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<div class="shopify-grid">
+    <div class="container py-5 my-5">
+        <div class="row flex-md-row-reverse g-md-5 mb-5">
+            <main class="col-md-9">
+                <div id="product-list" class="product-grid row ">
+                    @foreach (var product in Model)
+                    {
+                        bool isSaved = ViewBag.SavedProductIds != null &&
+                        ViewBag.SavedProductIds.Contains(product.idProduct);
+
+                        <div class="col-md-4 my-4" data-productid="@product.idProduct">
+                            <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
+                                @if (product.DiscountPercent > 0)
+                                {
+                                    <div style="color: red;">
+                                        @product.DiscountPercent% OFF
+                                    </div>
+                                }
+                            </div>
+                            <div class="card position-relative">
+                                <a asp-controller="Product" asp-action="Detail" asp-route-id="@product.idProduct">
+                                    <img src="~/images/@product.Image" class="img-fluid rounded-4" alt="image">
+                                </a>
+                                <div class="card-body p-0">
+                                    <a href="single-product.html">
+                                        <h3 class="card-title pt-4 m-0">@product.nameProduct</h3>
+                                    </a>
+                                    <div class="card-text">
+
+                                        @if (product.sellPrice == product.DiscountedPrice)
+                                        {
+                                            <div class="price-container d-flex align-items-center">
+                                                <h3 class="secondary-font text-primary me-3">
+                                                    <span>
+                                                        @(product.sellPrice % 1 == 0
+                                                            ? string.Format("{0:N0}", product.sellPrice)
+                                                            : string.Format("{0:N2}", product.sellPrice))<small>$</small>
+                                                    </span>
+                                                </h3>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="price-container d-flex align-items-center">
+                                                <!-- Giá giảm -->
+                                                <h3 class="secondary-font text-primary me-3">
+                                                    <span>
+                                                        @(product.DiscountedPrice % 1 == 0
+                                                            ? string.Format("{0:N0}", product.DiscountedPrice)
+                                                            : string.Format("{0:N2}", product.DiscountedPrice))<small>$</small>
+                                                    </span>
+                                                </h3>
+
+                                                <!-- Giá cũ (gạch chéo) -->
+                                                <h3 class="secondary-font text-muted text-decoration-line-through text-danger">
+                                                    <span>
+                                                        @(product.sellPrice % 1 == 0
+                                                            ? string.Format("{0:N0}", product.sellPrice)
+                                                            : string.Format("{0:N2}", product.sellPrice))<small>$</small>
+                                                    </span>
+                                                </h3>
+                                            </div>
+                                        }
+
+                                        <div class="d-flex flex-wrap mt-3">
+                                            <a href="#" class="btn-cart me-3 px-4 pt-3 pb-3">
+                                                <h5 class="text-uppercase m-0">Add to Cart</h5>
+                                            </a>
+                                            <a class="btn-wishlist px-4 pt-3 toggle">
+                                                <iconify-icon icon="fluent:heart-28-filled" class="fs-5" style="color: @(isSaved ? "red" : "rgb(162, 162, 162)")"></iconify-icon>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!-- Phân trang -->
+               
+            </main>
+
+            <aside class="col-md-3 mt-5">
+                <div class="sidebar">
+                    <div class="widget-menu">
+                        <div class="widget-search-bar">
+                            <div class="search-bar border rounded-2 border-dark-subtle pe-3">
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-product-categories pt-5">
+                        <h4 class="widget-title"><b>Danh mục</b></h4>
+                        <ul class="product-categories sidebar-list list-unstyled">
+                            <li class="cat-item"><a href="/collections/categories">All</a></li>
+                            @await Component.InvokeAsync("CategoryShop")
+                        </ul>
+                    </div>
+
+                    <div class="widget-product-tags pt-3">
+                        <h4 class="widget-title"><b>Loại</b></h4>
+                        <ul class="product-tags sidebar-list list-unstyled">
+                            @await Component.InvokeAsync("Pet")
+                        </ul>
+                    </div>
+
+                    <div class="widget-product-brands pt-3">
+                        <h4 class="widget-title"><b>Chi nhánh</b></h4>
+                        <ul class="product-tags sidebar-list list-unstyled">
+                            @await Component.InvokeAsync("Branch")
+                        </ul>
+                    </div>
+                    <div class="widget-price-filter pt-3">
+                        <h4 class="widget-title"><b>Lọc theo giá</b></h4>
+                        <ul class="product-tags sidebar-list list-unstyled">
+                            <li class="tags-item">
+                                <a href="#" class="nav-link filter-price" data-min="0" data-max="10000">Less than 10000Đ</a>
+                            </li>
+                            <li class="tags-item">
+                                <a href="#" class="nav-link filter-price" data-min="10000" data-max="20000">10000Đ - 20000Đ</a>
+                            </li>
+                            <li class="tags-item">
+                                <a href="#" class="nav-link filter-price" data-min="20000" data-max="100000">20000Đ - 100000Đ</a>
+                            </li>
+                            <li class="tags-item">
+                                <a href="#" class="nav-link filter-price" data-min="100000" data-max="300000">100000Đ - 300000Đ</a>
+                            </li>
+                            <li class="tags-item">
+                                <a href="#" class="nav-link filter-price" data-min="300000">Greater than 300000Đ</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </aside>
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style>
+    .pagination .current {
+        font-weight: bold; /* Chữ đậm hơn */
+        color: #ffffff; /* Màu chữ */
+        background-color: #007bff; /* Màu nền nổi bật */
+        border-radius: 4px; /* Bo góc */
+    }
+
+    .pagination a {
+        color: #007bff; /* Màu chữ mặc định */
+        text-decoration: none; /* Bỏ gạch chân */
+    }
+
+        .pagination a:hover {
+            text-decoration: underline; /* Gạch chân khi hover */
+        }
+</style>
+
+<script>
+    $(document).ready(function () {
+        let selectedCategoryId = "";
+        let selectedBranchId = "";
+        let selectedPetId = "";
+        let selectedMinPrice = null;
+        let selectedMaxPrice = null;
+        let currentPage = 1; // Khởi tạo trang hiện tại
+
+        // Hàm gọi Ajax để lọc sản phẩm
+        function searchProducts(page = 1) {
+            $.ajax({
+                url: '@Url.Action("FilterProducts", "Product")',
+                type: 'GET',
+                data: {
+                    categoryId: selectedCategoryId,
+                    branchId: selectedBranchId,
+                    petId: selectedPetId,
+                    minPrice: selectedMinPrice,
+                    maxPrice: selectedMaxPrice,
+                    page: page // Gửi số trang hiện tại
+                },
+                success: function (result) {
+                    $('#product-list').html(result); // Cập nhật danh sách sản phẩm
+                    updatePagination(page); // Cập nhật phân trang
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        }
+
+        // Cập nhật phân trang
+      
+
+        // Xử lý nhấp vào danh mục
+        $(document).on('click', '.filter-category', function (e) {
+            e.preventDefault();
+            selectedCategoryId = $(this).data('id');
+            searchProducts(); // Tìm kiếm sản phẩm khi thay đổi danh mục
+        });
+
+        // Xử lý nhấp vào thương hiệu
+        $(document).on('click', '.filter-branch', function (e) {
+            e.preventDefault();
+            selectedBranchId = $(this).data('id');
+            searchProducts(); // Tìm kiếm sản phẩm khi thay đổi thương hiệu
+        });
+
+        // Xử lý nhấp vào thú cưng
+        $(document).on('click', '.filter-pet', function (e) {
+            e.preventDefault();
+            selectedPetId = $(this).data('id');
+            searchProducts(); // Tìm kiếm sản phẩm khi thay đổi thú cưng
+        });
+
+        // Xử lý nhấp vào lọc giá
+        $(document).on('click', '.filter-price', function (e) {
+            e.preventDefault();
+            selectedMinPrice = $(this).data('min') || null;
+            selectedMaxPrice = $(this).data('max') || null;
+            searchProducts(); // Tìm kiếm sản phẩm khi thay đổi giá
+        });
+        function updatePagination(page) {
+            $('.pagination-arrow[data-page="' + (page - 1) + '"]').toggle(page > 1); // Ẩn hiện nút quay lại
+            $('.pagination-arrow[data-page="' + (page + 1) + '"]').toggle(page < @ViewBag.TotalPages); // Ẩn hiện nút tiếp theo
+            $('.page-numbers').removeClass('current'); // Xóa lớp current
+            $('.page-numbers[data-page="' + page + '"]').addClass('current'); // Thêm lớp current cho trang hiện tại
+        }
+        // Xử lý phân trang
+        $(document).on('click', '.pagination-arrow, .page-numbers', function (e) {
+            e.preventDefault();
+            let page = $(this).data('page'); // Lấy số trang từ thuộc tính data-page
+            currentPage = page; // Cập nhật trang hiện tại
+            searchProducts(currentPage); // Tìm kiếm sản phẩm theo trang
+        });
+
+
+        $(document).on('click', '.toggle', function (e) {
+            e.preventDefault(); // Ngăn trang tải lại
+
+            var $this = $(this); // Phần tử được nhấn
+            var icon = $this.find('iconify-icon'); // Tìm phần tử icon bên trong .toggle
+            var idproduct = $this.closest('[data-productid]').data('productid'); // Lấy ID sản phẩm
+
+            $.ajax({
+                url: '/Product/SaveProduct', // Đường dẫn đến action lưu sản phẩm
+                type: 'POST',
+                data: { idproduct: idproduct },
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message); // Hiển thị thông báo từ phản hồi
+
+                        // Thay đổi màu sắc dựa trên trạng thái sản phẩm
+                        icon.css('color', icon.css('color') === 'rgb(162, 162, 162)' ? 'red' : 'rgb(162, 162, 162)');
+                    } else if (response.redirectToLogin) {
+                        // Nếu yêu cầu đăng nhập, chuyển hướng tới trang đăng nhập
+                        window.location.href = '/User/Login'; // Đổi đường dẫn theo đường dẫn của trang đăng nhập
+                    }
+                },
+                error: function () {
+                    alert('An error occurred while saving the product.');
+                }
+            });
+        });
+
+        // Tìm kiếm sản phẩm khi trang được tải
+        searchProducts(currentPage);
+    });
+</script>

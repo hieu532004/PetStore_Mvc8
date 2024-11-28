@@ -1,0 +1,5 @@
+﻿@model IEnumerable<Pet>
+@foreach (var Pet in Model)
+{
+    <li class="cat-item"><a data-id="@Pet.idPet" class="filter-pet">@Pet.namePet</a></li>
+}

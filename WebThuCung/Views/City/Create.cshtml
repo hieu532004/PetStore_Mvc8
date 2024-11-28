@@ -1,0 +1,64 @@
+﻿@model WebThuCung.Dto.CityDto
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
+                <li class="breadcrumb-item"><a asp-controller="City" asp-action="Index">City</a></li>
+                <li class="breadcrumb-item active">Create</li>
+            </ol>
+        </nav>
+    </div>
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Create</h5>
+                        <form asp-action="Create" method="post">
+                            <div class="row mb-3">
+                                <label for="inputIdCity" class="col-sm-2 col-form-label">City ID</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputIdCity" name="idCity" value="@Model.idCity" @(Model.idCity == null ? "" : "readonly") />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="inputNameCity" class="col-sm-2 col-form-label">City Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputNameCity" name="nameCity" value="@Model.nameCity" required />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="inputCountry" class="col-sm-2 col-form-label">Country</label>
+                                <div class="col-sm-10">
+                                    <select id="inputCountry" class="form-control" name="idCountry" required>
+                                        <option value="">Select a Country</option>
+                                        @foreach (var country in (IEnumerable<SelectListItem>)ViewBag.Countries)
+                                        {
+                                            <option value="@country.Value">@country.Text</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-10 offset-sm-2">
+                                    <button type="submit" class="btn btn-primary">Create</button>
+                                    <a asp-action="Index" class="btn btn-secondary">Back</a>
+                                </div>
+                            </div>
+                 
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

@@ -1,0 +1,115 @@
+﻿
+@{
+    ViewData["Title"] = "ConfirmOtp";
+    Layout = "~/Views/Shared/_LayoutUsers.cshtml";
+}
+@model WebThuCung.Dto.ConfirmOtpDto
+
+<h2 class="text-center mb-4">Xác nhận mã OTP</h2>
+<form asp-action="ConfirmOtp" method="post" class="my-custom-form">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group text-center">
+        <label for="otp">Nhập mã OTP</label>
+        <div class="otp-inputs">
+            <input type="text" name="Otp1" class="otp-input" maxlength="1" required onkeydown="handleKeyDown(event, this)" onfocus="clearInput(this)" />
+            <input type="text" name="Otp2" class="otp-input" maxlength="1" required onkeydown="handleKeyDown(event, this)" onfocus="clearInput(this)" />
+            <input type="text" name="Otp3" class="otp-input" maxlength="1" required onkeydown="handleKeyDown(event, this)" onfocus="clearInput(this)" />
+            <input type="text" name="Otp4" class="otp-input" maxlength="1" required onkeydown="handleKeyDown(event, this)" onfocus="clearInput(this)" />
+            <input type="text" name="Otp5" class="otp-input" maxlength="1" required onkeydown="handleKeyDown(event, this)" onfocus="clearInput(this)" />
+            <input type="text" name="Otp6" class="otp-input" maxlength="1" required onkeydown="handleKeyDown(event, this)" onfocus="clearInput(this)" />
+        </div>
+        <span asp-validation-for="Otp" class="text-danger"></span>
+    </div>
+
+    <input type="hidden" name="Email" value="@Model.Email" />
+
+    <div class="text-center mt-4">
+        <button type="submit" class="btn btn-primary">Xác nhận</button>
+    </div>
+</form>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const otpInputs = document.querySelectorAll('.otp-input');
+
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('input', function () {
+                // Nếu có giá trị, chuyển đến ô nhập tiếp theo
+                if (this.value.length === 1 && index < otpInputs.length - 1) {
+                    otpInputs[index + 1].focus(); // Chuyển đến ô tiếp theo
+                } else if (this.value.length === 0 && index > 0) {
+                    // Nếu ô nhập hiện tại bị xóa, quay lại ô trước đó
+                    otpInputs[index - 1].focus();
+                }
+            });
+        });
+    });
+    function clearInput(input) {
+        input.value = ''; // Xóa giá trị khi trường được chọn
+    }
+
+    function handleKeyDown(event, input) {
+        // Lấy tất cả các trường OTP
+        const inputs = document.querySelectorAll('.otp-input');
+        const currentIndex = Array.prototype.indexOf.call(inputs, input);
+
+        // Di chuyển tiêu điểm theo các phím mũi tên
+        if (event.key === 'ArrowRight') {
+            if (currentIndex < inputs.length - 1) {
+                inputs[currentIndex + 1].focus(); // Di chuyển sang trường bên phải
+            }
+        } else if (event.key === 'ArrowLeft') {
+            if (currentIndex > 0) {
+                inputs[currentIndex - 1].focus(); // Di chuyển sang trường bên trái
+            }
+        }
+
+        // Kiểm tra xem phím nhấn có phải là Backspace hoặc Delete
+        if (event.key === 'Backspace' || event.key === 'Delete') {
+            // Nếu trường hiện tại rỗng, di chuyển đến trường trước đó
+            if (input.value === '') {
+                for (let i = 0; i < inputs.length; i++) {
+                    if (inputs[i] === input && i > 0) {
+                        inputs[i - 1].focus(); // Đặt tiêu điểm vào trường trước
+                        break;
+                    }
+                }
+            } else {
+                input.value = ''; // Nếu trường không rỗng, xóa giá trị trong trường hiện tại
+            }
+        }
+    }
+</script>
+
+
+<style>
+    .my-custom-form {
+        margin-top: 100px; /* Khoảng cách trên */
+        margin-bottom: 100px; /* Khoảng cách dưới */
+    }
+
+    .otp-inputs {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px; /* Khoảng cách giữa label và ô nhập */
+    }
+
+    .otp-input {
+        width: 50px; /* Độ rộng của mỗi ô */
+        height: 50px; /* Chiều cao của mỗi ô */
+        font-size: 24px; /* Kích thước chữ trong ô */
+        text-align: center; /* Căn giữa nội dung */
+        margin: 0 5px; /* Khoảng cách giữa các ô */
+        border: 2px solid #ccc; /* Đường viền của ô */
+        border-radius: 5px; /* Bo tròn các góc */
+        transition: border-color 0.3s; /* Hiệu ứng chuyển tiếp cho đường viền */
+    }
+
+        .otp-input:focus {
+            outline: none; /* Ẩn viền mặc định */
+            border-color: #007bff; /* Đổi màu viền khi ô được chọn */
+        }
+
+</style>

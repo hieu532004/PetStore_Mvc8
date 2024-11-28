@@ -1,0 +1,37 @@
+﻿/* Style for the input */
+.search-bar {
+    position: relative; /* To position the pseudo-element */
+}
+
+/* Style for the animated placeholder */
+#search-input {
+    position: relative;
+    color: transparent; /* Hide the actual text */
+}
+
+    #search-input::placeholder {
+        color: transparent; /* Hide the placeholder */
+        opacity: 0; /* Start with invisible placeholder */
+    }
+
+@keyframes placeholderAnimation {
+    0%, 20% {
+        opacity: 0; /* Start invisible */
+        color: transparent; /* Placeholder text color hidden */
+    }
+
+    50% {
+        opacity: 1; /* Fully visible */
+        color: black; /* Actual placeholder text color */
+    }
+
+    80%, 100% {
+        opacity: 0; /* Fade out */
+        color: transparent; /* Placeholder text color hidden */
+    }
+}
+
+/* This class applies the animation */
+.animate-placeholder::placeholder {
+    animation: placeholderAnimation 4s ease-in-out infinite; /* Change duration as needed */
+}
