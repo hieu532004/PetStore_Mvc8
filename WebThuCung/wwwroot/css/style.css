@@ -86,6 +86,29 @@ CSS STRUCTURE:
   --header-height: 160px;
   --header-height-min: 80px;
 }
+  #clothing {
+        position: relative;
+        background-image: url('https://img.tripi.vn/cdn-cgi/image/width=700,height=700/https://gcs.tripi.vn/public-tripi/tripi-feed/img/474091BnW/hinh-nen-thu-cung-cute_014119974.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        
+    }
+
+        #clothing::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: inherit; /* Dùng lại ảnh nền */
+            background-size: inherit;
+            background-position: inherit;
+            background-repeat: inherit;
+            filter: blur(8px); /* Hiệu ứng làm mờ */
+            z-index: -1; /* Đưa lớp mờ xuống dưới nội dung */
+        }
 
 /* on mobile devices below 600px
  */

@@ -8,10 +8,10 @@
 <section id="banner" class="py-3" style="background: #F9F3EC;">
     <div class="container">
         <div class="hero-content py-5 my-3">
-            <h2 class="display-1 mt-3 mb-0">Order</h2>
+            <h2 class="display-1 mt-3 mb-0">Đơn hàng</h2>
             <nav class="breadcrumb">
-                <a class="breadcrumb-item nav-link" asp-controller="User" asp-action="Index">Home</a>
-                <span class="breadcrumb-item active" aria-current="page">MyOrder</span>
+                <a class="breadcrumb-item nav-link" asp-controller="User" asp-action="Index">Trang chủ</a>
+                <span class="breadcrumb-item active" aria-current="page">Đơn hàng</span>
             </nav>
         </div>
     </div>
@@ -20,19 +20,19 @@
     <div class="container">
         <ul class="nav nav-pills mb-4">
             <li class="nav-item">
-                <a class="nav-link " asp-action="ViewCart">View Cart</a>
+                <a class="nav-link " asp-action="ViewCart">Xem giỏ hàng</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " asp-action="MyOrderPending">Order Pending</a>
+                <a class="nav-link " asp-action="MyOrderPending">Chờ xử lí</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " asp-action="MyOrderAccept">Order Accepted</a>
+                <a class="nav-link " asp-action="MyOrderAccept">Đã xác nhận</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " asp-action="MyOrderComplete">Order Completed</a>
+                <a class="nav-link " asp-action="MyOrderComplete">Đã hoàn thành</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" asp-action="MyOrderRefun">Order Refuned</a>
+                <a class="nav-link active" asp-action="MyOrderRefun">Hoàn trả</a>
             </li>
           
         </ul>
@@ -179,7 +179,7 @@
     }
 
         .nav-pills .nav-link.active {
-            background-color: #007bff; /* Màu nền cho liên kết đang hoạt động */
+            background-color: #ff8500b3; /* Màu nền cho liên kết đang hoạt động */
             color: white; /* Màu chữ cho liên kết đang hoạt động */
         }
 

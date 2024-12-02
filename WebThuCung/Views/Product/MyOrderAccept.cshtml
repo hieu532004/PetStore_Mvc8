@@ -8,10 +8,10 @@
 <section id="banner" class="py-3" style="background: #F9F3EC;">
     <div class="container">
         <div class="hero-content py-5 my-3">
-            <h2 class="display-1 mt-3 mb-0">Order</h2>
+            <h2 class="display-1 mt-3 mb-0">Đơn hàng</h2>
             <nav class="breadcrumb">
-                <a class="breadcrumb-item nav-link" asp-controller="User" asp-action="Index">Home</a>
-                <span class="breadcrumb-item active" aria-current="page">MyOrder</span>
+                <a class="breadcrumb-item nav-link" asp-controller="User" asp-action="Index">Trang chủ</a>
+                <span class="breadcrumb-item active" aria-current="page">Đơn hàng</span>
             </nav>
         </div>
     </div>
@@ -20,19 +20,19 @@
     <div class="container">
         <ul class="nav nav-pills mb-4">
             <li class="nav-item">
-                <a class="nav-link " asp-action="ViewCart">View Cart</a>
+                <a class="nav-link " asp-action="ViewCart">Xem giỏ Hàng</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " asp-action="MyOrderPending">Order Pending</a>
+                <a class="nav-link " asp-action="MyOrderPending">Chờ xử lí</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" asp-action="MyOrderAccept">Order Accepted</a>
+                <a class="nav-link active" asp-action="MyOrderAccept">Đã xác nhận</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " asp-action="MyOrderComplete">Order Completed</a>
+                <a class="nav-link " asp-action="MyOrderComplete">Đã hoàn thành</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " asp-action="MyOrderRefun">Order Refuned</a>
+                <a class="nav-link " asp-action="MyOrderRefun">Hoàn trả</a>
             </li>
            
         </ul>
@@ -76,7 +76,7 @@
                             <p>Trạng thái thanh toán: <strong>@transaction.Order.statusPay</strong></p> <!-- Hiển thị thông báo đã thanh toán -->
                         </div>
                         <div class="info-item">
-                            <button type="button" class="btn btn-danger btn-sm" onclick="refundOrder('@transaction.Order.idOrder')">Refund</button>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="refundOrder('@transaction.Order.idOrder')">Hoàn trả</button>
                         </div>
                     }
                     else if (transaction.Order.statusPay != PaymentStatus.Refunded) // Kiểm tra trạng thái thanh toán
@@ -102,9 +102,9 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col">Sản phẩm</th>
-                                    <th scope="col">Số lượng</th>
-                                    <th scope="col">Thành tiền</th>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Total</th>
                                     <th scope="col"></th>
                                 </tr>
                             </thead>

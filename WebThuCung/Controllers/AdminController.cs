@@ -142,34 +142,7 @@ namespace WebThuCung.Controllers
             return customer?.idCustomer ?? 0;
         }
 
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult SaveAvatar(AdminDto adminDto)
-        {
-            if (ModelState.IsValid)
-            {
-                var  AdminId = GetAdminIdFromSession();
-                var existingAdmin = _context.Admins.Find(AdminId);
-                if (existingAdmin == null) return NotFound();
-
-                // Upload avatar nếu có file mới, nếu không giữ nguyên
-                if (adminDto.Avatar != null && adminDto.Avatar.Length > 0)
-                {
-
-
-                    existingAdmin.Avatar = adminDto.Avatar.FileName; // Cập nhật tên hình đại diện
-                }
-
-
-                _context.Admins.Update(existingAdmin);
-                _context.SaveChangesAsync();
-
-                return RedirectToAction("Profile");
-            }
-
-            return View("Profile");
-        }
+ 
         private SalesViewDto GetSalesData(string period)
         {
             // Lấy ngày hôm nay
@@ -720,7 +693,7 @@ decimal totalRevenueLastMonth = ordersLastMonth
             return View(admin); // Trả về View Profiler với model là thông tin người dùng
         }
         [HttpGet]
-        public IActionResult EditProfilePartial()
+        public IActionResult EditProfile()
         {
             var idAdmin = GetAdminIdFromSession();
             if (string.IsNullOrEmpty(idAdmin))
@@ -734,16 +707,20 @@ decimal totalRevenueLastMonth = ordersLastMonth
                 TempData["error"] = "Không tìm thấy thông tin người dùng.";
                 return RedirectToAction("Index", "Home");
             }
+
             var adminDto = new AdminDto
             {
-                Name = admin.Name,  
+                Name = admin.Name,
                 Address = admin.Address,
                 Phone = admin.Phone,
                 Email = admin.Email,
-               
+                AvatarUrl = admin.Avatar
             };
-            return PartialView("ProfileEdit", adminDto);
+
+            // Trả về View thay vì PartialView
+            return View( adminDto);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult EditProfile(AdminDto model)
@@ -761,35 +738,48 @@ decimal totalRevenueLastMonth = ordersLastMonth
                 return RedirectToAction("Index", "Home");
             }
 
-
             // Cập nhật thông tin từ model, giữ nguyên giá trị cũ nếu giá trị mới là null
             admin.Name = model.Name ?? admin.Name;
             admin.Address = model.Address ?? admin.Address;
             admin.Phone = model.Phone ?? admin.Phone;
             admin.Email = model.Email ?? admin.Email;
 
-            // Nếu cần cập nhật thêm các thông tin khác
-            // admin.OtherProperty = model.OtherProperty ?? admin.OtherProperty;
+            // Upload avatar nếu có file mới, nếu không giữ nguyên
+            if (model.Avatar != null && model.Avatar.Length > 0)
+            {
+                // Lưu avatar
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "admin","img", model.Avatar.FileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.Avatar.CopyTo(stream);
+                }
 
+                // Cập nhật tên file avatar trong cơ sở dữ liệu
+                admin.Avatar = model.Avatar.FileName;
+            }
+
+            // Cập nhật thông tin khác của Admin (nếu cần)
             _context.SaveChanges(); // Lưu thay đổi vào cơ sở dữ liệu
 
-            TempData["success"] = "Cập nhật thông tin thành công.";
+            TempData["success"] = "Cập nhật thông tin và avatar thành công.";
 
             var updatedAdminDto = new AdminDto
-            {          
+            {
                 Name = admin.Name,
                 Address = admin.Address,
                 Phone = admin.Phone,
-                Email = admin.Email
+                Email = admin.Email,
+                AvatarUrl = admin.Avatar // Thêm đường dẫn ảnh vào model DTO
             };
 
             // Trả về `PartialView` với `AdminDto` sau khi cập nhật
-            return PartialView("ProfileEdit", updatedAdminDto);
+            return PartialView("EditProfile", updatedAdminDto);
         }
 
-       
 
-       
+
+
+
 
     }
 }

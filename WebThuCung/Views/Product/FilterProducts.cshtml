@@ -1,5 +1,13 @@
 ﻿@model IEnumerable<WebThuCung.Dto.ProductViewDto>
 
+    @if (Model == null || !Model.Any())
+{
+    <div class="col-12 text-center my-5">
+        <h3 class="text-muted">Không có sản phẩm nào được tìm thấy.</h3>
+    </div>
+}
+else
+{
 @foreach (var product in Model)
 {
     bool isSaved = ViewBag.SavedProductIds != null &&
@@ -19,7 +27,7 @@
                 <img src="~/images/@product.Image" class="img-fluid rounded-4" alt="image">
             </a>
             <div class="card-body p-0">
-                <a href="single-product.html">
+                <a asp-controller="Product" asp-action="Detail" asp-route-id="@product.idProduct">
                     <h3 class="card-title pt-4 m-0">@product.nameProduct</h3>
                 </a>
                 <div class="card-text">
@@ -71,6 +79,7 @@
             </div>
         </div>
     </div>
+}
 }
 <!-- Phân trang -->
 <nav class="navigation paging-navigation text-center mt-5" role="navigation">

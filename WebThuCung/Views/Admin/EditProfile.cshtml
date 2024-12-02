@@ -1,4 +1,4 @@
-﻿@model Admin
+﻿@model WebThuCung.Dto.AdminDto
 
 @{
     ViewData["Title"] = "Profile";
@@ -23,7 +23,7 @@
             <div class="card">
                 <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
                     <!-- Ảnh hồ sơ -->
-                    <img id="imagePreview" src="~/admin/img/@Model.Avatar" alt="Profile" class="rounded-circle" style="width:150px; height:150px; object-fit:cover;" onclick="openMo(); return false;" />
+                    <img id="imagePreview" src="~/admin/img/@Model.AvatarUrl" alt="Profile" class="rounded-circle" style="width:150px; height:150px; object-fit:cover;" onclick="openMo(); return false;" />
 
                     <!-- Thông tin tên và chức vụ -->
                     <h2>@Model.userAdmin</h2>
@@ -47,44 +47,62 @@
                     <!-- Bordered Tabs -->
                     <ul class="nav nav-tabs nav-tabs-bordered">
                         <li class="nav-item">
-                            <a class="nav-link active"  asp-controller="Admin" asp-action="Profile">Overview</a>
+                            <a class="nav-link " asp-controller="Admin" asp-action="Profile">Overview</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link"  asp-controller="Admin" asp-action="EditProfile">Edit Profile</a>
+                            <a class="nav-link active" asp-controller="Admin" asp-action="EditProfile">Edit Profile</a>
                         </li>
-                      
+
                     </ul>
-
                     <div class="tab-content pt-2">
-                       
-                            <div id="content-container">
-                            <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                                <h5 class="card-title">About</h5>
-                                <p class="small fst-italic"></p>
 
-                                <h5 class="card-title">Profile Details</h5>
+                        <div id="content-container">
+                            <div id="profile-edit">
+                                <!-- Profile Edit Form -->
 
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">Full Name</div>
-                                    <div class="col-lg-9 col-md-8">@Model.Name</div>
-                                </div>
+                                <form method="post" asp-action="EditProfile">
+                                    <!-- Validation Summary -->
+                                    <div asp-validation-summary="All" class="text-danger"></div>
+                                    <div class="row mb-3">
+                                        <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input asp-for="Name" type="text" class="form-control" id="fullName">
+                                        </div>
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
 
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">Address</div>
-                                    <div class="col-lg-9 col-md-8">@Model.Address</div>
-                                </div>
+                                    <div class="row mb-3">
+                                        <label for="address" class="col-md-4 col-lg-3 col-form-label">Address</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input asp-for="Address" type="text" class="form-control" id="address" >
+                                        </div>
+                                        <span asp-validation-for="Address" class="text-danger"></span>
+                                    </div>
 
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">Phone</div>
-                                    <div class="col-lg-9 col-md-8">@Model.Phone</div>
-                                </div>
+                                    <div class="row mb-3">
+                                        <label for="phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input asp-for="Phone" type="text" class="form-control" placeholder="Enter Phone" pattern="\d*" title="Please enter only numbers." />
 
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">Email</div>
-                                    <div class="col-lg-9 col-md-8">@Model.Email</div>
-                                </div>
+                                        </div>
+                                        <span asp-validation-for="Phone" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input asp-for="Email" type="email" class="form-control" id="email" >
+                                        </div>
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    </div>
+                                </form><!-- End Profile Edit Form -->
+
                             </div>
-                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -103,7 +121,7 @@
                 <div class="modal-body">
 
                     <div class="text-center">
-                        <img id="modalImagePreview" src="~/admin/img/@Model.Avatar" class="job-image img-thumbnail rounded-circle" style="width: 150px; height: 150px;">
+                        <img id="modalImagePreview" src="~/admin/img/@Model.AvatarUrl" class="job-image img-thumbnail rounded-circle" style="width: 150px; height: 150px;">
                     </div>
                     <div class="form-group mb-4">
                         <input asp-for="Avatar" type="file" class="file-upload-default" id="avatarUpload" style="display: none;" onchange="uploadImage();" />
@@ -119,6 +137,16 @@
         </div>
     </div>
 </div>
+<script language='javascript'>
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+
+</script>
 <script>
     function openMo() {
         document.getElementById("uploadModal").style.display = "block";
@@ -129,28 +157,28 @@
         document.getElementById("uploadModal").style.display = "none";
     }
 
-    $(document).ready(function () {
-        // AJAX cho form Change Password
-        $('#content-container').on('submit', 'form', function (e) {
-            e.preventDefault(); // Ngăn chặn hành động gửi form mặc định
+    // $(document).ready(function () {
+    //     // AJAX cho form Change Password
+    //     $('#content-container').on('submit', 'form', function (e) {
+    //         e.preventDefault(); // Ngăn chặn hành động gửi form mặc định
 
-            var form = $(this);
-            var url = form.attr('action');
-            var method = form.attr('method');
+    //         var form = $(this);
+    //         var url = form.attr('action');
+    //         var method = form.attr('method');
 
-            $.ajax({
-                url: url,
-                type: method,
-                data: form.serialize(), // Lấy dữ liệu từ form
-                success: function (result) {
-                    $('#content-container').html(result); // Cập nhật nội dung với response
-                },
-                error: function () {
-                    alert('Có lỗi xảy ra. Vui lòng thử lại.');
-                }
-            });
-        });
-    });
+    //         $.ajax({
+    //             url: url,
+    //             type: method,
+    //             data: form.serialize(), // Lấy dữ liệu từ form
+    //             success: function (result) {
+    //                 $('#content-container').html(result); // Cập nhật nội dung với response
+    //             },
+    //             error: function () {
+    //                 alert('Có lỗi xảy ra. Vui lòng thử lại.');
+    //             }
+    //         });
+    //     });
+    // });
     function uploadImage() {
         var file = document.getElementById('avatarUpload').files[0];
         var formData = new FormData();

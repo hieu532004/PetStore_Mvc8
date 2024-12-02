@@ -41,7 +41,7 @@
                                     <img src="~/images/@product.Image" class="img-fluid rounded-4" alt="image">
                                 </a>
                                 <div class="card-body p-0">
-                                    <a href="single-product.html">
+                                    <a asp-controller="Product" asp-action="Detail" asp-route-id="@product.idProduct">
                                         <h3 class="card-title pt-4 m-0">@product.nameProduct</h3>
                                     </a>
                                     <div class="card-text">
@@ -113,7 +113,7 @@
                     <div class="widget-product-categories pt-5">
                         <h4 class="widget-title"><b>Danh mục</b></h4>
                         <ul class="product-categories sidebar-list list-unstyled">
-                            <li class="cat-item"><a href="/collections/categories">All</a></li>
+                            <li class="cat-item"><a asp-controller="Product" asp-action="Shop">All</a></li>
                             @await Component.InvokeAsync("CategoryShop")
                         </ul>
                     </div>

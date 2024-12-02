@@ -11,6 +11,7 @@
     <meta name="author" content="">
     <meta name="keywords" content="">
     <meta name="description" content="">
+    <link rel="icon" href="http://localhost:5137/images/logo/petshoplogo.png" type="image/png">
 
 
     @*     <link rel="stylesheet" href="~/css/swiper.css" />
@@ -291,7 +292,7 @@
 
                     <div class="offcanvas-body justify-content-between">
                         <select class="filter-categories border-0 mb-0 me-5" id="categoryDropdown">
-                            <option>Danh mục</option>
+                           
                             @await Component.InvokeAsync("Category")
                         </select>
 
@@ -350,8 +351,10 @@
     @await Html.PartialAsync("_Notification")
     @RenderBody()
 
+    <hr class="m-0">
     <footer id="footer" class="my-5">
         <div class="container py-5 my-5">
+
             <div class="row">
                 <div class="col-md-3">
                     <div class="footer-menu">
@@ -458,10 +461,10 @@
         </div>
     </div>
 
-
+    <hr class="m-0">
     <div id="footer-bottom">
         <div class="container">
-            <hr class="m-0">
+            
             <div class="row mt-3">
                 <div class="col-md-6 copyright">
                     <p class="secondary-font">© 2024 . Web Pet DA.</p>

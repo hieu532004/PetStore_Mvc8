@@ -106,7 +106,31 @@
     <div class="container my-5 py-5">
 
         <div class="section-header d-md-flex justify-content-between align-items-center">
-            <h3 class="display-3 fw-normal">Thức ăn thú cưng</h3>
+            @if (ViewBag.Category == "Food")
+            {
+                <h3 class="display-3 fw-normal">Thức ăn thú cưng</h3>
+            }
+            else if (ViewBag.Category == "Clothes")
+            {
+                <h3 class="display-3 fw-normal">Quần áo thú cưng</h3>
+            }
+            else if (ViewBag.Category == "Health")
+            {
+                <h3 class="display-3 fw-normal">Sức khỏe thú cưng</h3>
+            }
+            else if (ViewBag.Category == "Accessories")
+            {
+                <h3 class="display-3 fw-normal">Phụ kiện thú cưng</h3>
+            }
+            else if (ViewBag.Category == "Toy")
+            {
+                <h3 class="display-3 fw-normal">Đồ chơi thú cưng</h3>
+            }
+            else
+            {
+                <h3 class="display-3 fw-normal">Danh mục không xác định</h3>
+            }
+
            
             <div>
                 <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
@@ -120,7 +144,7 @@
 
         <div class="isotope-container row" style="text-align:center;">
 
-            @foreach (var product in Model.Take(8))
+            @foreach (var product in Model.Take(12))
             {
                 bool isSaved = ViewBag.SavedProductIds != null &&
                 ViewBag.SavedProductIds.Contains(product.idProduct);

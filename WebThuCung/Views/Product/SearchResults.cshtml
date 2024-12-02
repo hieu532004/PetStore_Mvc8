@@ -34,101 +34,107 @@
         </div>
     </div>
 </section>
-<section id="search-results" class="my-5 overflow-hidden">
+<section id="clothing" class="my-5 overflow-hidden">
     <div class="container pb-5">
+
         <div class="section-header d-md-flex justify-content-between align-items-center mb-3">
-            
-            <h2 class="display-3 fw-normal">Top Selling</h2>
+            <h2 class="display-34 fw-normal" style="font-size:50px ; color: #f2de08">Bán chạy</h2>
+
+            <div>
+                <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                    Mua ngay
+                    <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
+                        <use xlink:href="#arrow-right"></use>
+                    </svg>
+                </a>
+            </div>
         </div>
+        <div class="products-carousel swiper">
+            <div class="swiper-wrapper">
+                @foreach (var product in topSellingProducts.Take(6))
+                {
 
-        @if (Model.Any())
-        {
-            <div class="products-carousel swiper">
-                <div class="swiper-wrapper">
-                    @foreach (var product in topSellingProducts.Take(6))
-                    {
+                    bool isSaved = ViewBag.SavedProductIds != null &&
+                    ViewBag.SavedProductIds.Contains(product.ProductId);
 
-                        bool isSaved = ViewBag.SavedProductIds != null &&
-                        ViewBag.SavedProductIds.Contains(product.ProductId);
+                    <div class="swiper-slide" data-productid="@product.ProductId">
+                        <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
+                            @if (product.DiscountPercent > 0)
+                            {
+                                <div style="color: red;">
+                                    @product.DiscountPercent% OFF
+                                </div>
+                            }
 
-                        <div class="swiper-slide" data-productid="@product.ProductId">
-                            <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
-                                @if (product.DiscountPercent > 0)
-                                {
-                                    <div style="color: red;">
-                                        @product.DiscountPercent% OFF
-                                    </div>
-                                }
-                            </div>
-                            <div class="card position-relative">
-                                <a asp-controller="Product" asp-action="Detail" asp-route-id="@product.ProductId">
-                                    <img src="@Url.Content("~/images/" + product.ImageUrl)" class="img-fluid rounded-4" alt="@product.ProductName">
+                        </div>
+                        <div class="card position-relative">
+                            <a asp-controller="Product" asp-action="Detail" asp-route-id="@product.ProductId">
+                                <img src="@Url.Content("~/images/" + product.ImageUrl)" class="img-fluid rounded-4" alt="@product.ProductName">
+                            </a>
+                            <div class="card-body p-0">
+                                <a href="@Url.Action("Details", "Product", new { id = product.ProductId })">
+                                    <h3 class="card-title pt-4 m-0">@product.ProductName</h3>
                                 </a>
-                                <div class="card-body p-0">
-                                    <a href="@Url.Action("Details", "Product", new { id = product.ProductId })">
-                                        <h3 class="card-title pt-4 m-0">@product.ProductName</h3>
-                                    </a>
 
-                                    <div class="card-text">
-                                        <div class="price-container">
-                                            @if (product.Price == product.DiscountedPrice)
-                                            {
-                                                <div class="price-container d-flex align-items-center">
-                                                    <h3 class="secondary-font text-primary me-3">
-                                                        <span>
-                                                            @(product.Price % 1 == 0
-                                                                ? string.Format("{0:N0}", product.Price)
-                                                                : string.Format("{0:N2}", product.Price))<small>$</small>
-                                                        </span>
-                                                    </h3>
-                                                </div>
-                                            }
-                                            else
-                                            {
-                                                <div class="price-container d-flex align-items-center">
-                                                    <!-- Giá giảm -->
-                                                    <h3 class="secondary-font text-primary me-3">
-                                                        <span>
-                                                            @(product.DiscountedPrice % 1 == 0
-                                                                ? string.Format("{0:N0}", product.DiscountedPrice)
-                                                                : string.Format("{0:N2}", product.DiscountedPrice))<small>$</small>
-                                                        </span>
-                                                    </h3>
+                                <div class="card-text">
+                                    <div class="price-container">
+                                        @if (product.Price == product.DiscountedPrice)
+                                        {
+                                            <div class="price-container d-flex align-items-center">
+                                                <h3 class="secondary-font text-primary me-3">
+                                                    <span>
+                                                        @(product.Price % 1 == 0
+                                                            ? string.Format("{0:N0}", product.Price)
+                                                            : string.Format("{0:N2}", product.Price))<small>$</small>
+                                                    </span>
+                                                </h3>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="price-container d-flex align-items-center">
+                                                <!-- Giá giảm -->
+                                                <h3 class="secondary-font text-primary me-3">
+                                                    <span>
+                                                        @(product.DiscountedPrice % 1 == 0
+                                                            ? string.Format("{0:N0}", product.DiscountedPrice)
+                                                            : string.Format("{0:N2}", product.DiscountedPrice))<small>$</small>
+                                                    </span>
+                                                </h3>
 
-                                                    <!-- Giá cũ (gạch chéo) -->
-                                                    <h3 class="secondary-font text-muted text-decoration-line-through text-danger">
-                                                        <span>
-                                                            @(product.Price % 1 == 0
-                                                                ? string.Format("{0:N0}", product.Price)
-                                                                : string.Format("{0:N2}", product.Price))<small>$</small>
-                                                        </span>
-                                                    </h3>
-                                                </div>
-                                            }
-
-                                        </div>
+                                                <!-- Giá cũ (gạch chéo) -->
+                                                <h3 class="secondary-font text-muted text-decoration-line-through text-danger">
+                                                    <span>
+                                                        @(product.Price % 1 == 0
+                                                            ? string.Format("{0:N0}", product.Price)
+                                                            : string.Format("{0:N2}", product.Price))<small>$</small>
+                                                    </span>
+                                                </h3>
+                                            </div>
 
 
-                                        <div class="d-flex flex-wrap mt-3">
-                                            <a class="btn-wishlist px-4 pt-3 toggle-clothing">
-                                                <iconify-icon icon="fluent:heart-28-filled" class="fs-5" style="color: @(isSaved ? "red" : "rgb(162, 162, 162)")"></iconify-icon>
-                                            </a>
-                                        </div>
+
+                                        }
+
+                                    </div>
+
+
+                                    <div class="d-flex flex-wrap mt-3">
+                                        <a class="btn-wishlist px-4 pt-3 toggle-clothing">
+                                            <iconify-icon icon="fluent:heart-28-filled" class="fs-5" style="color: @(isSaved ? "red" : "rgb(162, 162, 162)")"></iconify-icon>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    }
-                </div>
+                    </div>
+                }
+
             </div>
-        }
-        else
-        {
-            <div class="no-results text-center py-5">
-                <h4 class="text-muted">No products found for your search.</h4>
-               
-            </div>
-        }
+        </div>
+        <!-- / products-carousel -->
+
+
     </div>
 </section>
 <section id="foodies" class="my-5">
@@ -139,7 +145,7 @@
            
             <div>
                 <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
-                    shop now
+                    Mua ngay
                     <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
                         <use xlink:href="#arrow-right"></use>
                     </svg>
@@ -149,7 +155,7 @@
 
         <div class="isotope-container row" style="text-align:center;">
 
-            @foreach (var product in Model.Take(8))
+            @foreach (var product in Model.Take(12))
             {
                 bool isSaved = ViewBag.SavedProductIds != null &&
                 ViewBag.SavedProductIds.Contains(product.idProduct);

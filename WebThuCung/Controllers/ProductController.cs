@@ -130,7 +130,7 @@ namespace WebThuCung.Controllers
             return View(products);
         }
         [HttpGet]
-        public IActionResult Shop(int page = 1, int pageSize = 3)
+        public IActionResult Shop(int page = 1, int pageSize = 6)
         {
             var customerId = GetCustomerIdFromSession();
 
@@ -197,7 +197,10 @@ namespace WebThuCung.Controllers
                 .Include(p => p.Category)
                 .Include(p => p.Branch)
                 .AsQueryable();
+            var category = _context.Categories.FirstOrDefault(c => c.idCategory == idCategory);
 
+            // Truyền thông tin danh mục và tổng số sản phẩm vào ViewBag
+            ViewBag.Category = category != null ? category.nameCategory : "Danh mục không xác định";
             if (!string.IsNullOrEmpty(idCategory) && idCategory != "Shop by Category")
             {
                 productsQuery = productsQuery.Where(p => p.idCategory == idCategory);
@@ -273,7 +276,7 @@ namespace WebThuCung.Controllers
 
 
         [HttpGet]
-        public IActionResult FilterProducts(string categoryId, string branchId, string petId, decimal? minPrice, decimal? maxPrice, int page = 1, int pageSize = 3)
+        public IActionResult FilterProducts(string categoryId, string branchId, string petId, decimal? minPrice, decimal? maxPrice, int page = 1, int pageSize = 6)
         {
             var customerId = GetCustomerIdFromSession();
 
