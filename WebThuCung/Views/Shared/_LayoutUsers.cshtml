@@ -199,40 +199,40 @@
 
                     </div>
                 </div>
-              <script>
-                    
+                <script>
+
                     function typeText(element, text, interval, loop) {
                         let index = 0;
 
                         function typeNextChar() {
-                            
+
                             element.setAttribute("placeholder", text.substring(0, index + 1));
                             index++;
 
-                          
+
                             if (index < text.length) {
                                 setTimeout(typeNextChar, interval);
                             } else if (loop) {
-                               
+
                                 setTimeout(function () {
                                     index = 0;
                                     typeNextChar();
-                                }, 1000);  
+                                }, 1000);
                             }
                         }
 
-                        typeNextChar(); 
+                        typeNextChar();
                     }
 
                     document.addEventListener("DOMContentLoaded", function () {
                         const searchInput = document.getElementById("search-input");
                         const textToType = "Search Here.....";
-                        const typingInterval = 150; 
-                        const loop = true;  
+                        const typingInterval = 150;
+                        const loop = true;
                         typeText(searchInput, textToType, typingInterval, loop);
                     });
 
-              </script>
+                </script>
                 <div class="col-sm-8 col-lg-4 d-flex justify-content-end gap-5 align-items-center mt-4 mt-sm-0 justify-content-center justify-content-sm-end">
                     @{
                         var customerJson = Context.Session.GetString("Taikhoan");
@@ -292,7 +292,7 @@
 
                     <div class="offcanvas-body justify-content-between">
                         <select class="filter-categories border-0 mb-0 me-5" id="categoryDropdown">
-                           
+
                             @await Component.InvokeAsync("Category")
                         </select>
 
@@ -464,7 +464,7 @@
     <hr class="m-0">
     <div id="footer-bottom">
         <div class="container">
-            
+
             <div class="row mt-3">
                 <div class="col-md-6 copyright">
                     <p class="secondary-font">© 2024 . Web Pet DA.</p>
@@ -501,11 +501,11 @@
                     if (response.isAuthenticated) {
                         const avatarUrl = "/images/customer/" + response.avatar;
 
-       
+
                         $('.in_login').remove();
                         if (response.iscustomer) {
 
-     
+
                             $('.wrap_login').html(`
                                             <li class="has-children">
                                                 <img class="avatar_img" src="${avatarUrl}" alt="Candidate Avatar"></img>
@@ -626,25 +626,125 @@
         }
 
         function botResponse(message) {
-            let response;
+            // Danh sách các từ khóa và câu trả lời
+            const responses = [
+                {
+                    keywords: ["chào", "xin chào", "helo", "helo shop"],
+                    response: "Shop phụ kiện thú cưng hân hạnh chào bạn, mời bạn ghé thăm shop và lựa món đồ yêu thích ạ!"
+                },
+                {
+                    keywords: ["còn", "ưu đãi", "khuyến mãi", "giảm giá"],
+                    response: "Shop hiện đang có rất nhiều ưu đãi hấp dẫn! Mời bạn truy cập website hoặc fanpage để biết thêm chi tiết."
+                },
+                {
+                    keywords: ["địa điểm", "ở đâu", "địa chỉ"],
+                    response: "Shop ở Việt Nam. Vui lòng truy cập website của chúng tôi để biết thêm thông tin chi tiết."
+                },
+                {
+                    keywords: ["mua", "hàng", "đặt hàng", "mua đồ"],
+                    response: "Bạn hãy vào shop lựa món đồ yêu thích và thanh toán trực tiếp hoặc gián tiếp."
+                },
+                {
+                    keywords: ["giờ mở cửa", "giờ đóng cửa", "giờ hoạt động"],
+                    response: "Shop mở cửa từ 8:00 sáng đến 10:00 tối mỗi ngày."
+                },
+                {
+                    keywords: ["phương thức thanh toán", "cách thanh toán", "thanh toán thế nào"],
+                    response: "Shop chấp nhận thanh toán qua thẻ tín dụng, chuyển khoản ngân hàng và tiền mặt khi nhận hàng."
+                },
+                {
+                    keywords: ["chó", "mèo", "thú cưng"],
+                    response: "Shop hiện có rất nhiều phụ kiện dành cho chó, mèo và thú cưng khác. Mời bạn tham khảo trên website nhé!"
+                },
+                {
+                    keywords: ["giá sản phẩm", "bao nhiêu tiền", "giá tiền"],
+                    response: "Giá sản phẩm sẽ được hiển thị trên website. Bạn vui lòng ghé thăm để biết thêm chi tiết nhé!"
+                },
+                {
+                    keywords: ["bảo vệ", "đồ án", "thành công"],
+                    response: "Cái ngoài chuyên môn của tôi, nhưng chúc bạn sẽ may mắn sẽ được thầy cô cho ra trường nhé!"
+                },
+                {
+                    keywords: ["bệnh", "triệu chứng", "ốm", "bị gì", "không khỏe"],
+                    response: "Nếu thú cưng của bạn có dấu hiệu không khỏe, hãy đưa đến bác sĩ thú y để kiểm tra ngay nhé. Shop cũng có bán một số phụ kiện hỗ trợ chăm sóc sức khỏe cho thú cưng."
+                },
+                {
+                    keywords: ["bệnh thường gặp", "bệnh chó", "bệnh mèo"],
+                    response: "Một số bệnh thường gặp ở thú cưng là bệnh giun sán, viêm da, viêm tai, cúm hoặc bệnh care ở chó, và bệnh FIP hoặc giảm bạch cầu ở mèo. Nên thường xuyên tiêm phòng và khám định kỳ cho thú cưng nhé!"
+                },
+                {
+                    keywords: ["sốt", "nhiệt độ cao", "thú cưng bị sốt"],
+                    response: "Nếu thú cưng của bạn bị sốt, bạn có thể đo nhiệt độ bằng nhiệt kế (nhiệt độ bình thường là 37.5-39°C). Nếu sốt cao hoặc kéo dài, hãy đưa thú cưng đến bác sĩ thú y ngay."
+                },
+                {
+                    keywords: ["giun", "tẩy giun", "giun sán"],
+                    response: "Thú cưng cần được tẩy giun định kỳ 3-6 tháng một lần. Bạn có thể tham khảo ý kiến bác sĩ thú y để chọn loại thuốc tẩy giun phù hợp."
+                },
+                {
+                    keywords: ["ngứa", "viêm da", "nấm da"],
+                    response: "Nếu thú cưng bị ngứa hoặc có dấu hiệu viêm da, nấm da, bạn nên kiểm tra môi trường sống và đưa thú cưng đến bác sĩ thú y để được chẩn đoán và điều trị kịp thời."
+                },
+                {
+                    keywords: ["ho", "thú cưng ho", "ho khan"],
+                    response: "Ho có thể là dấu hiệu của bệnh viêm phổi hoặc nhiễm trùng đường hô hấp. Nên đưa thú cưng đến bác sĩ thú y để kiểm tra và điều trị."
+                },
+                {
+                    keywords: ["ăn không ngon", "bỏ ăn", "mệt mỏi"],
+                    response: "Nếu thú cưng bỏ ăn hoặc mệt mỏi kéo dài, đó có thể là dấu hiệu của bệnh. Hãy đưa thú cưng đến bác sĩ thú y kiểm tra để đảm bảo sức khỏe."
+                },
+                {
+                    keywords: ["bệnh truyền nhiễm", "bệnh lây"],
+                    response: "Một số bệnh truyền nhiễm phổ biến ở thú cưng là Parvo, Care ở chó hoặc FIV ở mèo. Hãy tiêm phòng đầy đủ để bảo vệ thú cưng khỏi các bệnh này."
+                },
+                {
+                    keywords: ["bệnh", "triệu chứng", "ốm", "bị gì", "không khỏe"],
+                    response: "Nếu thú cưng của bạn có dấu hiệu không khỏe, hãy đưa đến bác sĩ thú y để kiểm tra ngay nhé. Shop cũng có bán một số phụ kiện hỗ trợ chăm sóc sức khỏe cho thú cưng."
+                },
+                {
+                    keywords: ["bệnh thường gặp", "bệnh chó", "bệnh mèo"],
+                    response: "Một số bệnh thường gặp ở thú cưng là bệnh giun sán, viêm da, viêm tai, cúm hoặc bệnh care ở chó, và bệnh FIP hoặc giảm bạch cầu ở mèo. Nên thường xuyên tiêm phòng và khám định kỳ cho thú cưng nhé!"
+                },
+                {
+                    keywords: ["sốt", "nhiệt độ cao", "thú cưng bị sốt"],
+                    response: "Nếu thú cưng của bạn bị sốt, bạn có thể đo nhiệt độ bằng nhiệt kế (nhiệt độ bình thường là 37.5-39°C). Nếu sốt cao hoặc kéo dài, hãy đưa thú cưng đến bác sĩ thú y ngay."
+                },
+                {
+                    keywords: ["giun", "tẩy giun", "giun sán"],
+                    response: "Thú cưng cần được tẩy giun định kỳ 3-6 tháng một lần. Bạn có thể tham khảo ý kiến bác sĩ thú y để chọn loại thuốc tẩy giun phù hợp."
+                },
+                {
+                    keywords: ["ngứa", "viêm da", "nấm da"],
+                    response: "Nếu thú cưng bị ngứa hoặc có dấu hiệu viêm da, nấm da, bạn nên kiểm tra môi trường sống và đưa thú cưng đến bác sĩ thú y để được chẩn đoán và điều trị kịp thời."
+                },
+                {
+                    keywords: ["ho", "thú cưng ho", "ho khan"],
+                    response: "Ho có thể là dấu hiệu của bệnh viêm phổi hoặc nhiễm trùng đường hô hấp. Nên đưa thú cưng đến bác sĩ thú y để kiểm tra và điều trị."
+                },
+                {
+                    keywords: ["ăn không ngon", "bỏ ăn", "mệt mỏi"],
+                    response: "Nếu thú cưng bỏ ăn hoặc mệt mỏi kéo dài, đó có thể là dấu hiệu của bệnh. Hãy đưa thú cưng đến bác sĩ thú y kiểm tra để đảm bảo sức khỏe."
+                },
+                {
+                    keywords: ["bệnh truyền nhiễm", "bệnh lây"],
+                    response: "Một số bệnh truyền nhiễm phổ biến ở thú cưng là Parvo, Care ở chó hoặc FIV ở mèo. Hãy tiêm phòng đầy đủ để bảo vệ thú cưng khỏi các bệnh này."
+                },
 
-            // Convert the message to lowercase to make keyword checks case-insensitive
+
+            ];
+
+            // Chuyển tin nhắn của người dùng thành chữ thường
             const lowerMessage = message.toLowerCase();
 
-            // Check for keywords
-            if (lowerMessage.includes("chào") || lowerMessage.includes("xin chào") || lowerMessage.includes("helo") || lowerMessage.includes("helo shop ")) {
-                response = "Shop phụ kiện thú cưng hân hạnh chào bạn, mời bạn ghé thăm shop và lựa món đồ yêu thích ạ!";
-            } else if (lowerMessage.includes("còn") || lowerMessage.includes("ưu đãi")) {
-                response = "Xin đợi chờ trong giây lát, shop sẽ phản hồi lại trong giây lát.";
-            } else if (lowerMessage.includes("địa điểm")) {
-                response = "Shop ở Việt Nam.";
-            } else if (lowerMessage.includes("mua") || lowerMessage.includes("hàng")) {
-                response = "Bạn hãy vào shop lựa món đồ yêu thích và thanh toán trực tiếp hoặc gián tiếp.";
-            } else {
-                response = "Xin lỗi, tôi chưa hiểu câu hỏi của bạn. Bạn có thể hỏi về mặt hàng, địa điểm, hoặc cách mua hàng.";
+            // Tìm câu trả lời phù hợp
+            for (let { keywords, response } of responses) {
+                if (keywords.some(keyword => lowerMessage.includes(keyword))) {
+                    addMessage("bot-message", response);
+                    return;
+                }
             }
 
-            addMessage("bot-message", response);
+            // Trả lời mặc định nếu không có từ khóa phù hợp
+            addMessage("bot-message", "Xin lỗi, tôi chưa hiểu câu hỏi của bạn. Bạn có thể hỏi về mặt hàng, địa điểm, giờ mở cửa, hoặc cách mua hàng.");
         }
     </script>
 </body>
