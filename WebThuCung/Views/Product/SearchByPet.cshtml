@@ -42,7 +42,7 @@
         <div class="container pb-5">
 
             <div class="section-header d-md-flex justify-content-between align-items-center mb-3">
-                <h2 class="display-34 fw-normal" style="font-size:50px ; color: #f2de08">Bán chạy</h2>
+                <h2 class="display-34 fw-normal" style="font-size:50px ; color: #ff4d4d">Bán chạy</h2>
 
                 <div>
                     <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
@@ -89,7 +89,7 @@
                                                         <span>
                                                             @(product.Price % 1 == 0
                                                                 ? string.Format("{0:N0}", product.Price)
-                                                                : string.Format("{0:N2}", product.Price))<small>$</small>
+                                                                : string.Format("{0:N2}", product.Price))<small>vnd</small>
                                                         </span>
                                                     </h3>
                                                 </div>
@@ -102,7 +102,7 @@
                                                         <span>
                                                             @(product.DiscountedPrice % 1 == 0
                                                                 ? string.Format("{0:N0}", product.DiscountedPrice)
-                                                                : string.Format("{0:N2}", product.DiscountedPrice))<small>$</small>
+                                                                : string.Format("{0:N2}", product.DiscountedPrice))<small>vnd</small>
                                                         </span>
                                                     </h3>
 
@@ -111,7 +111,7 @@
                                                         <span>
                                                             @(product.Price % 1 == 0
                                                                 ? string.Format("{0:N0}", product.Price)
-                                                                : string.Format("{0:N2}", product.Price))<small>$</small>
+                                                                : string.Format("{0:N2}", product.Price))<small>vnd</small>
                                                         </span>
                                                     </h3>
                                                 </div>
@@ -194,7 +194,7 @@
                                             <span>
                                                 @(product.sellPrice % 1 == 0
                                                     ? string.Format("{0:N0}", product.sellPrice)
-                                                    : string.Format("{0:N2}", product.sellPrice))<small>$</small>
+                                                    : string.Format("{0:N2}", product.sellPrice))<small>vnd</small>
                                             </span>
                                         </h3>
                                     </div>
@@ -207,7 +207,7 @@
                                             <span>
                                                 @(product.DiscountedPrice % 1 == 0
                                                     ? string.Format("{0:N0}", product.DiscountedPrice)
-                                                    : string.Format("{0:N2}", product.DiscountedPrice))<small>$</small>
+                                                    : string.Format("{0:N2}", product.DiscountedPrice))<small>vnd</small>
                                             </span>
                                         </h3>
 
@@ -216,7 +216,7 @@
                                             <span>
                                                 @(product.sellPrice % 1 == 0
                                                     ? string.Format("{0:N0}", product.sellPrice)
-                                                    : string.Format("{0:N2}", product.sellPrice))<small>$</small>
+                                                    : string.Format("{0:N2}", product.sellPrice))<small>vnd</small>
                                             </span>
                                         </h3>
                                     </div>

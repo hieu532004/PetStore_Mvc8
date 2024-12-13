@@ -86,14 +86,13 @@ CSS STRUCTURE:
   --header-height: 160px;
   --header-height-min: 80px;
 }
-  #clothing {
-        position: relative;
-        background-image: url('https://img.tripi.vn/cdn-cgi/image/width=700,height=700/https://gcs.tripi.vn/public-tripi/tripi-feed/img/474091BnW/hinh-nen-thu-cung-cute_014119974.jpg');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        
-    }
+#clothing {
+    position: relative;
+    background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20210918/pngtree-crumpled-creamy-textured-background-of-paper-image_902677.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 
         #clothing::before {
             content: '';

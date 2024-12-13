@@ -59,6 +59,7 @@ namespace WebThuCung.Controllers
             }
 
             // Re-populate ViewBag.Districts in case of validation errors
+            // Tái tạo lại ViewBag.Districts trong trường hợp có lỗi xác thực
             ViewBag.Districts = _context.Districts
                 .Select(d => new SelectListItem
                 {

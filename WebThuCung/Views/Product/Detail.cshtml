@@ -73,18 +73,18 @@
                         @if (ViewData["DiscountedPrice"] is decimal discountedPrice && discountedPrice < Model.sellPrice)
                         {
                             <h3 class="text-muted text-decoration-line-through">
-                                @Model.sellPrice.ToString("C")
+                                @Model.sellPrice.ToString("N")
                             </h3>
 
                             <strong class="text-primary display-6 fw-bold">
-                                @discountedPrice.ToString("C")
+                                @discountedPrice.ToString("N")
                             </strong>
                         }
                         else
                         {
                             <!-- Hiển thị giá gốc nếu không có giảm giá -->
                             <strong class="text-primary display-6 fw-bold">
-                                @Model.sellPrice.ToString("C")
+                                @Model.sellPrice.ToString("N")
                             </strong>
                         }
                         @if (Model.Discounts.Any())
