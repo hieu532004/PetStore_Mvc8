@@ -1,6 +1,6 @@
 ﻿@model WebThuCung.Dto.SalesViewDto
 @{
-    string selectedPeriod = ViewBag.SelectedPeriod ?? "Ngày";
+    string selectedPeriod = ViewBag.SelectedPeriod ?? "hôm nay";
 }
 
 <div class="card info-card sales-card">
@@ -9,62 +9,62 @@
         <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
             <li class="dropdown-header text-start">
-                <h6>Filter</h6>
+                <h6>Bộ lọc</h6>
             </li>
-            <li><a class="dropdown-item" href="@Url.Action("Index", new { period = "Ngày" })">Ngày</a></li>
-            <li><a class="dropdown-item" href="@Url.Action("Index", new { period = "Tuần" })">Tuần </a></li>
-            <li><a class="dropdown-item" href="@Url.Action("Index", new { period = "Tháng" })">Tháng</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Index", new { period = "today" })">Hôm nay</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Index", new { period = "week" })">Tuần này</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Index", new { period = "month" })">Tháng này</a></li>
         </ul>
     </div>
 
     <div class="card-body">
-        <h5 class="card-title">Đã bán<span>| @selectedPeriod</span></h5>
+        <h5 class="card-title">Doanh số <span>| @selectedPeriod</span></h5>
 
         <div class="d-flex align-items-center">
             <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                 <i class="bi bi-cart"></i>
             </div>
             <div class="ps-3">
-                @if (selectedPeriod == "Ngày")
+                @if (selectedPeriod == "today")
                 {
                     <h6>@Model.TotalOrdersToday</h6>
                     @if (Model.GrowthPercentageDay >= 0)
                     {
                         <span class="text-success small pt-1 fw-bold">@Model.GrowthPercentageDay.ToString("F2")%</span>
-                        <span class="text-muted small pt-2 ps-1">Tăng</span>
+                        <span class="text-muted small pt-2 ps-1">tăng</span>
                     }
                     else
                     {
                         <span class="text-danger small pt-1 fw-bold">@Model.GrowthPercentageDay.ToString("F2")%</span>
-                        <span class="text-muted small pt-2 ps-1">Giảm</span>
+                        <span class="text-muted small pt-2 ps-1">giảm</span>
                     }
                 }
-                else if (selectedPeriod == "Tuần")
+                else if (selectedPeriod == "week")
                 {
                     <h6>@Model.TotalOrdersThisWeek</h6>
                     @if (Model.GrowthPercentageWeek >= 0)
                     {
                         <span class="text-success small pt-1 fw-bold">@Model.GrowthPercentageWeek.ToString("F2")%</span>
-                        <span class="text-muted small pt-2 ps-1">Tăng</span>
+                        <span class="text-muted small pt-2 ps-1">tăng</span>
                     }
                     else
                     {
                         <span class="text-danger small pt-1 fw-bold">@Model.GrowthPercentageWeek.ToString("F2")%</span>
-                        <span class="text-muted small pt-2 ps-1">Giảm</span>
+                        <span class="text-muted small pt-2 ps-1">giảm</span>
                     }
                 }
-                else if (selectedPeriod == "Tháng")
+                else if (selectedPeriod == "month")
                 {
                     <h6>@Model.TotalOrdersThisMonth</h6>
                     @if (Model.GrowthPercentageMonth >= 0)
                     {
                         <span class="text-success small pt-1 fw-bold">@Model.GrowthPercentageMonth.ToString("F2")%</span>
-                        <span class="text-muted small pt-2 ps-1">Tăng</span>
+                        <span class="text-muted small pt-2 ps-1">tăng</span>
                     }
                     else
                     {
                         <span class="text-danger small pt-1 fw-bold">@Model.GrowthPercentageMonth.ToString("F2")%</span>
-                        <span class="text-muted small pt-2 ps-1">Giảm</span>
+                        <span class="text-muted small pt-2 ps-1">giảm</span>
                     }
                 }
 
