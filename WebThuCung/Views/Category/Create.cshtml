@@ -9,9 +9,9 @@
     <div class="pagetitle">
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
-                <li class="breadcrumb-item"><a asp-controller="Category" asp-action="Index">Category</a></li>
-                <li class="breadcrumb-item active">Create</li>
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Category" asp-action="Index">Loại</a></li>
+                <li class="breadcrumb-item active">Tạo</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -21,7 +21,7 @@
             <div class="col-lg-10">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Create New Category</h5>
+                        <h5 class="card-title">Tạo mới danh mục</h5>
 
                         <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -29,7 +29,7 @@
                         <form asp-action="Create" method="post">
                             <!-- Category ID -->
                             <div class="row mb-3">
-                                <label for="inputIdCategory" class="col-sm-2 col-form-label">Category ID</label>
+                                <label for="inputIdCategory" class="col-sm-2 col-form-label">ID danh mục</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="inputIdCategory" name="idCategory" value="@Model?.idCategory" required />
                                     <!-- Hiển thị lỗi nếu có -->
@@ -39,7 +39,7 @@
 
                             <!-- Category Name -->
                             <div class="row mb-3">
-                                <label for="inputNameCategory" class="col-sm-2 col-form-label">Category Name</label>
+                                <label for="inputNameCategory" class="col-sm-2 col-form-label">Tên Danh mục</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="inputNameCategory" name="nameCategory" value="@Model?.nameCategory" required />
                                     <!-- Hiển thị lỗi nếu có -->
@@ -50,8 +50,8 @@
                             <!-- Submit Button -->
                             <div class="row mb-3">
                                 <div class="col-sm-10 offset-sm-2">
-                                    <button type="submit" class="btn btn-primary">Create Category</button>
-                                    <a asp-action="Index" class="btn btn-secondary">Back</a>
+                                    <button type="submit" class="btn btn-primary">Tạo danh mục</button>
+                                    <a asp-action="Index" class="btn btn-secondary">Trở lại</a>
                                 </div>
                             </div>
                           

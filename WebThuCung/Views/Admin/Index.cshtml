@@ -8,11 +8,11 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Dashboard</h1>
+        <h1>Bảng điều khiển</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard</li>
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Trang chủ</a></li>
+                <li class="breadcrumb-item active">Điều khiển</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -48,21 +48,21 @@
 
             <!-- Recent Activity -->
             <div class="card">
-                <div class="filter">
+                <div class="Lọc">
                     <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                         <li class="dropdown-header text-start">
-                            <h6>Filter</h6>
+                            <h6>Lọc</h6>
                         </li>
 
-                        <li><a class="dropdown-item" href="#">Today</a></li>
-                        <li><a class="dropdown-item" href="#">This Month</a></li>
-                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                        <li><a class="dropdown-item" href="#">Hôm nay</a></li>
+                        <li><a class="dropdown-item" href="#">Tháng này</a></li>
+                        <li><a class="dropdown-item" href="#">Năm này</a></li>
                     </ul>
                 </div>
 
                 <div class="card-body">
-                    <h5 class="card-title">Recent Activity <span>| Today</span></h5>
+                        <h5 class="card-title">Hoạt động gần đây <span>| Hôm nay</span></h5>
 
                    
 
@@ -71,21 +71,21 @@
 
             <!-- Website Traffic -->
             <div class="card">
-                <div class="filter">
+                <div class="Lọc">
                     <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                         <li class="dropdown-header text-start">
-                            <h6>Filter</h6>
+                            <h6>Lọc</h6>
                         </li>
 
-                        <li><a class="dropdown-item" href="#">Today</a></li>
-                        <li><a class="dropdown-item" href="#">This Month</a></li>
-                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                        <li><a class="dropdown-item" href="#">Hôm nay</a></li>
+                        <li><a class="dropdown-item" href="#">Tháng này</a></li>
+                        <li><a class="dropdown-item" href="#">Năm này</a></li>
                     </ul>
                 </div>
 
                 <div class="card-body pb-0">
-                    <h5 class="card-title">Website Traffic <span>| Today</span></h5>
+                    <h5 class="card-title">Lượng truy cập <span>| Hôm nay</span></h5>
 
                     <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
 
@@ -120,11 +120,11 @@
                                     },
                                     data: [{
                                         value: 1048,
-                                        name: 'Search Engine'
+                                            name: 'Công cụ tìm kiếm'
                                     },
                                     {
                                         value: 735,
-                                        name: 'Direct'
+                                            name: 'Trực tiếp'
                                     },
                                     {
                                         value: 580,
@@ -132,7 +132,7 @@
                                     },
                                     {
                                         value: 484,
-                                        name: 'Union Ads'
+                                            name: 'Quảng cáo Ads'
                                     },
                                     {
                                         value: 300,
@@ -148,51 +148,51 @@
             </div><!-- End Website Traffic -->
             <!-- News & Updates Traffic -->
             <div class="card">
-                <div class="filter">
+                <div class="Lọc">
                     <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                         <li class="dropdown-header text-start">
-                            <h6>Filter</h6>
+                            <h6>Lọc</h6>
                         </li>
 
-                        <li><a class="dropdown-item" href="#">Today</a></li>
-                        <li><a class="dropdown-item" href="#">This Month</a></li>
-                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                        <li><a class="dropdown-item" href="#">Hôm nay</a></li>
+                        <li><a class="dropdown-item" href="#">Tháng này</a></li>
+                        <li><a class="dropdown-item" href="#">Năm này</a></li>
                     </ul>
                 </div>
 
                 <div class="card-body pb-0">
-                    <h5 class="card-title">News &amp; Updates <span>| Today</span></h5>
+                    <h5 class="card-title">Tin tức &amp; Cập nhật <span>| Hôm nay</span></h5>
 
                     <div class="news">
                         <div class="post-item clearfix">
                             <img src="assets/img/news-1.jpg" alt="">
-                            <h4><a href="#">Nihil blanditiis at in nihil autem</a></h4>
-                            <p>Sit recusandae non aspernatur laboriosam. Quia enim eligendi sed ut harum...</p>
+                                <h4><a href="#">Không có sự tâng bốc</a></h4>
+                                <p>Được chấp nhận hoặc từ chối dữ dội. Bởi vì bạn chọn nhưng với những ...</p>
                         </div>
 
                         <div class="post-item clearfix">
                             <img src="assets/img/news-2.jpg" alt="">
-                            <h4><a href="#">Quidem autem et impedit</a></h4>
-                            <p>Illo nemo neque maiores vitae officiis cum eum turos elan dries werona nande...</p>
+                                <h4><a href="#">Sự vậy, và sự cản trở</a></h4>
+                                <p>Rằng không ai hoặc nhiều văn phòng cuộc sống với anh...</p>
                         </div>
 
                         <div class="post-item clearfix">
                             <img src="assets/img/news-3.jpg" alt="">
-                            <h4><a href="#">Id quia et et ut maxime similique occaecati ut</a></h4>
-                            <p>Fugiat voluptas vero eaque accusantium eos. Consequuntur sed ipsam et totam...</p>
+                                <h4><a href="#">Id khi bạn sẽ nhận được giống như màu đen nhất</a></h4>
+                                <p>Chạy trốn đến niềm vui của việc buộc tội họ. Kết quả là toàn bộ ...</p>
                         </div>
 
                         <div class="post-item clearfix">
                             <img src="assets/img/news-4.jpg" alt="">
-                            <h4><a href="#">Laborum corporis quo dara net para</a></h4>
-                            <p>Qui enim quia optio. Eligendi aut asperiores enim repellendusvel rerum cuder...</p>
+                                <h4><a href="#">Thiết lập cơ thể của bạn khi Dara Net Para</a></h4>
+                                <p>Những người có một lựa chọn. Chọn hoặc từ bỏ cho những thứ đáng kinh ngạc ...</p>
                         </div>
 
                         <div class="post-item clearfix">
                             <img src="assets/img/news-5.jpg" alt="">
-                            <h4><a href="#">Et dolores corrupti quae illo quod dolor</a></h4>
-                            <p>Odit ut eveniet modi reiciendis. Atque cupiditate libero beatae dignissimos eius...</p>
+                                <h4><a href="#">Cơn đau đã làm hỏng nỗi đau</a></h4>
+                                <p>Ghét bị từ chối. Và mong muốn miễn phí ...</p>
                         </div>
 
                     </div><!-- End sidebar recent posts-->

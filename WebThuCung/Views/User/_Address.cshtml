@@ -1,149 +1,150 @@
-﻿@model Customer
+﻿
 
-<form asp-controller="User" asp-action="UpdateAddress" method="post">
-    <!-- Country Dropdown -->
-    <div class="profile-form-group">
-        <label asp-for="idCountry" class="col-form-label">Country</label>
-        <select asp-for="idCountry" class="form-control mb-3 p-4" id="countryDropdown">
-            <option value="">-- Select Country --</option>
-            @foreach (var country in ViewBag.Countries)
-            {
-                <option value="@country.Value">@country.Text</option>
+    @model Customer
+
+    <form asp-controller="User" asp-action="UpdateAddress" method="post">
+        <!-- Country Dropdown -->
+        <div class="profile-form-group">
+            <label asp-for="idCountry" class="col-form-label">Quốc gia</label>
+            <select asp-for="idCountry" class="form-control mb-3 p-4" id="countryDropdown">
+                <option value="">-- Chọn Quốc gia --</option>
+                @foreach (var country in ViewBag.Countries)
+                {
+                    <option value="@country.Value">@country.Text</option>
+                }
+            </select>
+            <span asp-validation-for="idCountry" class="text-danger"></span>
+        </div>
+
+        <!-- City Dropdown -->
+        <div class="profile-form-group">
+            <label asp-for="idCity" class="col-form-label">Thành phố</label>
+            <select asp-for="idCity" class="form-control mb-3 p-4" id="cityDropdown">
+                <option value="">-- Chọn Thành phố --</option>
+                @foreach (var city in ViewBag.Cities)
+                {
+                    <option value="@city.Value">
+                        @city.Text
+                    </option>
+                }
+            </select>
+            <span asp-validation-for="idCity" class="text-danger"></span>
+        </div>
+
+        <!-- District Dropdown -->
+        <div class="profile-form-group">
+            <label asp-for="idDistrict" class="col-form-label">Quận/Huyện</label>
+            <select asp-for="idDistrict" class="form-control mb-3 p-4" id="districtDropdown">
+                <option value="">-- Chọn Quận/Huyện --</option>
+                @foreach (var district in ViewBag.Districts)
+                {
+                    <option value="@district.Value" >
+                        @district.Text
+                    </option>
+                }
+            </select>
+            <span asp-validation-for="idDistrict" class="text-danger"></span>
+        </div>
+
+        <!-- Ward Dropdown -->
+        <div class="profile-form-group">
+            <label asp-for="idWard" class="col-form-label">Phường/Xã</label>
+            <select asp-for="idWard" class="form-control mb-3 p-4" id="wardDropdown">
+                <option value="">-- Chọn Phường/Xã --</option>
+                @foreach (var ward in ViewBag.Wards)
+                {
+                    <option value="@ward.Value" >
+                        @ward.Text
+                    </option>
+                }
+            </select>
+            <span asp-validation-for="idWard" class="text-danger"></span>
+        </div>
+        <div class="profile-form-group">
+            <label asp-for="Address">Địa chỉ</label>
+            <input asp-for="Address" type="tex" placeholder="Địa chỉ">
+        </div>
+
+        <button type="submit" class="profile-update-button">Cập nhật Địa chỉ</button>
+    </form>
+    @await Html.PartialAsync("_Notification")
+
+    <script>
+        $(document).ready(function () {
+            var cities = @Html.Raw(Json.Serialize(ViewBag.Cities));
+            var districts = @Html.Raw(Json.Serialize(ViewBag.Districts));
+            var wards = @Html.Raw(Json.Serialize(ViewBag.Wards));
+
+            // Load existing values on page load
+            var selectedCountry = $('#countryDropdown').val();
+            var selectedCity = $('#cityDropdown').val();
+            var selectedDistrict = $('#districtDropdown').val();
+            var selectedWard = $('#wardDropdown').val();
+
+            // Filter and populate City dropdown based on the selected Country
+            if (selectedCountry) {
+                var filteredCities = cities.filter(city => city.countryId == selectedCountry);
+                $('#cityDropdown').empty().append('<option value="">-- Chọn Thành phố --</option>');
+                $.each(filteredCities, function (index, city) {
+                    $('#cityDropdown').append('<option value="' + city.value + '"' + (city.value == selectedCity ? ' selected' : '') + '>' + city.text + '</option>');
+                });
             }
-        </select>
-        <span asp-validation-for="idCountry" class="text-danger"></span>
-    </div>
 
-    <!-- City Dropdown -->
-    <div class="profile-form-group">
-        <label asp-for="idCity" class="col-form-label">City</label>
-        <select asp-for="idCity" class="form-control mb-3 p-4" id="cityDropdown">
-            <option value="">-- Select City --</option>
-            @foreach (var city in ViewBag.Cities)
-            {
-                <option value="@city.Value">
-                    @city.Text
-                </option>
+            // Filter and populate District dropdown based on the selected City
+            if (selectedCity) {
+                var filteredDistricts = districts.filter(district => district.cityId == selectedCity);
+                $('#districtDropdown').empty().append('<option value="">-- Chọn Quận/Huyện --</option>');
+                $.each(filteredDistricts, function (index, district) {
+                    $('#districtDropdown').append('<option value="' + district.value + '"' + (district.value == selectedDistrict ? ' selected' : '') + '>' + district.text + '</option>');
+                });
             }
-        </select>
-        <span asp-validation-for="idCity" class="text-danger"></span>
-    </div>
 
-    <!-- District Dropdown -->
-    <div class="profile-form-group">
-        <label asp-for="idDistrict" class="col-form-label">District</label>
-        <select asp-for="idDistrict" class="form-control mb-3 p-4" id="districtDropdown">
-            <option value="">-- Select District --</option>
-            @foreach (var district in ViewBag.Districts)
-            {
-                <option value="@district.Value" >
-                    @district.Text
-                </option>
+            // Filter and populate Ward dropdown based on the selected District
+            if (selectedDistrict) {
+                var filteredWards = wards.filter(ward => ward.districtId == selectedDistrict);
+                $('#wardDropdown').empty().append('<option value="">-- Chọn Phường/Xã --</option>');
+                $.each(filteredWards, function (index, ward) {
+                    $('#wardDropdown').append('<option value="' + ward.value + '"' + (ward.value == selectedWard ? ' selected' : '') + '>' + ward.text + '</option>');
+                });
             }
-        </select>
-        <span asp-validation-for="idDistrict" class="text-danger"></span>
-    </div>
 
-    <!-- Ward Dropdown -->
-    <div class="profile-form-group">
-        <label asp-for="idWard" class="col-form-label">Ward</label>
-        <select asp-for="idWard" class="form-control mb-3 p-4" id="wardDropdown">
-            <option value="">-- Select Ward --</option>
-            @foreach (var ward in ViewBag.Wards)
-            {
-                <option value="@ward.Value" >
-                    @ward.Text
-                </option>
-            }
-        </select>
-        <span asp-validation-for="idWard" class="text-danger"></span>
-    </div>
-    <div class="profile-form-group">
-        <label asp-for="Address">Address</label>
-        <input asp-for="Address" type="tex" placeholder="Address">
-    </div>
+            // Country change event
+            $('#countryDropdown').change(function () {
+                var selectedCountry = $(this).val();
+                var filteredCities = cities.filter(city => city.countryId == selectedCountry);
 
-    <button type="submit" class="profile-update-button">Update Address</button>
-</form>
-@await Html.PartialAsync("_Notification")
+                $('#cityDropdown').empty().append('<option value="">-- Chọn Thành phố --</option>');
+                $.each(filteredCities, function (index, city) {
+                    $('#cityDropdown').append('<option value="' + city.value + '">' + city.text + '</option>');
+                });
 
-<script>
-    $(document).ready(function () {
-        var cities = @Html.Raw(Json.Serialize(ViewBag.Cities));
-        var districts = @Html.Raw(Json.Serialize(ViewBag.Districts));
-        var wards = @Html.Raw(Json.Serialize(ViewBag.Wards));
-
-        // Load existing values on page load
-        var selectedCountry = $('#countryDropdown').val();
-        var selectedCity = $('#cityDropdown').val();
-        var selectedDistrict = $('#districtDropdown').val();
-        var selectedWard = $('#wardDropdown').val();
-
-        // Filter and populate City dropdown based on the selected Country
-        if (selectedCountry) {
-            var filteredCities = cities.filter(city => city.countryId == selectedCountry);
-            $('#cityDropdown').empty().append('<option value="">-- Select City --</option>');
-            $.each(filteredCities, function (index, city) {
-                $('#cityDropdown').append('<option value="' + city.value + '"' + (city.value == selectedCity ? ' selected' : '') + '>' + city.text + '</option>');
-            });
-        }
-
-        // Filter and populate District dropdown based on the selected City
-        if (selectedCity) {
-            var filteredDistricts = districts.filter(district => district.cityId == selectedCity);
-            $('#districtDropdown').empty().append('<option value="">-- Select District --</option>');
-            $.each(filteredDistricts, function (index, district) {
-                $('#districtDropdown').append('<option value="' + district.value + '"' + (district.value == selectedDistrict ? ' selected' : '') + '>' + district.text + '</option>');
-            });
-        }
-
-        // Filter and populate Ward dropdown based on the selected District
-        if (selectedDistrict) {
-            var filteredWards = wards.filter(ward => ward.districtId == selectedDistrict);
-            $('#wardDropdown').empty().append('<option value="">-- Select Ward --</option>');
-            $.each(filteredWards, function (index, ward) {
-                $('#wardDropdown').append('<option value="' + ward.value + '"' + (ward.value == selectedWard ? ' selected' : '') + '>' + ward.text + '</option>');
-            });
-        }
-
-        // Country change event
-        $('#countryDropdown').change(function () {
-            var selectedCountry = $(this).val();
-            var filteredCities = cities.filter(city => city.countryId == selectedCountry);
-
-            $('#cityDropdown').empty().append('<option value="">-- Select City --</option>');
-            $.each(filteredCities, function (index, city) {
-                $('#cityDropdown').append('<option value="' + city.value + '">' + city.text + '</option>');
+                $('#districtDropdown').empty().append('<option value="">-- Chọn Quận/Huyện --</option>');
+                $('#wardDropdown').empty().append('<option value="">-- Chọn Phường/Xã --</option>');
             });
 
-            $('#districtDropdown').empty().append('<option value="">-- Select District --</option>');
-            $('#wardDropdown').empty().append('<option value="">-- Select Ward --</option>');
+            // City change event
+            $('#cityDropdown').change(function () {
+                var selectedCity = $(this).val();
+                var filteredDistricts = districts.filter(district => district.cityId == selectedCity);
+
+                $('#districtDropdown').empty().append('<option value="">-- Chọn Quận/Huyện --</option>');
+                $.each(filteredDistricts, function (index, district) {
+                    $('#districtDropdown').append('<option value="' + district.value + '">' + district.text + '</option>');
+                });
+
+                $('#wardDropdown').empty().append('<option value="">-- Chọn Phường/Xã --</option>');
+            });
+
+            // District change event
+            $('#districtDropdown').change(function () {
+                var selectedDistrict = $(this).val();
+                var filteredWards = wards.filter(ward => ward.districtId == selectedDistrict);
+
+                $('#wardDropdown').empty().append('<option value="">-- Chọn Phường/Xã --</option>');
+                $.each(filteredWards, function (index, ward) {
+                    $('#wardDropdown').append('<option value="' + ward.value + '">' + ward.text + '</option>');
+                });
+            });
         });
-
-        // City change event
-        $('#cityDropdown').change(function () {
-            var selectedCity = $(this).val();
-            var filteredDistricts = districts.filter(district => district.cityId == selectedCity);
-
-            $('#districtDropdown').empty().append('<option value="">-- Select District --</option>');
-            $.each(filteredDistricts, function (index, district) {
-                $('#districtDropdown').append('<option value="' + district.value + '">' + district.text + '</option>');
-            });
-
-            $('#wardDropdown').empty().append('<option value="">-- Select Ward --</option>');
-        });
-
-        // District change event
-        $('#districtDropdown').change(function () {
-            var selectedDistrict = $(this).val();
-            var filteredWards = wards.filter(ward => ward.districtId == selectedDistrict);
-
-            $('#wardDropdown').empty().append('<option value="">-- Select Ward --</option>');
-            $.each(filteredWards, function (index, ward) {
-                $('#wardDropdown').append('<option value="' + ward.value + '">' + ward.text + '</option>');
-            });
-        });
-    });
-
-
+    </script>
 </script>

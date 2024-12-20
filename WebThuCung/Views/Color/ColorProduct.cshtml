@@ -1,18 +1,18 @@
 ﻿@model IEnumerable<WebThuCung.Models.ProductColor>
 
 @{
-    ViewData["Title"] = "Color List";
+    ViewData["Title"] = "Danh Sách Màu Sắc";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Color List for Product</h1>
+        <h1>Danh Sách Màu Sắc Cho Sản Phẩm</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
-                <li class="breadcrumb-item"><a asp-controller="Product" asp-action="Index">Product</a></li>
-                <li class="breadcrumb-item active">Colors</li>
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Trang Chủ</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Product" asp-action="Index">Sản Phẩm</a></li>
+                <li class="breadcrumb-item active">Màu Sắc</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -22,11 +22,11 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Color List</h5>
+                        <h5 class="card-title">Danh Sách Màu Sắc</h5>
 
                         <div class="mb-3">
                             <a asp-action="CreateColorProduct" asp-route-id="@ViewBag.ProductId" class="btn btn-primary">
-                                <i class="bi bi-plus-circle"></i> Add New Color
+                                <i class="bi bi-plus-circle"></i> Thêm Màu Mới
                             </a>
                         </div>
 
@@ -34,10 +34,10 @@
                         <table class="table datatable">
                             <thead>
                                 <tr>
-                                    <th>Product</th>
-                                    <th>Color</th>
+                                    <th>Sản Phẩm</th>
+                                    <th>Màu Sắc</th>
                                    
-                                    <th>Delete</th>
+                                    <th>Xóa</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -55,7 +55,7 @@
                                                 <form asp-action="DeleteColorProduct" method="post" style="display:inline;">
                                                     <input type="hidden" name="idProduct" value="@color.idProduct" />
                                                     <input type="hidden" name="idColor" value="@color.idColor" />
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this color?');">Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa màu này không?');">Xóa</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -64,14 +64,14 @@
                                 else
                                 {
                                     <tr>
-                                        <td colspan="4" class="text-center">No colors found.</td>
+                                        <td colspan="4" class="text-center">Không tìm thấy màu sắc nào.</td>
                                     </tr>
                                 }
                             </tbody>
                         </table>
             >
 
-                                <a asp-controller="Product" asp-action="Index" class="btn btn-secondary">Back</a>
+                                <a asp-controller="Product" asp-action="Index" class="btn btn-secondary">Quay Lại</a>
                          
                         <!-- End Table with stripped rows -->
                     </div>

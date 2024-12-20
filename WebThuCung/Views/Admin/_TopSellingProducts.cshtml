@@ -5,23 +5,23 @@
         <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
             <li class="dropdown-header text-start">
-                <h6>Filter</h6>
+                <h6>Lọc</h6>
             </li>
-            <li><a class="dropdown-item" href="@Url.Action("Index", new { period = "today" })">Today</a></li>
-            <li><a class="dropdown-item" href="@Url.Action("Index", new { period = "week" })">This Week</a></li>
-            <li><a class="dropdown-item" href="@Url.Action("Index", new { period = "month" })">This Month</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Index", new { period = "Ngày" })">Hôm nay</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Index", new { period = "Tuần" })">Tuần này</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Index", new { period = "Tháng" })">Tháng này</a></li>
         </ul>
     </div>
     <div class="card-body pb-0">
-        <h5 class="card-title">Top Selling <span>| @ViewBag.SelectedPeriod</span></h5>
+        <h5 class="card-title">Sản phẩm bán chạy <span>| @ViewBag.SelectedPeriod</span></h5>
         <table class="table table-borderless">
             <thead>
                 <tr>
-                    <th scope="col">Preview</th>
-                    <th scope="col">Product</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Sold</th>
-                    <th scope="col">Revenue</th>
+                    <th scope="col">Xem trước</th>
+                    <th scope="col">Sản phẩm</th>
+                    <th scope="col">Giá</th>
+                    <th scope="col">Đã bán</th>
+                    <th scope="col">Doanh thu</th>
                 </tr>
             </thead>
             <tbody>

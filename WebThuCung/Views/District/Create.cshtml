@@ -1,7 +1,7 @@
 ﻿@model WebThuCung.Dto.DistrictDto
 
 @{
-    ViewData["Title"] = "Create District";
+    ViewData["Title"] = "Tạo Quận/Huyện";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -9,9 +9,9 @@
     <div class="pagetitle">
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
-                <li class="breadcrumb-item"><a asp-controller="District" asp-action="Index">District</a></li>
-                <li class="breadcrumb-item active">Create</li>
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Trang Chủ</a></li>
+                <li class="breadcrumb-item"><a asp-controller="District" asp-action="Index">Quận/Huyện</a></li>
+                <li class="breadcrumb-item active">Tạo Mới</li>
             </ol>
         </nav>
     </div>
@@ -20,12 +20,12 @@
             <div class="col-lg-10">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Create New District</h5>
+                        <h5 class="card-title">Tạo Quận/Huyện Mới</h5>
                         <div asp-validation-summary="All" class="text-danger"></div>
 
                         <form asp-action="Create" method="post">
                             <div class="row mb-3">
-                                <label for="inputIdDistrict" class="col-sm-2 col-form-label">District ID</label>
+                                <label for="inputIdDistrict" class="col-sm-2 col-form-label">Mã Quận/Huyện</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="inputIdDistrict" name="idDistrict" required>
                                     <span asp-validation-for="idDistrict" class="text-danger"></span>
@@ -33,7 +33,7 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label for="inputNameDistrict" class="col-sm-2 col-form-label">District Name</label>
+                                <label for="inputNameDistrict" class="col-sm-2 col-form-label">Tên Quận/Huyện</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="inputNameDistrict" name="nameDistrict" required>
                                     <span asp-validation-for="nameDistrict" class="text-danger"></span>
@@ -41,10 +41,10 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label for="inputCity" class="col-sm-2 col-form-label">City</label>
+                                <label for="inputCity" class="col-sm-2 col-form-label">Thành Phố</label>
                                 <div class="col-sm-10">
                                     <select class="form-control" id="inputCity" name="idCity" required>
-                                        <option value="">Select a City</option>
+                                        <option value="">Chọn Thành Phố</option>
                                         @foreach (var city in ViewBag.Cities)
                                         {
                                             <option value="@city.Value">@city.Text</option>
@@ -56,8 +56,8 @@
 
                             <div class="row mb-3">
                                 <div class="col-sm-10 offset-sm-2">
-                                    <button type="submit" class="btn btn-primary">Create District</button>
-                                    <a asp-action="Index" class="btn btn-secondary">Back</a>
+                                    <button type="submit" class="btn btn-primary">Tạo Quận/Huyện</button>
+                                    <a asp-action="Index" class="btn btn-secondary">Quay Lại</a>
                                 </div>
                             </div>
                            

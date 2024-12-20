@@ -6,12 +6,12 @@
 }
 
 <div class="pagetitle">
-    <h1>Profile</h1>
+    <h1>Hồ sơ</h1>
     <nav>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
-            <li class="breadcrumb-item">Users</li>
-            <li class="breadcrumb-item active">Profile</li>
+            <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Trang chủ</a></li>
+            <li class="breadcrumb-item">Người dùng</li>
+            <li class="breadcrumb-item active">Hồ sơ</li>
         </ol>
     </nav>
 </div><!-- End Page Title -->
@@ -47,10 +47,10 @@
                     <!-- Bordered Tabs -->
                     <ul class="nav nav-tabs nav-tabs-bordered">
                         <li class="nav-item">
-                            <a class="nav-link " asp-controller="Admin" asp-action="Profile">Overview</a>
+                            <a class="nav-link " asp-controller="Admin" asp-action="Profile">Tổng quan</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" asp-controller="Admin" asp-action="EditProfile">Edit Profile</a>
+                            <a class="nav-link active" asp-controller="Admin" asp-action="EditProfile">Chỉnh sửa hồ sơ</a>
                         </li>
 
                     </ul>
@@ -64,7 +64,7 @@
                                     <!-- Validation Summary -->
                                     <div asp-validation-summary="All" class="text-danger"></div>
                                     <div class="row mb-3">
-                                        <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
+                                        <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Tên đầy đủ</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input asp-for="Name" type="text" class="form-control" id="fullName">
                                         </div>
@@ -72,7 +72,7 @@
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="address" class="col-md-4 col-lg-3 col-form-label">Address</label>
+                                        <label for="address" class="col-md-4 col-lg-3 col-form-label">Địa chỉ</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input asp-for="Address" type="text" class="form-control" id="address" >
                                         </div>
@@ -80,7 +80,7 @@
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
+                                        <label for="phone" class="col-md-4 col-lg-3 col-form-label">Số điện thoại</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input asp-for="Phone" type="text" class="form-control" placeholder="Enter Phone" pattern="\d*" title="Please enter only numbers." />
 
@@ -97,7 +97,7 @@
                                     </div>
 
                                     <div class="text-center">
-                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
                                     </div>
                                 </form><!-- End Profile Edit Form -->
 

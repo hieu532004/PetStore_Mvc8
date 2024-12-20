@@ -1,17 +1,17 @@
 ﻿@model IEnumerable<WebThuCung.Models.Country>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Danh sách quốc gia";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Country List</h1>
+        <h1>Danh sách quốc gia</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
-                <li class="breadcrumb-item">Country</li>
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Trang chủ</a></li>
+                <li class="breadcrumb-item">Quốc gia</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -22,11 +22,11 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Country List</h5>
+                        <h5 class="card-title">Danh sách quốc gia</h5>
 
                         <div class="mb-3">
                             <a asp-action="Create" class="btn btn-primary">
-                                <i class="bi bi-plus-circle"></i> Create New Country
+                                <i class="bi bi-plus-circle"></i> Tạo quốc gia mới
                             </a>
                         </div>
 
@@ -35,9 +35,9 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Country Name</th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
+                                    <th>Tên quốc gia</th>
+                                    <th>Sửa</th>
+                                    <th>Xóa</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -50,12 +50,12 @@
                                             <td>@country.nameCountry</td>
                                             <td>
                                                 <!-- Edit Button -->
-                                                <a asp-action="Edit" asp-route-id="@country.idCountry" class="btn btn-warning btn-sm">Edit</a>
+                                                <a asp-action="Edit" asp-route-id="@country.idCountry" class="btn btn-warning btn-sm">Sửa</a>
                                             </td>
                                             <td>
                                                 <!-- Delete Button -->
                                                 <form asp-action="Delete" asp-route-id="@country.idCountry" method="post" style="display:inline;">
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this country?');">Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa quốc gia này không?');">Xóa</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -64,7 +64,7 @@
                                 else
                                 {
                                     <tr>
-                                        <td colspan="4" class="text-center">No countries found.</td>
+                                        <td colspan="4" class="text-center">Không tìm thấy quốc gia nào.</td>
                                     </tr>
                                 }
                             </tbody>

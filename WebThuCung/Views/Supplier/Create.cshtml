@@ -1,18 +1,18 @@
 ﻿@model WebThuCung.Dto.SupplierCreateDto
 
 @{
-    ViewData["Title"] = "Create Supplier";
+    ViewData["Title"] = "Tạo Nhà Cung Cấp";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Create Supplier</h1>
+        <h1>Tạo Nhà Cung Cấp</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
-                <li class="breadcrumb-item"><a asp-controller="Supplier" asp-action="Index">Supplier</a></li>
-                <li class="breadcrumb-item active">Create</li>
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Trang Chủ</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Supplier" asp-action="Index">Nhà Cung Cấp</a></li>
+                <li class="breadcrumb-item active">Tạo</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -22,7 +22,7 @@
             <div class="col-lg-10">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Create Supplier</h5>
+                        <h5 class="card-title">Tạo Nhà Cung Cấp</h5>
 
                         <!-- Validation Summary -->
                         <div asp-validation-summary="All" class="text-danger"></div>
@@ -31,7 +31,7 @@
                         <form asp-action="Create" method="post" enctype="multipart/form-data">
                            
                             <div class="row mb-3">
-                                <label asp-for="idSupplier" class="col-sm-2 col-form-label">Supplier ID</label>
+                                <label asp-for="idSupplier" class="col-sm-2 col-form-label">Mã Nhà Cung Cấp</label>
                                 <div class="col-sm-10">
                                     <!-- Trường hiển thị ID, chỉ đọc -->
                                     <input asp-for="idSupplier" class="form-control" />
@@ -41,7 +41,7 @@
                             </div>
                             <!-- Supplier Name -->
                             <div class="row mb-3">
-                                <label asp-for="NameSupplier" class="col-sm-2 col-form-label">Supplier Name</label>
+                                <label asp-for="NameSupplier" class="col-sm-2 col-form-label">Tên Nhà Cung Cấp</label>
                                 <div class="col-sm-10">
                                     <input asp-for="NameSupplier" class="form-control" />
                                     <span asp-validation-for="NameSupplier" class="text-danger"></span>
@@ -50,7 +50,7 @@
 
                             <!-- Phone -->
                             <div class="row mb-3">
-                                <label asp-for="Phone" class="col-sm-2 col-form-label">Phone</label>
+                                <label asp-for="Phone" class="col-sm-2 col-form-label">Số Điện Thoại</label>
                                 <div class="col-sm-10">
                                     <input asp-for="Phone" class="form-control" />
                                     <span asp-validation-for="Phone" class="text-danger"></span>
@@ -59,7 +59,7 @@
 
                             <!-- Address -->
                             <div class="row mb-3">
-                                <label asp-for="Address" class="col-sm-2 col-form-label">Address</label>
+                                <label asp-for="Address" class="col-sm-2 col-form-label">Địa Chỉ</label>
                                 <div class="col-sm-10">
                                     <input asp-for="Address" class="form-control" />
                                     <span asp-validation-for="Address" class="text-danger"></span>
@@ -78,7 +78,7 @@
                             <!-- Image -->
      
                             <div class="row mb-3">
-                                <label asp-for="Image" class="col-sm-2 col-form-label">Image</label>
+                                <label asp-for="Image" class="col-sm-2 col-form-label">Hình Ảnh</label>
                                 <div class="col-sm-10">
                                     <input type="file" class="form-control" id="Image" name="Image" accept="image/*" />
                                     <!-- Hiển thị lỗi nếu có -->
@@ -89,8 +89,8 @@
                             <!-- Submit Button -->
                             <div class="row mb-3">
                                 <div class="col-sm-10 offset-sm-2">
-                                    <button type="submit" class="btn btn-primary">Create Supplier</button>
-                                    <a asp-action="Index" class="btn btn-secondary">Back</a>
+                                    <button type="submit" class="btn btn-primary">Tạo Nhà Cung Cấp</button>
+                                    <a asp-action="Index" class="btn btn-secondary">Quay Lại</a>
                                 </div>
                             </div>
                            

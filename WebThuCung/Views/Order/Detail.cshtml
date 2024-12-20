@@ -1,19 +1,19 @@
 ﻿@model IEnumerable<WebThuCung.Models.DetailOrder>
 
 @{
-    ViewData["Title"] = "Detail Orders";
+    ViewData["Title"] = "Chi tiết đơn hàng";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Detail Orders for Order: @ViewBag.OrderId</h1>
+        <h1>Chi tiết đơn hàng cho Đơn hàng: @ViewBag.OrderId</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
-                <li class="breadcrumb-item"><a asp-controller="Order" asp-action="Index">Order</a></li>
-                <li class="breadcrumb-item active">Detail Order</li>
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Order" asp-action="Index">Đơn hàng</a></li>
+                <li class="breadcrumb-item active">Chi tiết đơn hàng</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -24,21 +24,20 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Order List</h5>
+                        <h5 class="card-title">Danh sách đơn hàng</h5>
 
 
                         <!-- Table with stripped rows -->
                         <table class="table datatable">
                             <thead>
                                 <tr>
-                                    <th>Product</th>
-                                    <th>Quantity</th>
-                                   
-                                    <th>Total Price</th>
-                                    <th>Size</th>
-                                    <th>Color</th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
+                                    <th>Sản phẩm</th>
+                                    <th>Số lượng</th>
+                                    <th>Tổng giá</th>
+                                    <th>Kích thước</th>
+                                    <th>Màu sắc</th>
+                                    <th>Sửa</th>
+                                    <th>Xóa</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -49,7 +48,6 @@
                                                 @detail.Product?.nameProduct
                                         </td>
                                         <td>@detail.Quantity</td>
-                                       
                                         <td>@detail.totalPrice?.ToString("C")</td>
                                         <td>@detail.nameSize</td>
                                         <td>@detail.nameColor</td>
@@ -57,7 +55,7 @@
                                             <!-- Nút Edit truyền cả idOrder và idProduct -->
                                             <a asp-action="EditDetail"
                                               asp-route-id="@detail.IdDetailOrder"
-                                               class="btn btn-warning btn-sm">Edit</a>
+                                               class="btn btn-warning btn-sm">Sửa</a>
                                         </td>
                                         <td>
                                             <!-- Nút Delete truyền cả idOrder và idProduct -->
@@ -66,8 +64,8 @@
                                                   method="post"
                                                   style="display:inline;">
                                                 <button type="submit" class="btn btn-danger btn-sm"
-                                                        onclick="return confirm('Are you sure you want to delete this Detail Order?');">
-                                                    Delete
+                                                        onclick="return confirm('Bạn có chắc chắn muốn xóa chi tiết đơn hàng này không?');">
+                                                    Xóa
                                                 </button>
                                             </form>
                                         </td>
@@ -77,9 +75,9 @@
                         </table>
 
                         <a asp-controller="Order" asp-action="CreateDetail" asp-route-id="@ViewBag.OrderId"
-                           class="btn btn-primary">Add Detail Order</a>
+                           class="btn btn-primary">Thêm chi tiết đơn hàng</a>
                         <a asp-action="Index"
-                           class="btn btn-primary">Back</a>
+                           class="btn btn-primary">Quay lại</a>
                     </div>
                 </div>
             </div>

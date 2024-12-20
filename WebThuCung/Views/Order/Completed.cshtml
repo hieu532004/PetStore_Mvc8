@@ -1,17 +1,17 @@
 ﻿@model IEnumerable<WebThuCung.Dto.OrderViewDto>
 @{
-    ViewData["Title"] = "Order List";
+    ViewData["Title"] = "Danh sách đơn hàng";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Order List</h1>
+        <h1>Danh sách đơn hàng</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
-                <li class="breadcrumb-item"><a asp-controller="Order" asp-action="Index">Order</a></li>
-                <li class="breadcrumb-item active">Accept</li>
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Order" asp-action="Index">Đơn hàng</a></li>
+                <li class="breadcrumb-item active">Chấp nhận</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -21,34 +21,34 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Order List</h5>
+                        <h5 class="card-title">Danh sách đơn hàng</h5>
                         <a asp-controller="Order" asp-action="Pending"
-                           class="btn btn-primary">Order pending</a>
+                           class="btn btn-primary">Đơn hàng chờ xử lý</a>
                         <a asp-controller="Order" asp-action="Accepted"
-                           class="btn btn-primary">Order Accepted</a>
+                           class="btn btn-primary">Đơn hàng đã chấp nhận</a>
                         <a asp-controller="Order" asp-action="Deliveried"
-                           class="btn btn-primary">Shipper Delivered</a>
+                           class="btn btn-primary">Đơn hàng đã giao</a>
                         <a asp-controller="Order" asp-action="Completed"
-                           class="btn btn-primary active">Order Completed</a>
+                           class="btn btn-primary active">Đơn hàng đã hoàn thành</a>
                         <a asp-controller="Order" asp-action="Refund"
-                           class="btn btn-primary">Order is returned</a>
+                           class="btn btn-primary">Đơn hàng đã trả lại</a>
                         <a asp-controller="Order" asp-action="UpdateShippingStatus"
-                           class="btn btn-primary">UpdateShippingStatus</a>
+                           class="btn btn-primary">Cập nhật trạng thái giao hàng</a>
                       
                         <!-- Table with stripped rows -->
                         <table class="table datatable">
                             <thead>
                                 <tr>
-                                    <th>ID Order</th>
-                                    <th>ID Customer</th>
-                                    <th>Date From</th>
-                                    <th>Date To</th>
-                                    <th>Status Order</th>
-                                    <th>Status Pay</th>
-                                    <th>Total Order</th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
-                                    <th>Confirm Payment</th>  <!-- Thêm cột Accept -->
+                                    <th>ID Đơn hàng</th>
+                                    <th>ID Khách hàng</th>
+                                    <th>Ngày bắt đầu</th>
+                                    <th>Ngày kết thúc</th>
+                                    <th>Trạng thái đơn hàng</th>
+                                    <th>Trạng thái thanh toán</th>
+                                    <th>Tổng đơn hàng</th>
+                                    <th>Chỉnh sửa</th>
+                                    <th>Xóa</th>
+                                    <th>Xác nhận thanh toán</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -65,44 +65,39 @@
                                             <td>@orderView.Order.idCustomer</td>
                                             <td>@orderView.Order.dateFrom.ToString("yyyy-MM-dd HH:mm")</td>
                                             <td>@(orderView.Order.dateTo.HasValue ? orderView.Order.dateTo.Value.ToString("yyyy-MM-dd HH:mm") : "N/A")</td>
-                                            <td>@orderView.Order.statusOrder</td> <!-- Hiển thị trực tiếp enum OrderStatus -->
+                                            <td>@orderView.Order.statusOrder</td>
                                             <td>@orderView.Order.statusPay</td>
                                             <td>@orderView.totalOrder?.ToString("C")</td>
                                             <td>
-                                                <a asp-action="Edit" asp-route-id="@orderView.Order.idOrder" class="btn btn-warning btn-sm">Edit</a>
+                                                <a asp-action="Edit" asp-route-id="@orderView.Order.idOrder" class="btn btn-warning btn-sm">Chỉnh sửa</a>
                                             </td>
                                             <td>
                                                 <form asp-action="Delete" asp-route-id="@orderView.Order.idOrder" method="post" style="display:inline;">
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this Order?');">Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa đơn hàng này không?');">Xóa</button>
                                                 </form>
                                             </td>
-                                            
-                                          
                                             <td>
-                                                @if (orderView.Transaction != null
-                                               && orderView.PaymentExists)
-
+                                                @if (orderView.Transaction != null && orderView.PaymentExists)
                                                 {
                                                     <form asp-action="ConfirmPayment" method="post" style="display:inline;" onsubmit="return confirmPayment();">
                                                         <input type="hidden" name="idOrder" value="@orderView.Order.idOrder" />
-                                                        <button type="submit" class="btn btn-success btn-sm">Confirm</button>
+                                                        <button type="submit" class="btn btn-success btn-sm">Xác nhận</button>
                                                     </form>
                                                 }
                                             </td>
-
                                         </tr>
                                     }
                                 }
                                 else
                                 {
                                     <tr>
-                                        <td colspan="10" class="text-center">No orders found.</td>
+                                        <td colspan="10" class="text-center">Không tìm thấy đơn hàng nào.</td>
                                     </tr>
                                 }
                             </tbody>
                         </table>
                         <!-- End Table with stripped rows -->
-                        <a asp-action="Index" class="btn btn-secondary">Back</a>
+                        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
                     </div>
                 </div>
 
@@ -113,9 +108,9 @@
 </main><!-- End #main -->
 <script>
     function confirmOrder() {
-        return confirm("Are you sure you want to accept this order?");
+        return confirm("Bạn có chắc chắn muốn chấp nhận đơn hàng này không?");
     }
     function confirmPayment() {
-        return confirm("Are you sure you want to confirm payment this order?");
+        return confirm("Bạn có chắc chắn muốn xác nhận thanh toán đơn hàng này không?");
     }
 </script>

@@ -1,25 +1,25 @@
 ﻿@model Customer
 <form asp-controller="User" asp-action="UpdateProfile" method="post">
     <div class="profile-form-group">
-        <label asp-for="nameCustomer">First Name</label>
+        <label asp-for="nameCustomer">Tên</label>
         <input asp-for="nameCustomer" type="text" placeholder="Daniel">
     </div>
 
     <div class="profile-form-group">
-        <label asp-for="Email">Email Address</label>
+        <label asp-for="Email">Địa chỉ Email</label>
         <input asp-for="Email" type="email" placeholder="daniel.adams@example.com" readonly>
     </div>
 
     <div class="profile-form-group">
-        <label asp-for="Phone">Phone Number</label>
+        <label asp-for="Phone">Số điện thoại</label>
         <input asp-for="Phone" type="tel" placeholder="+7 (805) 348 95 72">
     </div>
 
     <div class="profile-form-group">
-        <label asp-for="dateBirth">Date of Birth</label>
+        <label asp-for="dateBirth">Ngày sinh</label>
         <input asp-for="dateBirth" type="date" placeholder="Ngày sinh">
     </div>
 
-    <button type="submit" class="profile-update-button">Update Profile</button>
+    <button type="submit" class="profile-update-button">Cập nhật hồ sơ</button>
 </form>
 @await Html.PartialAsync("_Notification")

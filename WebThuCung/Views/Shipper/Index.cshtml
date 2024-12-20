@@ -1,18 +1,18 @@
 ﻿@model IEnumerable<WebThuCung.Dto.ShipperOrderDto>
 
 @{
-    ViewData["Title"] = "Shipper Orders List";
+    ViewData["Title"] = "Danh sách đơn hàng của shipper";
     Layout = "~/Views/Shared/_LayoutShipper.cshtml";
 }
 
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Shipper Orders List</h1>
+        <h1>Danh sách đơn hàng của shipper</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="Shipper" asp-action="Index">Home</a></li>
-                <li class="breadcrumb-item">Shipper Orders</li>
+                <li class="breadcrumb-item"><a asp-controller="Shipper" asp-action="Index">Trang chủ</a></li>
+                <li class="breadcrumb-item">Đơn hàng của shipper</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -23,18 +23,18 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Shipper Orders List</h5>
+                        <h5 class="card-title">Danh sách đơn hàng của shipper</h5>
 
                         <!-- Table with stripped rows -->
                         <table class="table datatable">
                             <thead>
                                 <tr>
-                                    <th>Order ID</th>
-                                    <th>Customer Name</th>
-                                    <th>Order Date</th>
-                                    <th>Assigned Date</th>
-                                    <th>Shipping Status</th>
-                                    <th>Shipper Name</th>
+                                    <th>Mã đơn hàng</th>
+                                    <th>Tên khách hàng</th>
+                                    <th>Ngày đặt hàng</th>
+                                    <th>Ngày giao hàng</th>
+                                    <th>Trạng thái vận chuyển</th>
+                                    <th>Tên shipper</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -51,7 +51,7 @@
                                             <td>@order.nameCustomer</td>
                                             <td>@order.OrderDate.ToString("yyyy-MM-dd HH:mm")</td>
                                             <td>@order.AssignedDate.ToString("yyyy-MM-dd HH:mm")</td>
-                                            <td>@order.ShippingStatus</td> <!-- Trạng thái vận chuyển -->
+                                            <td>@order.ShippingStatus</td>
                                             <td>@order.ShipperName</td>
                                         </tr>
                                     }
@@ -59,7 +59,7 @@
                                 else
                                 {
                                     <tr>
-                                        <td colspan="6" class="text-center">No orders found for this shipper.</td>
+                                        <td colspan="6" class="text-center">Không tìm thấy đơn hàng nào cho shipper này.</td>
                                     </tr>
                                 }
                             </tbody>

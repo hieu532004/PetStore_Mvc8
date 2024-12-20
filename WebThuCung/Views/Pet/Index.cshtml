@@ -1,19 +1,18 @@
 ﻿@model IEnumerable<WebThuCung.Models.Pet>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Danh sách thú cưng";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-
 
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Pet List</h1>
+        <h1>Danh sách thú cưng</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
-                <li class="breadcrumb-item">Pet</li>
-                <li class="breadcrumb-item active">List</li>
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Trang chủ</a></li>
+                <li class="breadcrumb-item">Thú cưng</li>
+                <li class="breadcrumb-item active">Danh sách</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -24,11 +23,11 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Pet List</h5>
+                        <h5 class="card-title">Danh sách thú cưng</h5>
 
                         <div class="mb-3">
                             <a asp-action="Create" class="btn btn-primary">
-                                <i class="bi bi-plus-circle"></i> Create New Pet
+                                <i class="bi bi-plus-circle"></i> Tạo mới thú cưng
                             </a>
                         </div>
                         <!-- Table with stripped rows -->
@@ -36,9 +35,9 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Name Pet</th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
+                                    <th>Tên thú cưng</th>
+                                    <th>Sửa</th>
+                                    <th>Xóa</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -51,15 +50,15 @@
                                             <td>@pet.namePet</td>
                                             <td>
                                                 <!-- Nút Edit -->
-                                                <a asp-action="Edit" asp-route-id="@pet.idPet" class="btn btn-warning btn-sm">Edit</a>
+                                                <a asp-action="Edit" asp-route-id="@pet.idPet" class="btn btn-warning btn-sm">Sửa</a>
                                                 <!-- Nút Delete -->
 
                                             </td>
                                             <td>
-                                                <!-- Nút Edit -->
+                                                <!-- Nút Delete -->
 
                                                 <form asp-action="Delete" asp-route-id="@pet.idPet" method="post" style="display:inline;">
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this Pet?');">Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa thú cưng này không?');">Xóa</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -68,7 +67,7 @@
                                 else
                                 {
                                     <tr>
-                                        <td colspan="5" class="text-center">No Pets found.</td>
+                                        <td colspan="5" class="text-center">Không tìm thấy thú cưng nào.</td>
 
                                     </tr>
                                 }
@@ -83,4 +82,4 @@
         </div>
     </section>
 
-</main><!-- End #main --></main><!-- End #main -->
+</main><!-- End #main -->

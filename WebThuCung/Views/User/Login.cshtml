@@ -1,26 +1,9 @@
-﻿@model WebThuCung.Dto.LoginDto
+﻿
+@model WebThuCung.Dto.LoginDto
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "Đăng nhập";
     Layout = "~/Views/Shared/_LayoutUsers.cshtml";
 }
-
-@* <section id="breadcrumb-wrapper3" class="breadcrumb-w-img">
-    <div class="breadcrumb-overlay"></div>
-    <div class="breadcrumb-content">
-        <div class="wrapper">
-            <div class="inner text-center">
-                <div class="breadcrumb-big">
-                    <h2>ĐĂNG NHẬP</h2>
-                </div>
-                <div class="breadcrumb-small">
-                    <a href="@Url.Action("Index", "User")" title="Quay trở về trang chủ">Trang chủ</a>
-                    <span aria-hidden="true">/</span>
-                    <span>Đăng Nhập</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> *@
 
 <section id="banner" class="py-3" style="background: #F9F3EC;">
     <div class="container">
@@ -40,65 +23,43 @@
             <div class="tabs-listing">
                 <nav>
                     <div class="nav nav-tabs d-flex justify-content-center border-dark-subtle mb-3" id="nav-tab" role="tablist">
-                        <a  class="nav-link mx-3 fs-3 border-bottom border-dark-subtle border-0 text-uppercase" role="button">
+                        <a class="nav-link mx-3 fs-3 border-bottom border-dark-subtle border-0 text-uppercase" role="button">
                             Đăng nhập
                         </a>
-                        <a href="@Url.Action("Register", "User")" class="nav-link mx-3 fs-3 border-bottom border-dark-subtle border-0 text-uppercase active" >
-                           Đăng ký
+                        <a href="@Url.Action("Register", "User")" class="nav-link mx-3 fs-3 border-bottom border-dark-subtle border-0 text-uppercase active">
+                            Đăng ký
                         </a>
                     </div>
-
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
-                    <!-- Log In Tab -->
+                    <!-- Đăng nhập Tab -->
                     <div class="tab-pane fade active show" id="nav-sign-in" role="tabpanel" aria-labelledby="nav-sign-in-tab">
                         <div class="col-lg-8 offset-lg-2 mt-5">
-                            @* <p class="mb-0">Log-In With Social</p>
-                            <hr class="my-1">
-                            <div class="row mt-4 mb-5">
-                                <div class="d-grid col-md-6 my-2">
-                                    <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1 ">
-                                        <div class="d-flex flex-wrap justify-content-center">
-                                            <iconify-icon icon="ion:logo-google" class="signup-social-icon me-2"></iconify-icon>
-                                            <p class="mb-0">Google</p>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="d-grid col-md-6 my-2">
-                                    <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1 ">
-                                        <div class="d-flex flex-wrap justify-content-center">
-                                            <iconify-icon icon="ion:logo-facebook" class="signup-social-icon me-2"></iconify-icon>
-                                            <p class="mb-0">Facebook</p>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div> *@
-
                             <p class="mb-0">Đăng nhập bằng Email hoặc Tên người dùng</p>
                             <hr class="my-1">
 
                             <form asp-action="Login" method="post">
                                 @Html.AntiForgeryToken()
 
-                                <!-- Validation Summary -->
+                                <!-- Tóm tắt xác thực -->
                                 <div asp-validation-summary="All" class="text-danger"></div>
 
                                 <div class="form-group flex-wrap">
-                                    <!-- Username or Email -->
+                                    <!-- Tên người dùng hoặc Email -->
                                     <div class="form-input col-lg-12 my-4">
                                         <label asp-for="userName" class="col-form-label">Tên người dùng</label>
                                         <input asp-for="userName" class="form-control mb-3 p-4" placeholder="Nhập tên người dùng hoặc địa chỉ email" style="text-transform: none;" />
                                         <span asp-validation-for="userName" class="text-danger"></span>
                                     </div>
 
-                                    <!-- Password -->
+                                    <!-- Mật khẩu -->
                                     <div class="form-input col-lg-12 my-4">
                                         <label asp-for="password" class="col-form-label">Mật khẩu</label>
                                         <input asp-for="password" type="password" class="form-control mb-3 p-4" placeholder="Nhập mật khẩu" style="text-transform: none;" />
                                         <span asp-validation-for="password" class="text-danger"></span>
                                     </div>
 
-                                    <!-- Remember Me and Forgot Password -->
+                                    <!-- Lưu thông tin và Quên mật khẩu -->
                                     <label class="py-3 d-flex flex-wrap justify-content-between">
                                         <div>
                                             <input type="checkbox" class="d-inline" id="rememberMe" />
@@ -110,21 +71,21 @@
                                         </div>
                                     </label>
 
-                                    <!-- Submit Button -->
+                                    <!-- Nút Đăng nhập -->
                                     <div class="d-grid my-3">
                                         <input type="submit" value="Đăng nhập" class="btn btn-dark btn-lg rounded-1" />
                                     </div>
 
-                                    <!-- Link to Register -->
+                                    <!-- Liên kết đến Đăng ký -->
                                     <p>
                                         <a href="@Url.Action("Register", "User")" class="text-primary fw-bold">Tạo một tài khoản mới</a>
                                     </p>
                                 </div>
-                            </form><!-- End Login Form -->
+                            </form><!-- Kết thúc Form Đăng nhập -->
                         </div>
                     </div>
 
-                    <!-- Sign Up Tab (No changes needed for this part based on your request) -->
+                    <!-- Đăng ký Tab (Không cần thay đổi phần này theo yêu cầu của bạn) -->
                     <div class="tab-pane fade" id="nav-register" role="tabpanel" aria-labelledby="nav-register-tab">
                         <div class="col-lg-8 offset-lg-2 mt-5">
                             <hr class="my-1">
@@ -147,15 +108,14 @@
                                 </div>
                             </div>
 
-                            
                             <hr class="my-1">
 
                             <form id="form1" class="form-group flex-wrap">
                                 <div class="form-input col-lg-12 my-4">
-                                    <input type="text" id="exampleInputName" name="name" placeholder="Your full name" class="form-control mb-3 p-4">
-                                    <input type="text" id="exampleInputEmail1" name="email" placeholder="Your email address" class="form-control mb-3 p-4">
-                                    <input type="password" id="inputPassword1" placeholder="Set your password" class="form-control mb-3 p-4">
-                                    <input type="password" id="inputPassword2" placeholder="Retype your password" class="form-control mb-3 p-4">
+                                    <input type="text" id="exampleInputName" name="name" placeholder="Tên đầy đủ của bạn" class="form-control mb-3 p-4">
+                                    <input type="text" id="exampleInputEmail1" name="email" placeholder="Địa chỉ email của bạn" class="form-control mb-3 p-4">
+                                    <input type="password" id="inputPassword1" placeholder="Đặt mật khẩu của bạn" class="form-control mb-3 p-4">
+                                    <input type="password" id="inputPassword2" placeholder="Nhập lại mật khẩu của bạn" class="form-control mb-3 p-4">
 
                                     <label class="py-3 d-flex flex-wrap justify-content-between">
                                         <div>

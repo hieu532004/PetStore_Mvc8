@@ -1,17 +1,18 @@
-﻿@model WebThuCung.Dto.OrderDto
+﻿
+@model WebThuCung.Dto.OrderDto
 @{
-    ViewData["Title"] = "Edit Order";
+    ViewData["Title"] = "Chỉnh sửa đơn hàng";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Edit Order</h1>
+        <h1>Chỉnh sửa đơn hàng</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
-                <li class="breadcrumb-item"><a asp-controller="Order" asp-action="Index">Order</a></li>
-                <li class="breadcrumb-item active">Edit</li>
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Order" asp-action="Index">Đơn hàng</a></li>
+                <li class="breadcrumb-item active">Chỉnh sửa</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -21,7 +22,7 @@
             <div class="col-lg-10">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Edit Order</h5>
+                        <h5 class="card-title">Chỉnh sửa đơn hàng</h5>
 
                         <!-- Validation Summary -->
                         <div asp-validation-summary="All" class="text-danger"></div>
@@ -30,7 +31,7 @@
                         <form asp-action="Edit" method="post">
                             <!-- Order ID (readonly) -->
                             <div class="row mb-3">
-                                <label asp-for="idOrder" class="col-sm-2 col-form-label">Order ID</label>
+                                <label asp-for="idOrder" class="col-sm-2 col-form-label">Mã đơn hàng</label>
                                 <div class="col-sm-10">
                                     <input asp-for="idOrder" class="form-control" readonly />
                                     <span asp-validation-for="idOrder" class="text-danger"></span>
@@ -41,10 +42,10 @@
 
                             <!-- Customer Selection -->
                             <div class="row mb-3">
-                                <label asp-for="idCustomer" class="col-sm-2 col-form-label">Customer</label>
+                                <label asp-for="idCustomer" class="col-sm-2 col-form-label">Khách hàng</label>
                                 <div class="col-sm-10">
                                     <select asp-for="idCustomer" class="form-control" required>
-                                        <option value="">-- Select a Customer --</option>
+                                        <option value="">-- Chọn khách hàng --</option>
                                         @foreach (var customer in ViewBag.Customers as List<SelectListItem>)
                                         {
                                             <option value="@customer.Value">@customer.Text</option>
@@ -56,7 +57,7 @@
 
                             <!-- Date To -->
                             <div class="row mb-3">
-                                <label asp-for="dateTo" class="col-sm-2 col-form-label">Date To</label>
+                                <label asp-for="dateTo" class="col-sm-2 col-form-label">Ngày đến</label>
                                 <div class="col-sm-10">
                                     <input asp-for="dateTo" class="form-control" type="datetime-local" />
                                     <span asp-validation-for="dateTo" class="text-danger"></span>
@@ -65,14 +66,14 @@
 
                             <!-- Order Status -->
                             <div class="row mb-3">
-                                <label asp-for="statusOrder" class="col-sm-2 col-form-label">Order Status</label>
+                                <label asp-for="statusOrder" class="col-sm-2 col-form-label">Trạng thái đơn hàng</label>
                                 <div class="col-sm-10">
                                     <select asp-for="statusOrder" class="form-control">
-                                        <option value="">-- Select Order Status --</option>
-                                        <option value="Pending">Pending</option>
-                                        <option value="Accepted">Accepted</option>
-                                        <option value="Rejected">Rejected</option>
-                                        <option value="Complete">Complete</option>
+                                        <option value="">-- Chọn trạng thái đơn hàng --</option>
+                                        <option value="Pending">Đang chờ</option>
+                                        <option value="Accepted">Đã chấp nhận</option>
+                                        <option value="Rejected">Đã từ chối</option>
+                                        <option value="Complete">Hoàn thành</option>
 
                                     </select>
                                     <span asp-validation-for="statusOrder" class="text-danger"></span>
@@ -81,13 +82,13 @@
 
                             <!-- Payment Status -->
                             <div class="row mb-3">
-                                <label asp-for="statusPay" class="col-sm-2 col-form-label">Payment Status</label>
+                                <label asp-for="statusPay" class="col-sm-2 col-form-label">Trạng thái thanh toán</label>
                                 <div class="col-sm-10">
                                     <select asp-for="statusPay" class="form-control">
-                                        <option value="">-- Select Payment Status --</option>
-                                        <option value="Paid">Paid</option>
-                                        <option value="Unpaid">UnPaid</option>
-                                        <option value="Refunded">Refunded</option>
+                                        <option value="">-- Chọn trạng thái thanh toán --</option>
+                                        <option value="Paid">Đã thanh toán</option>
+                                        <option value="Unpaid">Chưa thanh toán</option>
+                                        <option value="Refunded">Đã hoàn tiền</option>
 
                                     </select>
                                     <span asp-validation-for="statusPay" class="text-danger"></span>
@@ -98,8 +99,8 @@
                             <!-- Submit Button -->
                             <div class="row mb-3">
                                 <div class="col-sm-10 offset-sm-2">
-                                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                                    <a asp-action="Index" class="btn btn-secondary">Back</a>
+                                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                                    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
                                 </div>
                             </div>
                             

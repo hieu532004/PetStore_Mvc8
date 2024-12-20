@@ -1,18 +1,18 @@
 ﻿@model WebThuCung.Dto.VoteWarehouseDto
 
 @{
-    ViewData["Title"] = "Edit Vote Warehouse";
+    ViewData["Title"] = "Chỉnh sửa kho phiếu";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Edit Vote Warehouse</h1>
+        <h1>Chỉnh sửa kho phiếu</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
-                <li class="breadcrumb-item active"><a asp-controller="VoteWarehouse" asp-action="Index">VoteWareHouse</a></li>
-                <li class="breadcrumb-item active">Edit</li>
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Trang chủ</a></li>
+                <li class="breadcrumb-item active"><a asp-controller="VoteWarehouse" asp-action="Index">Kho phiếu</a></li>
+                <li class="breadcrumb-item active">Chỉnh sửa</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -22,7 +22,7 @@
             <div class="col-lg-10">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Edit Vote Warehouse</h5>
+                        <h5 class="card-title">Chỉnh sửa kho phiếu</h5>
 
                         <!-- Validation Summary -->
                         <div asp-validation-summary="All" class="text-danger"></div>
@@ -33,7 +33,7 @@
 
                             <!-- Date Entry -->
                             <div class="row mb-3">
-                                <label asp-for="idVoteWarehouse" class="col-sm-2 col-form-label">VoteWarehouse ID</label>
+                                <label asp-for="idVoteWarehouse" class="col-sm-2 col-form-label">Mã kho phiếu</label>
                                 <div class="col-sm-10">
                                     <!-- Trường hiển thị ID, chỉ đọc -->
                                     <input asp-for="idVoteWarehouse" class="form-control" readonly/>
@@ -45,10 +45,10 @@
 
                             <!-- Supplier ID -->
                             <div class="row mb-3">
-                                <label asp-for="idSupplier" class="col-sm-2 col-form-label">Supplier</label>
+                                <label asp-for="idSupplier" class="col-sm-2 col-form-label">Nhà cung cấp</label>
                                 <div class="col-sm-10">
                                     <select asp-for="idSupplier" class="form-control" required>
-                                        <option value="">-- Select Supplier --</option>
+                                        <option value="">-- Chọn nhà cung cấp --</option>
                                         @foreach (var supplier in ViewBag.Suppliers as List<SelectListItem>)
                                         {
                                             <option value="@supplier.Value" >@supplier.Text</option>
@@ -64,8 +64,8 @@
                             <!-- Submit Button -->
                             <div class="row mb-3">
                                 <div class="col-sm-10 offset-sm-2">
-                                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                                    <a asp-action="Index" class="btn btn-secondary">Back</a>
+                                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                                    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
                                 </div>
                             </div>
                         </form><!-- End Edit Vote Warehouse Form -->

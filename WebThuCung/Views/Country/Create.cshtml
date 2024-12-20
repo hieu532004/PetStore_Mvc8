@@ -1,7 +1,7 @@
 ﻿@model WebThuCung.Dto.CountryDto
 
 @{
-    ViewData["Title"] = "Create Country";
+    ViewData["Title"] = "Tạo Quốc Gia";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -9,9 +9,9 @@
     <div class="pagetitle">
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
-                <li class="breadcrumb-item"><a asp-controller="Country" asp-action="Index">Country</a></li>
-                <li class="breadcrumb-item active">Create</li>
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Trang Chủ</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Country" asp-action="Index">Quốc Gia</a></li>
+                <li class="breadcrumb-item active">Tạo Mới</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -21,14 +21,14 @@
             <div class="col-lg-10">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Create New Country</h5>
+                        <h5 class="card-title">Tạo Quốc Gia Mới</h5>
                         <div asp-validation-summary="All" class="text-danger"></div>
 
                         <!-- Create Country Form -->
                         <form asp-action="Create" method="post">
                             <!-- Country ID -->
                             <div class="row mb-3">
-                                <label for="inputIdCountry" class="col-sm-2 col-form-label">Country ID</label>
+                                <label for="inputIdCountry" class="col-sm-2 col-form-label">Mã Quốc Gia</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="inputIdCountry" name="idCountry" value="@Model?.idCountry" required>
                                     <!-- Display validation error if any -->
@@ -38,7 +38,7 @@
 
                             <!-- Country Name -->
                             <div class="row mb-3">
-                                <label for="inputNameCountry" class="col-sm-2 col-form-label">Country Name</label>
+                                <label for="inputNameCountry" class="col-sm-2 col-form-label">Tên Quốc Gia</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="inputNameCountry" name="nameCountry" value="@Model?.nameCountry" required>
                                     <!-- Display validation error if any -->
@@ -49,8 +49,8 @@
                             <!-- Submit Button -->
                             <div class="row mb-3">
                                 <div class="col-sm-10 offset-sm-2">
-                                    <button type="submit" class="btn btn-primary">Create Country</button>
-                                    <a asp-action="Index" class="btn btn-secondary">Back</a>
+                                    <button type="submit" class="btn btn-primary">Tạo Quốc Gia</button>
+                                    <a asp-action="Index" class="btn btn-secondary">Quay Lại</a>
                                 </div>
                             </div>
 

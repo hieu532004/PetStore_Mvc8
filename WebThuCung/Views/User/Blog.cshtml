@@ -190,3 +190,195 @@
         }
     }
 </script>
+@{
+    ViewData["Title"] = "Blog";
+    Layout = "~/Views/Shared/_LayoutUsers.cshtml";
+}
+
+<section id="banner" class="py-3" style="background: #F9F3EC;">
+    <div class="container">
+        <div class="hero-content py-5 my-3">
+            <h2 class="display-1 mt-3 mb-0">Blog</h2>
+            <nav class="breadcrumb">
+                <a class="breadcrumb-item nav-link" asp-controller="User" asp-action="Index">Trang chủ</a>
+                <span class="breadcrumb-item active" aria-current="page">Blog</span>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<div class="my-5 py-5">
+    <div class="container">
+        <div class="row entry-container">
+            <div class="entry-item col-md-4 my-4">
+                <div class="z-1 position-absolute rounded-3 m-2 px-3 pt-1 bg-light">
+                    <h3 class="secondary-font text-primary m-0">20</h3>
+                    <p class="secondary-font fs-6 m-0">Tháng 2</p>
+                </div>
+                <div class="card position-relative">
+                    <a><img src="~/images/blog1.jpg" class="img-fluid rounded-4" alt="hình ảnh"></a>
+                    <div class="card-body p-0">
+                        <a>
+                            <h3 class="card-title pt-4 pb-3 m-0">10 lý do để giúp đỡ bất kỳ loài động vật nào</h3>
+                        </a>
+                        <div class="card-text">
+                            <p class="blog-paragraph fs-6">
+                                Cốt lõi trong hoạt động của chúng tôi là ý tưởng rằng các thành phố chính là nơi ươm mầm cho những thành tựu vĩ đại nhất của chúng ta.
+                            </p>
+                            <div class="more-content" style="display: none;">
+                                <p class="blog-paragraph fs-6">
+                                    Sau đây là một số hiểu biết sâu sắc hơn về lý do tại sao việc giúp đỡ động vật lại cần thiết cho hệ sinh thái.
+                                </p>
+                            </div>
+                            <a href="javascript:void(0);" class="read-more" onclick="toggleReadMore(this)">Xem thêm</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="entry-item col-md-4 my-4">
+                <div class="z-1 position-absolute rounded-3 m-2 px-3 pt-1 bg-light">
+                    <h3 class="secondary-font text-primary m-0">21</h3>
+                    <p class="secondary-font fs-6 m-0">Tháng 2</p>
+                </div>
+                <div class="card position-relative">
+                    <a><img src="~/images/blog2.jpg" class="img-fluid rounded-4" alt="hình ảnh"></a>
+                    <div class="card-body p-0">
+                        <a>
+                            <h3 class="card-title pt-4 pb-3 m-0">Làm thế nào để biết thú cưng của bạn đang đói</h3>
+                        </a>
+                        <div class="card-text">
+                            <p class="blog-paragraph fs-6">
+                                Hiểu được tín hiệu đói của thú cưng rất quan trọng đối với sức khỏe của chúng. 
+                            </p>
+                            <div class="more-content" style="display: none;">
+                                <p class="blog-paragraph fs-6">
+                                    Lịch trình cho ăn thường xuyên có thể giúp ích, nhưng hãy lưu ý đến nhu cầu của chúng.
+                                </p>
+                            </div>
+                            <a href="javascript:void(0);" class="read-more" onclick="toggleReadMore(this)">Xem thêm</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="entry-item col-md-4 my-4">
+                <div class="z-1 position-absolute rounded-3 m-2 px-3 pt-1 bg-light">
+                    <h3 class="secondary-font text-primary m-0">22</h3>
+                    <p class="secondary-font fs-6 m-0">Tháng 2</p>
+                </div>
+                <div class="card position-relative">
+                    <a><img src="~/images/blog3.jpg" class="img-fluid rounded-4" alt="hình ảnh"></a>
+                    <div class="card-body p-0">
+                        <a>
+                            <h3 class="card-title pt-4 pb-3 m-0">Ngôi nhà tốt nhất cho thú cưng của bạn</h3>
+                        </a>
+                        <div class="card-text">
+                            <p class="blog-paragraph fs-6">
+                                Tạo ra một môi trường an toàn và yêu thương cho thú cưng của bạn là điều cần thiết. Đảm bảo chúng có không gian riêng.
+                            </p>
+                            <div class="more-content" style="display: none;">
+                                <p class="blog-paragraph fs-6">
+                                    Hãy cân nhắc đến sự thoải mái và nhu cầu của trẻ, đồng thời đảm bảo trẻ có đồ chơi và khu vực để khám phá.
+                                </p>
+                            </div>
+                            <a href="javascript:void(0);" class="read-more" onclick="toggleReadMore(this)">Xem thêm</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="entry-item col-md-4 my-4">
+                <div class="z-1 position-absolute rounded-3 m-2 px-3 pt-1 bg-light">
+                    <h3 class="secondary-font text-primary m-0">23</h3>
+                    <p class="secondary-font fs-6 m-0">Tháng 2</p>
+                </div>
+                <div class="card position-relative">
+                    <a><img src="~/images/blog1.jpg" class="img-fluid rounded-4" alt="hình ảnh"></a>
+                    <div class="card-body p-0">
+                        <a>
+                            <h3 class="card-title pt-4 pb-3 m-0">Tầm quan trọng của việc kiểm tra thú y thường xuyên</h3>
+                        </a>
+                        <div class="card-text">
+                            <p class="blog-paragraph fs-6">
+                                Việc đưa thú cưng đi khám thú y thường xuyên rất quan trọng để duy trì sức khỏe và phát hiện sớm các vấn đề tiềm ẩn.
+                            </p>
+                            <div class="more-content" style="display: none;">
+                                <p class="blog-paragraph fs-6">
+                                    Tiêm phòng, chăm sóc răng miệng và kiểm tra sức khỏe có thể giúp kéo dài tuổi thọ và sự hạnh phúc cho thú cưng của bạn.
+                                </p>
+                            </div>
+                            <a href="javascript:void(0);" class="read-more" onclick="toggleReadMore(this)">Xem thêm</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="entry-item col-md-4 my-4">
+                <div class="z-1 position-absolute rounded-3 m-2 px-3 pt-1 bg-light">
+                    <h3 class="secondary-font text-primary m-0">24</h3>
+                    <p class="secondary-font fs-6 m-0">Tháng 2</p>
+                </div>
+                <div class="card position-relative">
+                    <a><img src="~/images/blog2.jpg" class="img-fluid rounded-4" alt="hình ảnh"></a>
+                    <div class="card-body p-0">
+                        <a>
+                            <h3 class="card-title pt-4 pb-3 m-0">Mẹo huấn luyện cho chó của bạn</h3>
+                        </a>
+                        <div class="card-text">
+                            <p class="blog-paragraph fs-6">
+                                Huấn luyện chó có thể tăng cường mối quan hệ và đảm bảo hành vi tốt. Bắt đầu bằng những lệnh cơ bản.
+                            </p>
+                            <div class="more-content" style="display: none;">
+                                <p class="blog-paragraph fs-6">
+                                    Sự nhất quán và củng cố tích cực là chìa khóa cho quá trình đào tạo hiệu quả.
+                                </p>
+                            </div>
+                            <a href="javascript:void(0);" class="read-more" onclick="toggleReadMore(this)">Xem thêm</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="entry-item col-md-4 my-4">
+                <div class="z-1 position-absolute rounded-3 m-2 px-3 pt-1 bg-light">
+                    <h3 class="secondary-font text-primary m-0">25</h3>
+                    <p class="secondary-font fs-6 m-0">Tháng 2</p>
+                </div>
+                <div class="card position-relative">
+                    <a><img src="~/images/blog3.jpg" class="img-fluid rounded-4" alt="hình ảnh"></a>
+                    <div class="card-body p-0">
+                        <a>
+                            <h3 class="card-title pt-4 pb-3 m-0">Chăm sóc thú cưng tại nhà</h3>
+                        </a>
+                        <div class="card-text">
+                            <p class="blog-paragraph fs-6">
+                                Chải lông thường xuyên giúp thú cưng của bạn khỏe mạnh và trông tuyệt vời. Tìm hiểu cách thực hiện đúng cách tại nhà.
+                            </p>
+                            <div class="more-content" style="display: none;">
+                                <p class="blog-paragraph fs-6">
+                                    Sử dụng đúng công cụ và kỹ thuật cho giống và loại lông của thú cưng để có kết quả tốt nhất.
+                                </p>
+                            </div>
+                            <a href="javascript:void(0);" class="read-more" onclick="toggleReadMore(this)">Xem thêm</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    function toggleReadMore(link) {
+        const moreContent = link.previousElementSibling; // Lấy phần nội dung thêm
+        if (moreContent.style.display === "none" || moreContent.style.display === "") {
+            moreContent.style.display = "block"; // Hiện nội dung
+            link.innerText = "Đọc ít hơn"; // Thay đổi nội dung link
+        } else {
+            moreContent.style.display = "none"; // Ẩn nội dung
+            link.innerText = "Xem thêm"; // Khôi phục nội dung link
+        }
+    }
+</script>

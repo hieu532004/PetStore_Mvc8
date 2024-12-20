@@ -1,6 +1,6 @@
 ﻿@model WebThuCung.Dto.SizeDto
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Chỉnh sửa";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -8,9 +8,9 @@
     <div class="pagetitle">
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
-                <li class="breadcrumb-item"><a asp-controller="Size" asp-action="Index">Size</a></li>
-                <li class="breadcrumb-item active">Edit</li>
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Size" asp-action="Index">Kích thước</a></li>
+                <li class="breadcrumb-item active">Chỉnh sửa</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -20,7 +20,7 @@
             <div class="col-lg-10">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Edit Size</h5>
+                        <h5 class="card-title">Chỉnh sửa kích thước</h5>
 
                         <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -28,7 +28,7 @@
                         <form asp-action="Edit" method="post">
                             <!-- Size ID (readonly) -->
                             <div class="row mb-3">
-                                <label asp-for="idSize" class="col-sm-2 col-form-label">Size ID</label>
+                                <label asp-for="idSize" class="col-sm-2 col-form-label">Mã kích thước</label>
                                 <div class="col-sm-10">
                                     <!-- Trường hiển thị ID, chỉ đọc -->
                                     <input asp-for="idSize" class="form-control" readonly />
@@ -37,13 +37,11 @@
                                 </div>
                             </div>
 
-
-
                             <!-- Size Name -->
                             <div class="row mb-3">
-                                <label asp-for="nameSize" class="col-sm-2 col-form-label">Size Name</label>
+                                <label asp-for="nameSize" class="col-sm-2 col-form-label">Tên kích thước</label>
                                 <div class="col-sm-10">
-                                    <input asp-for="nameSize" class="form-control" placeholder="Size Name" required />
+                                    <input asp-for="nameSize" class="form-control" placeholder="Tên kích thước" required />
                                     <!-- Hiển thị lỗi nếu có -->
                                     @* <span asp-validation-for="nameSize" class="text-danger"></span> *@
                                 </div>
@@ -52,8 +50,8 @@
                             <!-- Submit Button -->
                             <div class="row mb-3">
                                 <div class="col-sm-10 offset-sm-2">
-                                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                                    <a asp-action="Index" class="btn btn-secondary">Back</a>
+                                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                                    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
                                 </div>
                             </div>
                            
@@ -64,4 +62,3 @@
         </div>
     </section>
 </main>
-

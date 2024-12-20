@@ -1,19 +1,18 @@
 ﻿@model IEnumerable<WebThuCung.Models.Color>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Danh sách màu sắc";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-
 
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Color List</h1>
+        <h1>Danh sách màu sắc</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
-                <li class="breadcrumb-item">Color</li>
-                <li class="breadcrumb-item active">List</li>
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Trang chủ</a></li>
+                <li class="breadcrumb-item">Màu sắc</li>
+                <li class="breadcrumb-item active">Danh sách</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -24,11 +23,11 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Color List</h5>
+                        <h5 class="card-title">Danh sách màu sắc</h5>
                       
                         <div class="mb-3">
                             <a asp-action="Create" class="btn btn-primary">
-                                <i class="bi bi-plus-circle"></i> Create New Color
+                                <i class="bi bi-plus-circle"></i> Tạo màu sắc mới
                             </a>
                         </div>
                         <!-- Table with stripped rows -->
@@ -36,10 +35,9 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Name Color</th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
-
+                                    <th>Tên màu sắc</th>
+                                    <th>Sửa</th>
+                                    <th>Xóa</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -52,15 +50,13 @@
                                             <td>@color.nameColor</td>
                                             <td>
                                                 <!-- Nút Edit -->
-                                                <a asp-action="Edit" asp-route-id="@color.idColor" class="btn btn-warning btn-sm">Edit</a>
+                                                <a asp-action="Edit" asp-route-id="@color.idColor" class="btn btn-warning btn-sm">Sửa</a>
                                                 <!-- Nút Delete -->
-
                                             </td>
                                             <td>
-                                                <!-- Nút Edit -->
-
+                                                <!-- Nút Delete -->
                                                 <form asp-action="Delete" asp-route-id="@color.idColor" method="post" style="display:inline;">
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this Color?');">Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa màu sắc này không?');">Xóa</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -69,8 +65,7 @@
                                 else
                                 {
                                     <tr>
-                                        <td colspan="5" class="text-center">No colors found.</td>
-                                       
+                                        <td colspan="5" class="text-center">Không tìm thấy màu sắc nào.</td>
                                     </tr>
                                 }
                             </tbody>
@@ -84,4 +79,4 @@
         </div>
     </section>
 
-</main><!-- End #main --></main><!-- End #main -->
+</main><!-- End #main -->

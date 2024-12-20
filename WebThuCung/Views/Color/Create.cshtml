@@ -1,7 +1,7 @@
 ﻿@model WebThuCung.Dto.ColorDto
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Tạo Mới";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -9,9 +9,9 @@
     <div class="pagetitle">
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
-                <li class="breadcrumb-item"><a asp-controller="Color" asp-action="Index">Color</a></li>
-                <li class="breadcrumb-item active">Create</li>
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Trang Chủ</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Color" asp-action="Index">Màu Sắc</a></li>
+                <li class="breadcrumb-item active">Tạo Mới</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -21,7 +21,7 @@
             <div class="col-lg-10">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Create New Color</h5>
+                        <h5 class="card-title">Tạo Mới Màu Sắc</h5>
 
                         <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -29,7 +29,7 @@
                         <form asp-action="Create" method="post">
                             <!-- Color ID -->
                             <div class="row mb-3">
-                                <label for="inputIdColor" class="col-sm-2 col-form-label">Color ID</label>
+                                <label for="inputIdColor" class="col-sm-2 col-form-label">Mã Màu</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="inputIdColor" name="idColor" value="@Model?.idColor" required />
                                     <!-- Hiển thị lỗi nếu có -->
@@ -39,7 +39,7 @@
 
                             <!-- Color Name -->
                             <div class="row mb-3">
-                                <label for="inputNameColor" class="col-sm-2 col-form-label">Color Name</label>
+                                <label for="inputNameColor" class="col-sm-2 col-form-label">Tên Màu</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="inputNameColor" name="nameColor" value="@Model?.nameColor" required />
                                     <!-- Hiển thị lỗi nếu có -->
@@ -50,8 +50,8 @@
                             <!-- Submit Button -->
                             <div class="row mb-3">
                                 <div class="col-sm-10 offset-sm-2">
-                                    <button type="submit" class="btn btn-primary">Create Color</button>
-                                    <a asp-action="Index" class="btn btn-secondary">Back</a>
+                                    <button type="submit" class="btn btn-primary">Tạo Mới Màu Sắc</button>
+                                    <a asp-action="Index" class="btn btn-secondary">Quay Lại</a>
                                 </div>
                             </div>
                            

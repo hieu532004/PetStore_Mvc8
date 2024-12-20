@@ -46,7 +46,7 @@
               <div class="d-flex justify-content-center py-4">
                 <a  class="logo d-flex align-items-center w-auto">
                   <img src="assets/img/logo.png" alt="">
-                  <span class="d-none d-lg-block">AdminShop</span>
+                                    <span class="d-none d-lg-block">Quản trị viên</span>
                 </a>
               </div><!-- End Logo -->
 
@@ -55,8 +55,8 @@
                 <div class="card-body">
 
                   <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
-                    <p class="text-center small">Enter your username & password to login</p>
+                                        <h5 class="card-title text-center pb-0 fs-4">Đăng nhập vào tài khoản</h5>
+                                        <p class="text-center small">Nhập tên người dùng và mật khẩu</p>
                   </div>
 
               <form action="/Admin/Login" method="post" class="row g-3 needs-validation" novalidate>
@@ -72,22 +72,22 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     
     <div class="col-12">
-        <label for="yourUsername" class="form-label">Username</label>
+        <label for="yourUsername" class="form-label">Tên tài khoản</label>
         <div class="input-group has-validation">
             <span class="input-group-text" id="inputGroupPrepend"></span>
             <!-- Username input với validation -->
-            @Html.TextBoxFor(model => model.userName, new { @class = "form-control", id = "yourUsername", placeholder = "Enter username or email address", required = "required" })
-            <div class="invalid-feedback">Please enter your username.</div>
+                                                @Html.TextBoxFor(model => model.userName, new { @class = "form-control", id = "yourUsername", placeholder = "Nhập tên người dùng hoặc địa chỉ email", required = "required" })
+                                                <div class="invalid-feedback">Vui lòng nhập tên người dùng của bạn.</div>
             <!-- Hiển thị lỗi validation cho username -->
             @Html.ValidationMessageFor(model => model.userName, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="col-12">
-        <label for="yourPassword" class="form-label">Password</label>
+        <label for="yourPassword" class="form-label">Mật khẩu</label>
         <!-- Password input với validation -->
-        @Html.PasswordFor(model => model.password, new { @class = "form-control", id = "yourPassword", placeholder = "Enter password", required = "required" })
-        <div class="invalid-feedback">Please enter your password!</div>
+        @Html.PasswordFor(model => model.password, new { @class = "form-control", id = "yourPassword", placeholder = "Nhập mật khẩu", required = "required" })
+                                            <div class="invalid-feedback">Vui lòng nhập mật khẩu của bạn!</div>
         <!-- Hiển thị lỗi validation cho password -->
         @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
     </div>
@@ -95,7 +95,7 @@
  
     <div class="col-12">
         <!-- Submit button -->
-        <button class="btn btn-primary w-100" type="submit">Login</button>
+        <button class="btn btn-primary w-100" type="submit">Đăng nhập</button>
     </div>
 </form>
 

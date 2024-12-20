@@ -1,159 +1,162 @@
-﻿@model Customer
-@{
-    ViewData["Title"] = "Login";
-    Layout = "~/Views/Shared/_LayoutUsers.cshtml";
-}
+﻿
 
-<div class="profile-container">
-    <div class="profile-sidebar">
-        <div class="profile-header-section">
-            <img id="imagePreview" src="~/images/customer/@Model.Image" alt="Avatar" class="profile-avatar" style="cursor: pointer;" onclick="openMo(); return false;">
-            <div class="profile-info-section">
-                <h2>@Model.userCustomer</h2>
-                <p>Joined @Model.createdAt.ToString("MMMM dd, yyyy")</p>
+    @model Customer
+    @{
+        ViewData["Title"] = "Đăng nhập";
+        Layout = "~/Views/Shared/_LayoutUsers.cshtml";
+    }
+
+    <div class="profile-container">
+        <div class="profile-sidebar">
+            <div class="profile-header-section">
+                <img id="imagePreview" src="~/images/customer/@Model.Image" alt="Ảnh đại diện" class="profile-avatar" style="cursor: pointer;" onclick="openMo(); return false;">
+                <div class="profile-info-section">
+                    <h2>@Model.userCustomer</h2>
+                    <p>Tham gia từ @Model.createdAt.ToString("MMMM dd, yyyy")</p>
+                </div>
             </div>
+            <ul class="profile-menu">
+                <li class="profile-menu-item active" data-view="Profile">Hồ sơ</li>
+                <li class="profile-menu-item" data-view="Address">Địa chỉ</li>
+                <li class="profile-menu-item" data-view="Order">Đơn hàng của tôi <span>5</span></li>
+                <li class="profile-menu-item" data-view="changePassword">Thay đổi mật khẩu</li>
+            </ul>
         </div>
-        <ul class="profile-menu">
-            <li class="profile-menu-item active" data-view="Profile">Hồ sơ</li>
-            <li class="profile-menu-item" data-view="Address">Địa chỉ</li>
-            <li class="profile-menu-item" data-view="Order">Đơn hàng của tôi <span>5</span></li>
-            <li class="profile-menu-item" data-view="changePassword">Thay đổi mật khẩu</li>
-        </ul>
-    </div>
-    <div class="profile-form-container">
-        <div id="content-container">
-        @await Html.PartialAsync("_Profile")
+        <div class="profile-form-container">
+            <div id="content-container">
+            @await Html.PartialAsync("_Profile")
+            </div>
+
         </div>
-
     </div>
-</div>
 
-<div id="uploadModal" class="modal">
-    <div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<span class="close" onclick="closeMo();">&times;</span>
-			<div class="modal-header">
-		    	<h5 class="modal-title" id="uploadModalLabel">Tải lên</h5>
-			</div>
-            <form asp-action="Save" id="editForm" method="post" enctype="multipart/form-data">
-			<div class="modal-body">									
-									
-				<div class="text-center">
-					<img id="modalImagePreview" src="~/images/customer/@Model.Image" class="job-image img-thumbnail rounded-circle" style="width: 150px; height: 150px;">
-				</div>
-				<div class="form-group mb-4">
-					<input asp-for="Image" type="file" class="file-upload-default" id="avatarUpload" style="display: none;" onchange="uploadImage();" />
-					<button class="custom-button" type="button" onclick="document.getElementById('avatarUpload').click();">Tải lên</button>
-					<input type="text" id="fileNameInput" class="file-name-display mt-2" disabled="" placeholder="không có tập tin">
-			    </div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" onclick="closeMo();">Thoát</button>
-                    <button type="submit" class="btn btn-primary" onclick="closeMo();">Lưu thay đổi</button>
-			</div>
-            </form>
-		</div>
-	</div>						
-</div>
+    <div id="uploadModal" class="modal">
+        <div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<span class="close" onclick="closeMo();">&times;</span>
+							<div class="modal-header">
+											<h5 class="modal-title" id="uploadModalLabel">Tải lên</h5>
+							</div>
+                <form asp-action="Save" id="editForm" method="post" enctype="multipart/form-data">
+							<div class="modal-body">									
+													
+								<div class="text-center">
+									<img id="modalImagePreview" src="~/images/customer/@Model.Image" class="job-image img-thumbnail rounded-circle" style="width: 150px; height: 150px;">
+								</div>
+								<div class="form-group mb-4">
+									<input asp-for="Image" type="file" class="file-upload-default" id="avatarUpload" style="display: none;" onchange="uploadImage();" />
+									<button class="custom-button" type="button" onclick="document.getElementById('avatarUpload').click();">Tải lên</button>
+									<input type="text" id="fileNameInput" class="file-name-display mt-2" disabled="" placeholder="không có tập tin">
+           </div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" onclick="closeMo();">Thoát</button>
+                        <button type="submit" class="btn btn-primary" onclick="closeMo();">Lưu thay đổi</button>
+							</div>
+                </form>
+						</div>
+					</div>						
+    </div>
 
-<script>
-    function openMo() {
-		document.getElementById("uploadModal").style.display = "block";
-	}
+    <script>
+        function openMo() {
+						document.getElementById("uploadModal").style.display = "block";
+					}
 
-	// Đóng modal
-	function closeMo() {
-		document.getElementById("uploadModal").style.display = "none";
-	}
-    $(document).ready(function () {
-        // Đánh dấu mục đang được chọn
-        $('.profile-menu-item').click(function () {
-            $('.profile-menu-item').removeClass('active'); // Xóa active từ tất cả các mục
-            $(this).addClass('active'); // Thêm active vào mục được nhấp
+					// Đóng modal
+					function closeMo() {
+						document.getElementById("uploadModal").style.display = "none";
+					}
+        $(document).ready(function () {
+            // Đánh dấu mục đang được chọn
+            $('.profile-menu-item').click(function () {
+                $('.profile-menu-item').removeClass('active'); // Xóa active từ tất cả các mục
+                $(this).addClass('active'); // Thêm active vào mục được nhấp
 
-            var view = $(this).data('view'); // Lấy tên view từ data attribute
-            var url = ''; // Khởi tạo URL cho Partial View
+                var view = $(this).data('view'); // Lấy tên view từ data attribute
+                var url = ''; // Khởi tạo URL cho Partial View
 
-            if (view === 'Profile') {
-                url = '/User/LoadProfilePartial'; // URL để tải Partial View _Profile
-            } else if (view === 'Address') {
-                url = '/User/LoadAddressPartial'; // URL để tải Partial View _Address
-            } else if (view === 'Order') {
-                url = '/User/LoadOrderPartial'; // URL để tải Partial View _Address
-            } else if (view === 'changePassword') {
-                url = '/User/ChangePasswordPartial'; // URL để tải Partial View _Address
-            }
-
-            // Gửi yêu cầu Ajax để tải Partial View và cập nhật nội dung của div
-            $.ajax({
-                url: url,
-                type: 'GET',
-                success: function (result) {
-                    $('#content-container').html(result);
-                },
-                error: function () {
-                    alert('Error loading content. Please try again.');
+                if (view === 'Profile') {
+                    url = '/User/LoadProfilePartial'; // URL để tải Partial View _Profile
+                } else if (view === 'Address') {
+                    url = '/User/LoadAddressPartial'; // URL để tải Partial View _Address
+                } else if (view === 'Order') {
+                    url = '/User/LoadOrderPartial'; // URL để tải Partial View _Address
+                } else if (view === 'changePassword') {
+                    url = '/User/ChangePasswordPartial'; // URL để tải Partial View _Address
                 }
+
+                // Gửi yêu cầu Ajax để tải Partial View và cập nhật nội dung của div
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function (result) {
+                        $('#content-container').html(result);
+                    },
+                    error: function () {
+                        alert('Lỗi tải nội dung. Vui lòng thử lại.');
+                    }
+                });
             });
         });
-    });
 
-    $(document).ready(function () {
-        // AJAX cho form Change Password
-        $('#content-container').on('submit', 'form', function (e) {
-            e.preventDefault(); // Ngăn chặn hành động gửi form mặc định
+        $(document).ready(function () {
+            // AJAX cho form Change Password
+            $('#content-container').on('submit', 'form', function (e) {
+                e.preventDefault(); // Ngăn chặn hành động gửi form mặc định
 
-            var form = $(this);
-            var url = form.attr('action');
-            var method = form.attr('method');
+                var form = $(this);
+                var url = form.attr('action');
+                var method = form.attr('method');
 
-            $.ajax({
-                url: url,
-                type: method,
-                data: form.serialize(), // Lấy dữ liệu từ form
-                success: function (result) {
-                    $('#content-container').html(result); // Cập nhật nội dung với response
-                },
-                error: function () {
-                    alert('Có lỗi xảy ra. Vui lòng thử lại.');
-                }
+                $.ajax({
+                    url: url,
+                    type: method,
+                    data: form.serialize(), // Lấy dữ liệu từ form
+                    success: function (result) {
+                        $('#content-container').html(result); // Cập nhật nội dung với response
+                    },
+                    error: function () {
+                        alert('Có lỗi xảy ra. Vui lòng thử lại.');
+                    }
+                });
             });
         });
-    });
-    function uploadImage() {
-		var file = document.getElementById('avatarUpload').files[0];
-		var formData = new FormData();
-		formData.append("avatar", file);
+        function uploadImage() {
+						var file = document.getElementById('avatarUpload').files[0];
+						var formData = new FormData();
+						formData.append("avatar", file);
 
-		$.ajax({
-			url: '/User/UploadAvatar',
-			type: 'POST',
-			data: formData,
-			processData: false,
-			contentType: false,
-			success: function (response) {
-				var preview = document.getElementById('imagePreview');
-				var modalPreview = document.getElementById('modalImagePreview');
-				var fileNameInput = document.getElementById('fileNameInput');
+						$.ajax({
+							url: '/User/UploadAvatar',
+							type: 'POST',
+							data: formData,
+							processData: false,
+							contentType: false,
+							success: function (response) {
+								var preview = document.getElementById('imagePreview');
+								var modalPreview = document.getElementById('modalImagePreview');
+								var fileNameInput = document.getElementById('fileNameInput');
 
-				// Lấy tên file mà không có phần mở rộng
-				var fileNameWithoutExtension = response.fileName.split('.').slice(0, -1).join('.');
+								// Lấy tên file mà không có phần mở rộng
+								var fileNameWithoutExtension = response.fileName.split('.').slice(0, -1).join('.');
 
-				// Cập nhật ảnh xem trước trên trang chính và trong modal
-				preview.src = '/images/customer/' + response.fileName;
-				modalPreview.src = '/images/customer/' + response.fileName;
+								// Cập nhật ảnh xem trước trên trang chính và trong modal
+								preview.src = '/images/customer/' + response.fileName;
+								modalPreview.src = '/images/customer/' + response.fileName;
 
-				// Cập nhật tên file
-				fileNameInput.value = fileNameWithoutExtension;
+								// Cập nhật tên file
+								fileNameInput.value = fileNameWithoutExtension;
 
-				// Gọi hàm enableEdit() để kích hoạt chế độ chỉnh sửa
-				// enableEdit();
-			},
-			error: function () {
-				alert("File upload failed.");
-			}
-		});
-	}
-  
+								// Gọi hàm enableEdit() để kích hoạt chế độ chỉnh sửa
+								// enableEdit();
+							},
+							error: function () {
+								alert("Tải lên tập tin thất bại.");
+							}
+						});
+					}
+      
 
+    </script>
 </script>

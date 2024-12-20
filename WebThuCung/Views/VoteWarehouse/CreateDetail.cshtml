@@ -1,18 +1,18 @@
 ﻿@model WebThuCung.Dto.DetailVoteWarehouseDto
 
 @{
-    ViewData["Title"] = "Create Detail Vote Warehouse";
+    ViewData["Title"] = "Tạo Chi Tiết Phiếu Kho";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Create Detail Vote Warehouse</h1>
+        <h1>Tạo Chi Tiết Phiếu Kho</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
-                <li class="breadcrumb-item"><a asp-controller="VoteWarehouse" asp-action="Detail" asp-route-id="@Model.idVoteWarehouse">Detail Vote Warehouse</a></li>
-                <li class="breadcrumb-item active">Create</li>
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Trang Chủ</a></li>
+                <li class="breadcrumb-item"><a asp-controller="VoteWarehouse" asp-action="Detail" asp-route-id="@Model.idVoteWarehouse">Chi Tiết Phiếu Kho</a></li>
+                <li class="breadcrumb-item active">Tạo Mới</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -22,7 +22,7 @@
             <div class="col-lg-10">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Create Detail Vote Warehouse</h5>
+                        <h5 class="card-title">Tạo Chi Tiết Phiếu Kho</h5>
 
                         <!-- Validation Summary -->
                         <div asp-validation-summary="All" class="text-danger"></div>
@@ -31,7 +31,7 @@
                         <form asp-action="CreateDetail" method="post">
                             <!-- Vote Warehouse ID (readonly) -->
                             <div class="row mb-3">
-                                <label asp-for="idVoteWarehouse" class="col-sm-2 col-form-label">Vote ID</label>
+                                <label asp-for="idVoteWarehouse" class="col-sm-2 col-form-label">Mã Phiếu</label>
                                 <div class="col-sm-10">
                                     <input asp-for="idVoteWarehouse" class="form-control" readonly value="@ViewBag.VoteWarehouseId" />
                                     <span asp-validation-for="idVoteWarehouse" class="text-danger"></span>
@@ -42,10 +42,10 @@
 
                             <!-- Product Selection -->
                             <div class="row mb-3">
-                                <label asp-for="idProduct" class="col-sm-2 col-form-label">Product</label>
+                                <label asp-for="idProduct" class="col-sm-2 col-form-label">Sản Phẩm</label>
                                 <div class="col-sm-10">
                                     <select asp-for="idProduct" class="form-control" required>
-                                        <option value="">-- Select a Product --</option>
+                                        <option value="">-- Chọn Sản Phẩm --</option>
                                         @foreach (var product in ViewBag.Products as List<SelectListItem>)
                                         {
                                             <option value="@product.Value">@product.Text</option>
@@ -57,7 +57,7 @@
 
                             <!-- Quantity -->
                             <div class="row mb-3">
-                                <label asp-for="Quantity" class="col-sm-2 col-form-label">Quantity</label>
+                                <label asp-for="Quantity" class="col-sm-2 col-form-label">Số Lượng</label>
                                 <div class="col-sm-10">
                                     <input asp-for="Quantity" class="form-control" type="number" min="1" />
                                     <span asp-validation-for="Quantity" class="text-danger"></span>
@@ -66,7 +66,7 @@
 
                             <!-- Purchase Price -->
                             <div class="row mb-3">
-                                <label asp-for="purchasePrice" class="col-sm-2 col-form-label">Purchase Price</label>
+                                <label asp-for="purchasePrice" class="col-sm-2 col-form-label">Giá Mua</label>
                                 <div class="col-sm-10">
                                     <input asp-for="purchasePrice" class="form-control" type="number" step="0.01" required />
                                     <span asp-validation-for="purchasePrice" class="text-danger"></span>
@@ -76,9 +76,8 @@
                             <!-- Submit Button -->
                             <div class="row mb-3">
                                 <div class="col-sm-10 offset-sm-2">
-                                    <button type="submit" class="btn btn-primary">Create Detail Vote Warehouse</button>
-                                    a asp-action="Detail" asp-route-id="@Model.idVoteWarehouse"
-                                    class="btn btn-primary">Back</a>
+                                    <button type="submit" class="btn btn-primary">Tạo Chi Tiết Phiếu Kho</button>
+                                    <a asp-action="Detail" asp-route-id="@Model.idVoteWarehouse" class="btn btn-primary">Quay Lại</a>
                                 </div>
                             </div>
                         

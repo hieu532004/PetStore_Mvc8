@@ -1,7 +1,7 @@
 ﻿@model WebThuCung.Dto.ImageProductCreateDto
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Tạo mới";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -9,9 +9,9 @@
     <div class="pagetitle">
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
-                <li class="breadcrumb-item"><a asp-controller="Product" asp-action="Index">ImageProduct</a></li>
-                <li class="breadcrumb-item active">Create</li>
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Product" asp-action="Index">Hình ảnh sản phẩm</a></li>
+                <li class="breadcrumb-item active">Tạo mới</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -21,7 +21,7 @@
             <div class="col-lg-10">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Create New ImageProduct</h5>
+                        <h5 class="card-title">Tạo mới hình ảnh sản phẩm</h5>
 
                         <!-- Display validation summary -->
                         <div asp-validation-summary="All" class="text-danger"></div>
@@ -30,7 +30,7 @@
                         <form asp-action="CreateImageProduct" method="post" enctype="multipart/form-data">
                             <!-- ImageProduct ID (readonly) -->
                             <div class="row mb-3">
-                                <label asp-for="idImageProduct" class="col-sm-2 col-form-label">ImageProduct ID</label>
+                                <label asp-for="idImageProduct" class="col-sm-2 col-form-label">Mã hình ảnh sản phẩm</label>
                                 <div class="col-sm-10">
                                     <!-- Trường hiển thị ID, chỉ đọc -->
                                     <input asp-for="idImageProduct" class="form-control" />
@@ -40,12 +40,11 @@
                             </div>
 
                             <!-- Product Selection -->
-                            <!-- Product Selection -->
                             <div style="margin-top:7px" class="form-group row">
-                                <label asp-for="idProduct" class="col-sm-2 col-form-label">Product</label>
+                                <label asp-for="idProduct" class="col-sm-2 col-form-label">Sản phẩm</label>
                                 <div class="col-sm-10">
                                     <select asp-for="idProduct" class="form-control" id="inputProduct" name="idProduct" required>
-                                        <option value="">-- Select a Product --</option>
+                                        <option value="">-- Chọn sản phẩm --</option>
                                         @foreach (var product in ViewBag.Products as List<SelectListItem>)
                                         {
                                             <option value="@product.Value">@product.Text</option>
@@ -55,12 +54,9 @@
                                 <span asp-validation-for="idProduct" class="text-danger"></span>
                             </div>
 
-
-
-
                             <!-- ImageProduct Name -->
                             <div class="row mb-3">
-                                <label asp-for="Image" class="col-sm-2 col-form-label">ImageProduct Name</label>
+                                <label asp-for="Image" class="col-sm-2 col-form-label">Tên hình ảnh sản phẩm</label>
                                 <div class="col-sm-10">
                                     <input type="file" class="form-control" id="Image" name="Image" accept="image/*" />
                                     <!-- Hiển thị lỗi nếu có -->
@@ -71,8 +67,8 @@
                             <!-- Submit Button -->
                             <div class="row mb-3">
                                 <div class="col-sm-10 offset-sm-2">
-                                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                                    <a asp-action="Index" class="btn btn-secondary">Back</a>
+                                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                                    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
                                 </div>
                             </div>
                             

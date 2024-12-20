@@ -1,7 +1,7 @@
 ﻿@model WebThuCung.Dto.DiscountDto
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Tạo mới";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -9,9 +9,9 @@
     <div class="pagetitle">
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
-                <li class="breadcrumb-item"><a asp-controller="Discount" asp-action="Index">Discount</a></li>
-                <li class="breadcrumb-item active">Create</li>
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Discount" asp-action="Index">Giảm giá</a></li>
+                <li class="breadcrumb-item active">Tạo mới</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -21,7 +21,7 @@
             <div class="col-lg-10">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Create New Discount</h5>
+                        <h5 class="card-title">Tạo mới giảm giá</h5>
 
                         <!-- Display validation summary -->
                         <div asp-validation-summary="All" class="text-danger"></div>
@@ -30,7 +30,7 @@
                         <form asp-action="Create" method="post">
                             <!-- Discount ID (readonly) -->
                             <div class="row mb-3">
-                                <label asp-for="idDiscount" class="col-sm-2 col-form-label">Discount ID</label>
+                                <label asp-for="idDiscount" class="col-sm-2 col-form-label">Mã giảm giá</label>
                                 <div class="col-sm-10">
                                     <!-- Trường hiển thị ID, chỉ đọc -->
                                     <input asp-for="idDiscount" class="form-control" />
@@ -40,12 +40,11 @@
                             </div>
 
                             <!-- Product Selection -->
-                            <!-- Product Selection -->
                             <div style="margin-top:7px" class="form-group row">
-                                <label asp-for="idProduct" class="col-sm-2 col-form-label">Product</label>
+                                <label asp-for="idProduct" class="col-sm-2 col-form-label">Sản phẩm</label>
                                 <div class="col-sm-10">
                                     <select asp-for="idProduct" class="form-control" id="inputProduct" name="idProduct" required>
-                                        <option value="">-- Select a Product --</option>
+                                        <option value="">-- Chọn sản phẩm --</option>
                                         @foreach (var product in ViewBag.Products as List<SelectListItem>)
                                         {
                                             <option value="@product.Value">@product.Text</option>
@@ -55,22 +54,21 @@
                                 <span asp-validation-for="idProduct" class="text-danger"></span>
                             </div>
 
-
-                            <!-- Discount Name -->
+                            <!-- Discount Percent -->
                             <div class="row mb-3">
-                                <label asp-for="discountPercent" class="col-sm-2 col-form-label">Discount Name</label>
+                                <label asp-for="discountPercent" class="col-sm-2 col-form-label">Phần trăm giảm giá</label>
                                 <div class="col-sm-10">
-                                    <input asp-for="discountPercent" class="form-control" placeholder="Discount Percent" required />
+                                    <input asp-for="discountPercent" class="form-control" placeholder="Phần trăm giảm giá" required />
                                     <!-- Hiển thị lỗi nếu có -->
-                                    @* <span asp-validation-for="nameDiscount" class="text-danger"></span> *@
+                                    @* <span asp-validation-for="discountPercent" class="text-danger"></span> *@
                                 </div>
                             </div>
 
                             <!-- Submit Button -->
                             <div class="row mb-3">
                                 <div class="col-sm-10 offset-sm-2">
-                                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                                    <a asp-action="Index" class="btn btn-secondary">Back</a>
+                                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                                    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
                                 </div>
                             </div>
                            

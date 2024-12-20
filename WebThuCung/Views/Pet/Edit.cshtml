@@ -1,17 +1,17 @@
 ﻿@model WebThuCung.Dto.PetDto
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Chỉnh sửa";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Edit Pet</h1>
+        <h1>Chỉnh sửa Thú cưng</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
-                <li class="breadcrumb-item"><a asp-controller="Pet" asp-action="Index">Pet</a></li>
-                <li class="breadcrumb-item active">Edit</li>
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Pet" asp-action="Index">Thú cưng</a></li>
+                <li class="breadcrumb-item active">Chỉnh sửa</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -21,7 +21,7 @@
             <div class="col-lg-10">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Edit Pet</h5>
+                        <h5 class="card-title">Chỉnh sửa Thú cưng</h5>
 
                         <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -29,7 +29,7 @@
                         <form asp-action="Edit" method="post">
                             <!-- Pet ID (readonly) -->
                             <div class="row mb-3">
-                                <label asp-for="idPet" class="col-sm-2 col-form-label">Pet ID</label>
+                                <label asp-for="idPet" class="col-sm-2 col-form-label">Mã Thú cưng</label>
                                 <div class="col-sm-10">
                                     <!-- Trường hiển thị ID, chỉ đọc -->
                                     <input asp-for="idPet" class="form-control" readonly />
@@ -42,7 +42,7 @@
 
                             <!-- Pet Name -->
                             <div class="row mb-3">
-                                <label asp-for="namePet" class="col-sm-2 col-form-label">Pet Name</label>
+                                <label asp-for="namePet" class="col-sm-2 col-form-label">Tên Thú cưng</label>
                                 <div class="col-sm-10">
                                     <input asp-for="namePet" class="form-control" required />
                                     <span asp-validation-for="namePet" class="text-danger"></span>
@@ -52,13 +52,13 @@
                             <!-- Submit Button -->
                             <div class="row mb-3">
                                 <div class="col-sm-10 offset-sm-2">
-                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-10 offset-sm-2">
                                     <a asp-action="Index"
-                                       class="btn btn-primary">Back</a>
+                                       class="btn btn-primary">Quay lại</a>
                                 </div>
                             </div>
                         </form>
@@ -68,4 +68,3 @@
         </div>
     </section>
 </main>
-

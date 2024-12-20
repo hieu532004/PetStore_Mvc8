@@ -1,6 +1,7 @@
-﻿@model WebThuCung.Dto.RegisterDto
+﻿
+@model WebThuCung.Dto.RegisterDto
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "Đăng nhập";
     Layout = "~/Views/Shared/_LayoutUsers.cshtml";
 }
 
@@ -23,11 +24,10 @@
                     <div class="nav nav-tabs d-flex justify-content-center border-dark-subtle mb-3" id="nav-tab" role="tablist">
                         <a href ="@Url.Action("Login", "User")" class="nav-link mx-3 fs-3 border-bottom border-dark-subtle border-0 text-uppercase active" >
                             Đăng nhập
-                        </button>
+                        </a>
                         <a  class="nav-link mx-3 fs-3 border-bottom border-dark-subtle border-0 text-uppercase" id="nav-register-tab" role="button">
                             Đăng ký
                         </a>
-                       
                     </div>
                 </nav>
                 <form asp-acti></form>
@@ -36,7 +36,6 @@
                     <div class="tab-pane fade active show" id="nav-register" role="tabpanel" aria-labelledby="nav-register-tab">
                         <div class="col-lg-8 offset-lg-2 mt-5">
                             <hr class="my-1">
-                          
                             <hr class="my-1">
 
                             <form asp-action="Register" method="post">
@@ -48,48 +47,48 @@
                                 <!-- Username -->
                                 <div class="form-input col-lg-12 my-4">
                                     <label asp-for="userCustomer" class="col-form-label">Tên người dùng</label>
-                                    <input asp-for="userCustomer" class="form-control mb-3 p-4" placeholder="Enter username" style="text-transform: none;" />
+                                    <input asp-for="userCustomer" class="form-control mb-3 p-4" placeholder="Nhập tên người dùng" style="text-transform: none;" />
                                     <span asp-validation-for="userCustomer" class="text-danger"></span>
                                 </div>
 
                                 <!-- Email -->
                                 <div class="form-input col-lg-12 my-4">
                                     <label asp-for="Email" class="col-form-label">Email</label>
-                                    <input asp-for="Email" class="form-control mb-3 p-4" placeholder="Enter email address" style="text-transform: none;" />
+                                    <input asp-for="Email" class="form-control mb-3 p-4" placeholder="Nhập địa chỉ email" style="text-transform: none;" />
                                     <span asp-validation-for="Email" class="text-danger"></span>
                                 </div>
 
                                 <!-- Password -->
                                 <div class="form-input col-lg-12 my-4">
                                     <label asp-for="paswordCusstomer" class="col-form-label">Mật khẩu</label>
-                                    <input asp-for="paswordCusstomer" type="password" class="form-control mb-3 p-4" placeholder="Enter password" style="text-transform: none;" />
+                                    <input asp-for="paswordCusstomer" type="password" class="form-control mb-3 p-4" placeholder="Nhập mật khẩu" style="text-transform: none;" />
                                     <span asp-validation-for="paswordCusstomer" class="text-danger"></span>
                                 </div>
 
                                 <!-- Confirm Password -->
                                 <div class="form-input col-lg-12 my-4">
                                     <label asp-for="confirmPassword" class="col-form-label">Xác nhận mật khẩu</label>
-                                    <input asp-for="confirmPassword" type="password" class="form-control mb-3 p-4" placeholder="Enter confirm password" style="text-transform: none;" />
+                                    <input asp-for="confirmPassword" type="password" class="form-control mb-3 p-4" placeholder="Nhập lại mật khẩu" style="text-transform: none;" />
                                     <span asp-validation-for="confirmPassword" class="text-danger"></span>
                                 </div>
 
                                 <!-- Full Name -->
                                 <div class="form-input col-lg-12 my-4">
                                     <label asp-for="Name" class="col-form-label">Tên đầy đủ</label>
-                                    <input asp-for="Name" class="form-control mb-3 p-4" placeholder="Enter your name" style="text-transform: none;" />
+                                    <input asp-for="Name" class="form-control mb-3 p-4" placeholder="Nhập tên đầy đủ" style="text-transform: none;" />
                                     <span asp-validation-for="Name" class="text-danger"></span>
                                 </div>
 
                                 <!-- Phone -->
                                 <div class="form-input col-lg-12 my-4">
                                     <label asp-for="Phone" class="col-form-label">Số điện thoại</label>
-                                    <input asp-for="Phone" class="form-control mb-3 p-4" placeholder="Enter Phone" onkeypress="return isNumberKey(event)" />
+                                    <input asp-for="Phone" class="form-control mb-3 p-4" placeholder="Nhập số điện thoại" onkeypress="return isNumberKey(event)" />
                                     <span asp-validation-for="Phone" class="text-danger"></span>
                                 </div>
                                 <div class="form-input col-lg-12 my-4">
                                     <label asp-for="idCountry" class="col-form-label">Đất nước</label>
                                     <select asp-for="idCountry" class="form-control mb-3 p-4" id="countryDropdown">
-                                        <option value="">-- Select Country --</option>
+                                        <option value="">-- Chọn đất nước --</option>
                                         @foreach (var country in ViewBag.Countries)
                                         {
                                             <option value="@country.Value">@country.Text</option>
@@ -102,7 +101,7 @@
                                 <div class="form-input col-lg-12 my-4">
                                     <label asp-for="idCity" class="col-form-label">Thành phố</label>
                                     <select asp-for="idCity" class="form-control mb-3 p-4" id="cityDropdown">
-                                        <option value="">-- Select City --</option>
+                                        <option value="">-- Chọn thành phố --</option>
                                     </select>
                                     <span asp-validation-for="idCity" class="text-danger"></span>
                                 </div>
@@ -111,7 +110,7 @@
                                 <div class="form-input col-lg-12 my-4">
                                     <label asp-for="idDistrict" class="col-form-label">Quận</label>
                                     <select asp-for="idDistrict" class="form-control mb-3 p-4" id="districtDropdown">
-                                        <option value="">-- Select District --</option>
+                                        <option value="">-- Chọn quận --</option>
                                     </select>
                                     <span asp-validation-for="idDistrict" class="text-danger"></span>
                                 </div>
@@ -120,13 +119,13 @@
                                 <div class="form-input col-lg-12 my-4">
                                     <label asp-for="idWard" class="col-form-label">Phường</label>
                                     <select asp-for="idWard" class="form-control mb-3 p-4" id="wardDropdown">
-                                        <option value="">-- Select Ward --</option>
+                                        <option value="">-- Chọn phường --</option>
                                     </select>
                                     <span asp-validation-for="idWard" class="text-danger"></span>
                                 </div>
                                 <div class="form-input col-lg-12 my-4">
                                     <label asp-for="Address" class="col-form-label">Địa chỉ</label>
-                                    <input asp-for="Address" class="form-control mb-3 p-4" placeholder="Enter address" />
+                                    <input asp-for="Address" class="form-control mb-3 p-4" placeholder="Nhập địa chỉ" />
                                     <span asp-validation-for="Address" class="text-danger"></span>
                                 </div>
 
@@ -161,40 +160,11 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    console.log("Cities Data: ", @Html.Raw(Json.Serialize(ViewBag.Cities)));
-    console.log("Countries Data: ", @Html.Raw(Json.Serialize(ViewBag.Countries)));
-
-
+    console.log("Dữ liệu thành phố: ", @Html.Raw(Json.Serialize(ViewBag.Cities)));
+    console.log("Dữ liệu quốc gia: ", @Html.Raw(Json.Serialize(ViewBag.Countries)));
 </script>
 
 <script>
-    // $(document).ready(function () {
-    //     var cities = @Html.Raw(Json.Serialize(ViewBag.Cities));
-    //     console.log("Cities: ", cities); // Kiểm tra toàn bộ dữ liệu
-
-    //     $('#countryDropdown').change(function () {
-    //         var selectedCountry = $(this).val();
-    //         console.log("Selected Country: ", selectedCountry);
-
-    //         // Lọc thành phố dựa trên quốc gia đã chọn
-    //         var filteredCities = cities.filter(city => {
-             
-    //             return city.countryId == selectedCountry; // Sửa lại ở đây
-    //         });
-
-    //         console.log("Filtered Cities: ", filteredCities); // Kiểm tra các thành phố đã lọc
-
-    //         $('#cityDropdown').empty().append('<option value="">-- Chọn Thành Phố --</option>');
-    //         $.each(filteredCities, function (index, city) {
-    //             $('#cityDropdown').append('<option value="' + city.value + '">' + city.text + '</option>'); // Sửa lại ở đây
-    //         });
-
-    //         // Xóa các dropdown tiếp theo
-    //         $('#districtDropdown').empty().append('<option value="">-- Chọn Quận --</option>');
-    //         $('#wardDropdown').empty().append('<option value="">-- Chọn Phường --</option>');
-    //     });
-    // });
-
     $(document).ready(function () {
         var cities = @Html.Raw(Json.Serialize(ViewBag.Cities));
         var districts = @Html.Raw(Json.Serialize(ViewBag.Districts));
@@ -208,7 +178,7 @@
         // Filter and populate City dropdown based on the selected Country
         if (selectedCountry) {
             var filteredCities = cities.filter(city => city.countryId == selectedCountry);
-            $('#cityDropdown').empty().append('<option value="">-- Select City --</option>');
+            $('#cityDropdown').empty().append('<option value="">-- Chọn thành phố --</option>');
             $.each(filteredCities, function (index, city) {
                 $('#cityDropdown').append('<option value="' + city.value + '"' + (city.value == selectedCity ? ' selected' : '') + '>' + city.text + '</option>');
             });
@@ -217,7 +187,7 @@
         // Filter and populate District dropdown based on the selected City
         if (selectedCity) {
             var filteredDistricts = districts.filter(district => district.cityId == selectedCity);
-            $('#districtDropdown').empty().append('<option value="">-- Select District --</option>');
+            $('#districtDropdown').empty().append('<option value="">-- Chọn quận --</option>');
             $.each(filteredDistricts, function (index, district) {
                 $('#districtDropdown').append('<option value="' + district.value + '"' + (district.value == selectedDistrict ? ' selected' : '') + '>' + district.text + '</option>');
             });
@@ -226,7 +196,7 @@
         // Filter and populate Ward dropdown based on the selected District
         if (selectedDistrict) {
             var filteredWards = wards.filter(ward => ward.districtId == selectedDistrict);
-            $('#wardDropdown').empty().append('<option value="">-- Select Ward --</option>');
+            $('#wardDropdown').empty().append('<option value="">-- Chọn phường --</option>');
             $.each(filteredWards, function (index, ward) {
                 $('#wardDropdown').append('<option value="' + ward.value + '"' + (ward.value == $('#wardDropdown').val() ? ' selected' : '') + '>' + ward.text + '</option>');
             });
@@ -237,13 +207,13 @@
             var selectedCountry = $(this).val();
             var filteredCities = cities.filter(city => city.countryId == selectedCountry);
 
-            $('#cityDropdown').empty().append('<option value="">-- Select City --</option>');
+            $('#cityDropdown').empty().append('<option value="">-- Chọn thành phố --</option>');
             $.each(filteredCities, function (index, city) {
                 $('#cityDropdown').append('<option value="' + city.value + '">' + city.text + '</option>');
             });
 
-            $('#districtDropdown').empty().append('<option value="">-- Select District --</option>');
-            $('#wardDropdown').empty().append('<option value="">-- Select Ward --</option>');
+            $('#districtDropdown').empty().append('<option value="">-- Chọn quận --</option>');
+            $('#wardDropdown').empty().append('<option value="">-- Chọn phường --</option>');
         });
 
         // City change event
@@ -251,12 +221,12 @@
             var selectedCity = $(this).val();
             var filteredDistricts = districts.filter(district => district.cityId == selectedCity);
 
-            $('#districtDropdown').empty().append('<option value="">-- Select District --</option>');
+            $('#districtDropdown').empty().append('<option value="">-- Chọn quận --</option>');
             $.each(filteredDistricts, function (index, district) {
                 $('#districtDropdown').append('<option value="' + district.value + '">' + district.text + '</option>');
             });
 
-            $('#wardDropdown').empty().append('<option value="">-- Select Ward --</option>');
+            $('#wardDropdown').empty().append('<option value="">-- Chọn phường --</option>');
         });
 
         // District change event
@@ -264,11 +234,10 @@
             var selectedDistrict = $(this).val();
             var filteredWards = wards.filter(ward => ward.districtId == selectedDistrict);
 
-            $('#wardDropdown').empty().append('<option value="">-- Select Ward --</option>');
+            $('#wardDropdown').empty().append('<option value="">-- Chọn phường --</option>');
             $.each(filteredWards, function (index, ward) {
                 $('#wardDropdown').append('<option value="' + ward.value + '">' + ward.text + '</option>');
             });
         });
     });
-
 </script>

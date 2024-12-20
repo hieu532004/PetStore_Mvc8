@@ -1,18 +1,19 @@
-﻿@model WebThuCung.Dto.DetailOrderDto
+﻿
+@model WebThuCung.Dto.DetailOrderDto
 
 @{
-    ViewData["Title"] = "Edit Detail Order";
+    ViewData["Title"] = "Chỉnh sửa chi tiết đơn hàng";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Edit Detail Order</h1>
+        <h1>Chỉnh sửa chi tiết đơn hàng</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
-                <li class="breadcrumb-item"><a asp-controller="Order" asp-action="Detail" asp-route-id="@Model.idOrder">Detail Order</a></li>
-                <li class="breadcrumb-item active">Edit</li>
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Order" asp-action="Detail" asp-route-id="@Model.idOrder">Chi tiết đơn hàng</a></li>
+                <li class="breadcrumb-item active">Chỉnh sửa</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -22,7 +23,7 @@
             <div class="col-lg-10">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Edit Detail Order</h5>
+                        <h5 class="card-title">Chỉnh sửa chi tiết đơn hàng</h5>
 
                         <!-- Validation Summary -->
                         <div asp-validation-summary="All" class="text-danger"></div>
@@ -31,7 +32,7 @@
                         <form asp-action="EditDetail" method="post">
                             <!-- Detail Order ID (readonly) -->
                             <div class="row mb-3">
-                                <label asp-for="idDetailOrder" class="col-sm-2 col-form-label">Detail Order ID</label>
+                                <label asp-for="idDetailOrder" class="col-sm-2 col-form-label">Mã chi tiết đơn hàng</label>
                                 <div class="col-sm-10">
                                     <input asp-for="idDetailOrder" class="form-control" readonly />
                                     <span asp-validation-for="idDetailOrder" class="text-danger"></span>
@@ -40,7 +41,7 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label asp-for="idOrder" class="col-sm-2 col-form-label">Order ID</label>
+                                <label asp-for="idOrder" class="col-sm-2 col-form-label">Mã đơn hàng</label>
                                 <div class="col-sm-10">
                                     <input asp-for="idOrder" class="form-control" readonly value="@Model.idOrder" />
                                     <span asp-validation-for="idOrder" class="text-danger"></span>
@@ -51,10 +52,10 @@
 
                             <!-- Product Selection -->
                             <div class="row mb-3">
-                                <label asp-for="idProduct" class="col-sm-2 col-form-label">Product</label>
+                                <label asp-for="idProduct" class="col-sm-2 col-form-label">Sản phẩm</label>
                                 <div class="col-sm-10">
                                     <select asp-for="idProduct" class="form-control" required>
-                                        <option value="">-- Select a Product --</option>
+                                        <option value="">-- Chọn sản phẩm --</option>
                                         @foreach (var product in ViewBag.Products as List<SelectListItem>)
                                         {
                                             <option value="@product.Value">@product.Text</option>
@@ -65,10 +66,10 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label asp-for="nameSize" class="col-sm-2 col-form-label">Size</label>
+                                <label asp-for="nameSize" class="col-sm-2 col-form-label">Kích thước</label>
                                 <div class="col-sm-10">
                                     <select asp-for="nameSize" class="form-control" required>
-                                        <option value="">-- Select a Size --</option>
+                                        <option value="">-- Chọn kích thước --</option>
                                         @foreach (var size in ViewBag.Sizes as List<SelectListItem>)
                                         {
                                             <option value="@size.Text">@size.Text</option> <!-- Sử dụng nameSize -->
@@ -80,10 +81,10 @@
 
                             <!-- Color Selection -->
                             <div class="row mb-3">
-                                <label asp-for="nameColor" class="col-sm-2 col-form-label">Color</label>
+                                <label asp-for="nameColor" class="col-sm-2 col-form-label">Màu sắc</label>
                                 <div class="col-sm-10">
                                     <select asp-for="nameColor" class="form-control" required>
-                                        <option value="">-- Select a Color --</option>
+                                        <option value="">-- Chọn màu sắc --</option>
                                         @foreach (var color in ViewBag.Colors as List<SelectListItem>)
                                         {
                                             <option value="@color.Text">@color.Text</option> <!-- Sử dụng nameColor -->
@@ -95,7 +96,7 @@
 
                             <!-- Quantity -->
                             <div class="row mb-3">
-                                <label asp-for="Quantity" class="col-sm-2 col-form-label">Quantity</label>
+                                <label asp-for="Quantity" class="col-sm-2 col-form-label">Số lượng</label>
                                 <div class="col-sm-10">
                                     <input asp-for="Quantity" class="form-control" type="number" min="1" />
                                     <span asp-validation-for="Quantity" class="text-danger"></span>
@@ -105,12 +106,12 @@
                             <!-- Submit Button -->
                             <div class="row mb-3">
                                 <div class="col-sm-10 offset-sm-2">
-                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-10 offset-sm-2">
-                                    <a asp-action="Detail" asp-route-id="@Model.idOrder" class="btn btn-primary">Back</a>
+                                    <a asp-action="Detail" asp-route-id="@Model.idOrder" class="btn btn-primary">Quay lại</a>
                                 </div>
                             </div>
                         </form><!-- End Edit Detail Order Form -->

@@ -1,18 +1,17 @@
 ﻿@model IEnumerable<WebThuCung.Models.ImageProduct>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Danh sách hình ảnh sản phẩm";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-
 
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>ImageProduct List</h1>
+        <h1>Danh sách hình ảnh sản phẩm</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller ="Admin" asp-action="Index">Home</a></li>
-                <li class="breadcrumb-item">Image Product</li>
+                <li class="breadcrumb-item"><a asp-controller ="Admin" asp-action="Index">Trang chủ</a></li>
+                <li class="breadcrumb-item">Hình ảnh sản phẩm</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -23,22 +22,22 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">ImageProduct List</h5>
+                        <h5 class="card-title">Danh sách hình ảnh sản phẩm</h5>
 
                         <div class="mb-3">
                             <a asp-action="Create" class="btn btn-primary">
-                                <i class="bi bi-plus-circle"></i> Create New ImageProduct
+                                <i class="bi bi-plus-circle"></i> Tạo mới hình ảnh sản phẩm
                             </a>
                         </div>
                         <!-- Table with stripped rows -->
                         <table class="table datatable">
                             <thead>
                                 <tr>
-                                    <th>ID Image</th>
-                                    <th>ID Product</th>
-                                    <th>Image</th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
+                                    <th>ID Hình ảnh</th>
+                                    <th>ID Sản phẩm</th>
+                                    <th>Hình ảnh</th>
+                                    <th>Sửa</th>
+                                    <th>Xóa</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -50,19 +49,14 @@
                                             <td>@image.idImageProduct</td>
                                             <td>@image.idProduct</td>
                                             <td>
-                                                <img src="~/images/@image.Image" alt="ImageProduct Image" style="width: 100px; height: auto;" />
+                                                <img src="~/images/@image.Image" alt="Hình ảnh sản phẩm" style="width: 100px; height: auto;" />
                                             </td>
                                             <td>
-                                                <!-- Nút Edit -->
-                                                <a asp-action="Edit" asp-route-id="@image.idImageProduct" class="btn btn-warning btn-sm">Edit</a>
-                                                <!-- Nút Delete -->
-
+                                                <a asp-action="Edit" asp-route-id="@image.idImageProduct" class="btn btn-warning btn-sm">Sửa</a>
                                             </td>
                                             <td>
-                                                <!-- Nút Edit -->
-
                                                 <form asp-action="Delete" asp-route-id="@image.idImageProduct" method="post" style="display:inline;">
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this ImageProduct?');">Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa hình ảnh sản phẩm này không?');">Xóa</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -71,7 +65,7 @@
                                 else
                                 {
                                     <tr>
-                                        <td colspan="5" class="text-center">No shapes found.</td>
+                                        <td colspan="5" class="text-center">Không tìm thấy hình ảnh nào.</td>
                                     </tr>
                                 }
                             </tbody>
@@ -85,4 +79,4 @@
         </div>
     </section>
 
-</main><!-- End #main --></main><!-- End #main -->
+</main><!-- End #main -->

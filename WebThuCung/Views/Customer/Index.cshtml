@@ -1,18 +1,17 @@
 ﻿@model IEnumerable<WebThuCung.Models.Customer>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Danh sách khách hàng";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-
 
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Customer List</h1>
+        <h1>Danh sách khách hàng</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
-                <li class="breadcrumb-item">Customer</li>
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Trang chủ</a></li>
+                <li class="breadcrumb-item">Khách hàng</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -23,18 +22,18 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Customer List</h5>
+                        <h5 class="card-title">Danh sách khách hàng</h5>
                        
                         <table class="table datatable">
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Name Customer</th>
-                                    <th>Phone</th>
-                                    <th>Address</th>
+                                    <th>Tên khách hàng</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Địa chỉ</th>
                                     <th>Email</th>
-                                    <th>Image</th>
-                                    <th>Delete</th>
+                                    <th>Hình ảnh</th>
+                                    <th>Xóa</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -49,14 +48,12 @@
                                             <td>@customer.Address</td>
                                             <td>@customer.Email</td>
                                             <td>
-                                                <img src="~/images/Customer/@customer.Image" alt="Supplier Image" style="width: 100px; height: auto;" />
+                                                <img src="~/images/Customer/@customer.Image" alt="Hình ảnh khách hàng" style="width: 100px; height: auto;" />
                                             </td>
                                           
                                             <td>
-                                                <!-- Nút Edit -->
-
                                                 <form asp-action="Delete" asp-route-id="@customer.idCustomer" method="post" style="display:inline;">
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this Customer?');">Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa khách hàng này không?');">Xóa</button>
                                                 </form>
                                             </td>
 
@@ -66,7 +63,7 @@
                                 else
                                 {
                                     <tr>
-                                        <td colspan="5" class="text-center">No customers found.</td>
+                                        <td colspan="7" class="text-center">Không tìm thấy khách hàng nào.</td>
                                     </tr>
                                 }
                             </tbody>
@@ -80,4 +77,4 @@
         </div>
     </section>
 
-</main><!-- End #main --></main><!-- End #main -->
+</main><!-- End #main -->

@@ -1,11 +1,12 @@
 ﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Dashboard - NiceAdmin Bootstrap Template</title>
+    <title>Bảng điều khiển - Mẫu Bootstrap NiceAdmin</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -76,31 +77,31 @@
             <li class="nav-item">
                 <a class="nav-link" asp-controller="Shipper" asp-action="OrderinPending">
                     <i class="bi bi-circle @(ViewContext.RouteData.Values["action"]?.ToString() == "OrderinPending" ? "active-icon" : "")"></i>
-                    <span>Order Pending</span>
+                    <span>Đơn hàng đang chờ</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" asp-controller="Shipper" asp-action="OrderinTransit">
                     <i class="bi bi-circle @(ViewContext.RouteData.Values["action"]?.ToString() == "OrderinTransit" ? "active-icon" : "")"></i>
-                    <span>Order in Transit</span>
+                    <span>Đơn hàng đang vận chuyển</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" asp-controller="Shipper" asp-action="OrderDelivered">
                     <i class="bi bi-circle @(ViewContext.RouteData.Values["action"]?.ToString() == "OrderDelivered" ? "active-icon" : "")"></i>
-                    <span>Order Delivered</span>
+                    <span>Đơn hàng đã giao</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" asp-controller="Shipper" asp-action="OrderRefund">
                     <i class="bi bi-circle @(ViewContext.RouteData.Values["action"]?.ToString() == "OrderRefund" ? "active-icon" : "")"></i>
-                    <span>Return Order</span>
+                    <span>Đơn hàng hoàn trả</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" asp-controller="Shipper" asp-action="OrderFailed">
                     <i class="bi bi-circle @(ViewContext.RouteData.Values["action"]?.ToString() == "OrderFailed" ? "active-icon" : "")"></i>
-                    <span>Order Delivery Failed</span>
+                    <span>Đơn hàng giao thất bại</span>
                 </a>
             </li>
 
@@ -109,7 +110,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" asp-controller="Shipper" asp-action="Login">
                     <i class="bi bi-box-arrow-in-right"></i>
-                    <span>Login</span>
+                    <span>Đăng nhập</span>
                 </a>
             </li>
 
@@ -151,8 +152,8 @@
                                 <li class="has-children">
                                     <img class="avatar_imgadmin" src="${avatarUrl}" alt="Shipper Avatar"></img>
                                     <ul class="profileavataradmin">
-                                        <li><a href="/Admin/Profile">Profile</a></li>
-                                        <li><a class="logout1" href="#">Logout</a></li>
+                                        <li><a href="/Admin/Profile">Hồ sơ</a></li>
+                                        <li><a class="logout1" href="#">Đăng xuất</a></li>
                                     </ul>
                                 </li>
                             `);
@@ -170,14 +171,14 @@
                                     window.location.href = '/Shipper/Login';
                                 },
                                 error: function () {
-                                    alert('An error occurred during logout.');
+                                    alert('Đã xảy ra lỗi trong quá trình đăng xuất.');
                                 }
                             });
                         });
                     }
                 },
                 error: function () {
-                    console.error('Failed to check authentication.');
+                    console.error('Không thể kiểm tra xác thực.');
                 }
             });
         });

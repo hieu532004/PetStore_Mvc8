@@ -1,18 +1,17 @@
 ﻿@model IEnumerable<WebThuCung.Dto.ProductViewDto>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Danh sách sản phẩm";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-
 
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Product List</h1>
+        <h1>Danh sách sản phẩm</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Home</a></li>
-                <li class="breadcrumb-item">Product</li>
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Trang chủ</a></li>
+                <li class="breadcrumb-item">Sản phẩm</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -23,11 +22,11 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Product List</h5>
+                        <h5 class="card-title">Danh sách sản phẩm</h5>
 
                         <div class="mb-3">
                             <a asp-action="Create" class="btn btn-primary">
-                                <i class="bi bi-plus-circle"></i> Create New Product
+                                <i class="bi bi-plus-circle"></i> Tạo sản phẩm mới
                             </a>
                         </div>
                         <!-- Table with stripped rows -->
@@ -35,17 +34,17 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Name Product</th>
-                                    <th>Sell Price</th>
-                                    <th>Branch</th>
-                                    <th>Category</th>
-                                    <th>Quantity</th>
-                                    <th>Image</th>
-                                    <th>Size</th> <!-- Cột Size -->
-                                    <th>Color</th> <!-- Cột Color -->
-                                    <th>Image Products</th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Giá bán</th>
+                                    <th>Thương hiệu</th>
+                                    <th>Danh mục</th>
+                                    <th>Số lượng</th>
+                                    <th>Hình ảnh</th>
+                                    <th>Kích thước</th>
+                                    <th>Màu sắc</th>
+                                    <th>Hình ảnh sản phẩm</th>
+                                    <th>Chỉnh sửa</th>
+                                    <th>Xóa</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,28 +60,23 @@
                                             <td>@product.nameCategory</td>
                                             <td>@product.Quantity</td>
                                             <td>
-                                                <img src="~/images/@product.Image" alt="Product Image" style="width: 100px; height: auto;" />
+                                                <img src="~/images/@product.Image" alt="Hình ảnh sản phẩm" style="width: 100px; height: auto;" />
                                             </td>
                                             <td>
-                                                <a asp-controller="Size" asp-action="SizeProduct" asp-route-id="@product.idProduct" class="btn btn-info btn-sm">View Sizes</a>
+                                                <a asp-controller="Size" asp-action="SizeProduct" asp-route-id="@product.idProduct" class="btn btn-info btn-sm">Xem kích thước</a>
                                             </td>
                                             <td>
-                                                <a asp-controller="Color" asp-action="ColorProduct" asp-route-id="@product.idProduct" class="btn btn-info btn-sm">View Colors</a>
+                                                <a asp-controller="Color" asp-action="ColorProduct" asp-route-id="@product.idProduct" class="btn btn-info btn-sm">Xem màu sắc</a>
                                             </td>
                                             <td>
-                                                <a  asp-controller="ImageProduct" asp-action="ImageProduct" asp-route-id="@product.idProduct" class="btn btn-info btn-sm">View Images</a>
+                                                <a asp-controller="ImageProduct" asp-action="ImageProduct" asp-route-id="@product.idProduct" class="btn btn-info btn-sm">Xem hình ảnh</a>
                                             </td>
                                             <td>
-                                                <!-- Nút Edit -->
-                                                <a asp-action="Edit" asp-route-id="@product.idProduct" class="btn btn-warning btn-sm">Edit</a>
-                                                <!-- Nút Delete -->
-
+                                                <a asp-action="Edit" asp-route-id="@product.idProduct" class="btn btn-warning btn-sm">Chỉnh sửa</a>
                                             </td>
                                             <td>
-                                                <!-- Nút Edit -->
-
                                                 <form asp-action="Delete" asp-route-id="@product.idProduct" method="post" style="display:inline;">
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this Category?');">Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?');">Xóa</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -91,7 +85,7 @@
                                 else
                                 {
                                     <tr>
-                                        <td colspan="5" class="text-center">No products found.</td>
+                                        <td colspan="12" class="text-center">Không tìm thấy sản phẩm nào.</td>
                                     </tr>
                                 }
                             </tbody>
@@ -105,4 +99,4 @@
         </div>
     </section>
 
-</main><!-- End #main --></main><!-- End #main -->
+</main><!-- End #main -->
