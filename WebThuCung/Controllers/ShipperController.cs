@@ -453,7 +453,7 @@ namespace WebThuCung.Controllers
             _context.SaveChanges();
            
             // Tạo URL Gmail với thông tin chi tiết
-            string recipientEmail = "laduy191@gmail.com"; // Địa chỉ email cố định
+            string recipientEmail = "Hieu532004@gmail.com"; // Địa chỉ email cố định
             string subject = "Order Cancellation Notification";
             string body = $"The order with ID {idOrder} has been canceled by the shipper.\n\n" +
                           $"Shipper Details:\n" +
