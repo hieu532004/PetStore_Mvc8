@@ -107,7 +107,7 @@
                     <div class="cart-wrap">
                         <div class="color-options product-select">
                             <div class="color-toggle pt-2" data-option-index="0">
-                                <h6 class="item-title fw-bold">Color:</h6>
+                                <h6 class="item-title fw-bold">Màu:</h6>
                                 <ul id="colorList" class="select-list list-unstyled d-flex">
                                     @if (Model.Sizes.Any())
                                     {
@@ -127,7 +127,7 @@
                             </div>
                         </div>
                         <div class="swatch product-select pt-3" data-option-index="1">
-                            <h6 class="item-title fw-bold">Size:</h6>
+                            <h6 class="item-title fw-bold">Kích thước:</h6>
                             <ul id="sizeList" class="select-list list-unstyled d-flex">
                                 @if (Model.Sizes.Any())
                                 {
@@ -175,7 +175,7 @@
                                        data-product-id="@Model.idProduct"
                                        data-color=""
                                        data-size="">
-                                        <h5 class="text-uppercase m-0">Add to Cart</h5>
+                                        <h5 class="text-uppercase m-0">Thêm vào giỏ hàng</h5>
                                     </a>
                                     <a class="btn-wishlist px-4 pt-3 ">
                                         <iconify-icon icon="fluent:heart-28-filled" class="fs-5"></iconify-icon>
@@ -186,13 +186,13 @@
                     </div>
                     <div class="meta-product pt-4">
                         <div class="meta-item d-flex align-items-baseline">
-                            <h6 class="item-title fw-bold no-margin pe-2">Pet:</h6>
+                            <h6 class="item-title fw-bold no-margin pe-2">Thú cưng:</h6>
                             <ul class="select-list list-unstyled d-flex">
                                 <li class="select-item">@Model.namePet</li>
                             </ul>
                         </div>
                         <div class="meta-item d-flex align-items-baseline">
-                            <h6 class="item-title fw-bold no-margin pe-2">Category:</h6>
+                            <h6 class="item-title fw-bold no-margin pe-2">Danh mục:</h6>
                             <ul class="select-list list-unstyled d-flex">
                                 <li class="select-item">
                                     <a href="#">@Model.nameCategory</a>
